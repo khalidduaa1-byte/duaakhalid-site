@@ -176,6 +176,14 @@ hers. No further copy needed; leave `gap` empty.
   (`USE_LLM_SCOPE=true`) behind a deterministic template default. It is now *"Luxury
   retail taught me what bad data costs…"*. Do not reintroduce a site-wide AI claim;
   the Homebase Evaluation section carries the honest AI signal on its own.
+  - **Exception, added 2026-07-30 at Duaa's request:** the header carries a small role
+    descriptor reading **"AI Product & GTM"**. This is deliberate and is *not* the same
+    thing as the removed H1 claim. It names the domain and the roles she is targeting —
+    consistent with the existing CTA "Hiring for a forward deployed or AI product
+    role?" — rather than asserting that her three projects contain models. Do not
+    delete it as an overclaim. If a future review wants zero AI framing anywhere, the
+    agreed alternative wording is "Product · GTM · Data Systems", and that is Duaa's
+    call, not a correctness fix.
 - **Résumé is looser than the site in two places.** Cannot be fixed here (PDF only);
   fix at the next export from the résumé source:
   - Summary says *"drove daily adoption of an AI-assisted app I built (~20 users)"*.
