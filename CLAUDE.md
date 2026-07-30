@@ -96,6 +96,18 @@ After replacing `index.html`, re-apply all of these or they're silently lost:
 6. Re-blank the placeholder fields listed below
 7. The `<noscript>` content fallback in `<body>` (name, positioning, three projects
    with links, contact). Not in the export.
+7b. **The About-page headshot `<img>`.** A fresh export restores the grey hatched
+   `Headshot` placeholder. Re-apply by replacing that placeholder `<div>` with:
+   `<img src="/duaa-milan.jpg" alt="Duaa Khalid at Dolce &amp; Gabbana Expert Week 2026"
+   width="700" height="933" loading="lazy" style="display: block; width: 100%;
+   height: 380px; object-fit: cover; object-position: 50% 20%;">`
+   The photo file `duaa-milan.jpg` (700×933, 104KB) lives next to `index.html` and is
+   served at `/duaa-milan.jpg`. It is a real file, not inlined — do not base64 it into
+   the bundle. Source original: `~/Desktop/Duaa Milan.png`. Deliberately in colour,
+   not the design system's `grayscale(1)` imagery treatment; it is the only human
+   moment on the site and grayscale mutes it. Crop was checked at 8%/20%/35%
+   `object-position`; 20% keeps the full "EXPERT WEEK 2026" backdrop visible, which is
+   what contextualises the photo.
 8. **The hero H1 must not say "AI systems."** See the note under Open items.
 
 ### 9. The hand-added journey sections (largest re-export risk)
