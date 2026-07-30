@@ -1,477 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About - Duaa Khalid</title>
-<meta name="description" content="I learned product work on store floors, not in a lab. Five years in commercial and GTM at LVMH and Dolce &amp; Gabbana, now building the validation layer underneath the numbers.">
-<meta property="og:title" content="About - Duaa Khalid">
-<meta property="og:description" content="I learned product work on store floors, not in a lab. Five years in commercial and GTM at LVMH and Dolce &amp; Gabbana, now building the validation layer underneath the numbers.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://duaakhalid.com/about">
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23ec3013'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23f3f2f2' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
-<!-- Type: same two faces as home2.html and as the Framer design. Bricolage Grotesque
-     for display and body, IBM Plex Mono for the uppercase labels. font-display: swap. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;600&display=swap">
-<style>
-  /* Hand-written, standalone, zero JavaScript. Token block shared with faq.html and
-     home2.html. Every figure traces to context.md and carries its caveat. */
-  :root {
-    --bg: #F3F1EC; --surface: #EAE7E0; --text: #171716;
-    --divider: #B8B5AE;
-    --rule: #B8B5AE;
-    --neutral-600: #5f5d58; --neutral-300: #B8B5AE;
-    --accent: #F03419; --accent-200: #FBDDD6; --accent-600: #D42A10;
-    --ink: #1b1918; --on-ink: #f3f2f2; --on-ink-muted: #a29c99;
-    --ink-rule: rgba(243,242,242,0.22);
-    --sans: 'Bricolage Grotesque', 'Archivo', system-ui, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
-    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --body: 'Inter', system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    --gutter: clamp(20px, 5vw, 40px);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    background: var(--bg); color: var(--text); min-height: 100vh;
-    font: 400 17px/1.55 var(--body);
-    overflow-wrap: break-word; display: flex; flex-direction: column;
-  }
-  a { color: var(--accent); }
-  a:hover { color: var(--accent-600); }
-  img { max-width: 100%; display: block; }
-  code { font-family: var(--mono); font-size: 0.86em; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About, Duaa Khalid</title>
+  <meta name="description" content="I learned product work on store floors, not in a lab. Five years in commercial and GTM at LVMH and Dolce & Gabbana.">
+  
+  <meta property="og:title" content="About, Duaa Khalid">
+  <meta property="og:description" content="Five years in commercial and GTM at LVMH and Dolce & Gabbana. I build the validation, product and rollout layer that catches bad data before it reaches decision makers.">
+  
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F03419'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23F3F1EC' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* About Specific Layout Styles */
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding-block: clamp(48px, 6vw, 72px);
+      align-items: start;
+    }
+    .portrait-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .portrait-img-wrapper {
+      background: #000000;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.15);
+    }
+    .portrait-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .portrait-caption {
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f5d58;
+    }
 
-  /* ---------- header ---------- */
-  header {
-    border-bottom: 2px solid var(--divider); display: flex;
-    justify-content: space-between; align-items: center;
-    padding: 18px var(--gutter); gap: 12px 20px; flex-wrap: wrap;
-  }
-  .wordmark { text-decoration: none; color: var(--text); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .wordmark b { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
-  .wordmark span {
-    font: 400 11px/1 var(--mono); letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--neutral-600);
-  }
-  nav { display: flex; flex-wrap: wrap; gap: 2px; font: 600 12px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; }
-  nav a { padding: 9px 11px; text-decoration: none; color: var(--text); transition: background 0.2s; }
-  nav a:hover { background: rgba(32,30,29,0.07); color: var(--text); }
-  nav a[aria-current=page] { background: var(--accent-200); }
-  nav a.mail { color: var(--accent); }
+    .about-txt-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-  /* ---------- layout ---------- */
-  main { flex: 1; }
-  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-inline: var(--gutter); }
-  section { padding-block: clamp(44px, 7vw, 90px); }
-  .hairline { border-top: 1px solid var(--rule); }
+    .rely-card {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .rely-card .m { color: #ffffff; opacity: 0.9; }
+    .rely-card strong {
+      font: 700 clamp(20px, 2.2vw, 26px)/1.2 var(--display);
+      letter-spacing: -0.02em;
+    }
 
-  /* ---------- type ---------- */
-  .label { font: 400 11px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--neutral-600); }
-  .label.accent { color: var(--accent); }
-  .label.ink { color: var(--text); }
-  h1 { font-size: clamp(31px, 4.6vw, 54px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; max-width: 22ch; }
-  h2 { font-size: clamp(27px, 4.4vw, 46px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 800; max-width: 26ch; }
-  .lede { max-width: 60ch; }
-  .muted { color: var(--neutral-600); }
-  p + p { margin-top: 14px; }
-  .caveat {
-    margin-top: 14px; border-left: 2px solid var(--accent); padding-left: 12px;
-    font-size: 13.5px; line-height: 1.5; color: var(--neutral-600);
-  }
-  .caveat strong { color: var(--text); font-weight: 700; }
-  .caveat + .caveat { margin-top: 10px; }
+    /* Capabilities 3-Column Grid */
+    .cap-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 0;
+      margin-top: 36px;
+      border: 1px solid var(--rule-dark);
+    }
+    .cap-col {
+      padding: 32px;
+      border-right: 1px solid var(--rule-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 400 16px var(--body);
+      color: var(--on-dark);
+    }
+    .cap-col-red {
+      background: var(--accent);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col-red ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 600 16px var(--body);
+      color: #ffffff;
+    }
 
-  /* ---------- intro, photo + text ---------- */
-  .intro { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(26px, 4vw, 64px); align-items: start; }
-  figure { border: 1px solid var(--rule); background: var(--ink); }
-  figure img { width: 100%; height: auto; }
-  figcaption {
-    border-top: 1px solid var(--ink-rule); padding: 12px 14px;
-    font: 400 11px/1.5 var(--mono); letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--on-ink-muted);
-  }
-  .callout {
-    margin-top: clamp(26px, 3.5vw, 40px); background: var(--accent); color: #fff;
-    padding: clamp(22px, 3vw, 32px);
-  }
-  .callout .label { color: rgba(255,255,255,0.9); }
-  .callout p.big {
-    margin-top: 14px; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.2;
-    letter-spacing: -0.025em; font-weight: 700; max-width: 30ch;
-  }
-
-  /* ---------- bordered grids ---------- */
-  .grid {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-  }
-  .grid > .cell { padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2.2vw, 30px); border-left: 1px solid var(--rule); }
-  .grid > .cell:first-child { border-left: 0; padding-left: 0; }
-  .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid.four > .cell:nth-child(n+3) { border-top: 1px solid var(--rule); }
-  .grid.four > .cell:nth-child(odd) { border-left: 0; padding-left: 0; }
-  .cell.fill { background: var(--accent); color: #fff; padding-left: clamp(18px, 2.2vw, 30px); }
-  .cell.fill .label { color: rgba(255,255,255,0.9); }
-  .cell h3 { font-size: 19px; line-height: 1.25; letter-spacing: -0.02em; font-weight: 800; margin-top: 22px; }
-  .cell p.body { margin-top: 10px; font-size: 15.5px; line-height: 1.5; color: var(--neutral-600); }
-  .cell.fill h3 { color: #fff; }
-  .cell.fill p.body { color: rgba(255,255,255,0.92); }
-
-  /* ---------- career path ---------- */
-  .path { margin-top: clamp(26px, 4vw, 44px); border-top: 1px solid var(--rule); }
-  .path .row {
-    display: grid; grid-template-columns: 150px minmax(0, 240px) minmax(0, 1.5fr);
-    grid-template-rows: auto auto;
-    gap: 4px 32px; padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid var(--rule);
-  }
-  /* Placed explicitly so a row works with or without a role line: the employer and
-     its title stack in column 2, and the description spans both rows in column 3. */
-  .path .date { grid-column: 1; grid-row: 1 / span 2; }
-  .path .who  { grid-column: 2; grid-row: 1; }
-  .path .role { grid-column: 2; grid-row: 2; }
-  .path .what { grid-column: 3; grid-row: 1 / span 2; }
-  .path .who { font-weight: 700; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase; }
-  .path .role { margin-top: 5px; font-size: 14px; line-height: 1.4; color: var(--neutral-600); }
-  .path .what { font-size: 16px; line-height: 1.5; }
-
-  /* ---------- cta + footer ---------- */
-  .btnrow { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-  .btn {
-    font: 400 11px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
-    text-decoration: none; color: var(--text); border: 1px solid var(--text);
-    padding: 12px 15px; transition: background 0.15s, color 0.15s;
-  }
-  .btn:hover { background: var(--text); color: var(--bg); }
-  .cta { background: var(--accent); color: #fff; padding: clamp(30px, 5vw, 68px); }
-  .cta h2 { color: #fff; max-width: 22ch; }
-  .cta .btn { color: #fff; border-color: rgba(255,255,255,0.75); }
-  .cta .btn:hover { background: #fff; color: var(--accent); }
-  .cta .foot {
-    margin-top: clamp(26px, 4vw, 44px); padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.35);
-    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
-  }
-  .cta .foot p { font: 400 11px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin: 0; }
-  footer {
-    border-top: 2px solid var(--divider); margin-top: clamp(44px, 7vw, 90px);
-    padding: 20px var(--gutter); display: flex; flex-wrap: wrap; gap: 10px 24px;
-    justify-content: space-between; align-items: baseline;
-  }
-  footer p { font: 400 11px/1.6 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--neutral-600); margin: 0; }
-  footer .note { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-size: 13px; max-width: 62ch; }
-
-  /* ---------- responsive ---------- */
-  @media (max-width: 900px) {
-    .intro { grid-template-columns: minmax(0, 1fr); }
-    figure { max-width: 460px; }
-    .path .row { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
-    .path .date, .path .who, .path .role, .path .what { grid-column: 1; grid-row: auto; }
-    .path .date { order: -1; }
-  }
-  @media (max-width: 760px) {
-    .grid, .grid.four { grid-template-columns: minmax(0, 1fr); }
-    .grid > .cell { border-left: 0; border-top: 1px solid var(--rule); padding-left: 0; padding-right: 0; }
-    .grid > .cell:first-child { border-top: 0; padding-top: 0; }
-    .grid.four > .cell:nth-child(n+2) { border-top: 1px solid var(--rule); }
-    .cell.fill { padding: clamp(22px, 5vw, 30px); }
-    body { font-size: 16px; }
-  }
-  @media (max-width: 560px) {
-    nav { font-size: 11px; }
-    nav a { padding: 8px 8px; }
-  }
-
-  /* ---- shared site chrome: identical markup and styling on every page ---- */
-  .sitehead { border-bottom: 1px solid var(--rule); }
-  .sitehead .in { max-width: 1200px; margin: 0 auto; padding: 24px 40px;
-    display: flex; justify-content: space-between; align-items: center; gap: 14px 28px; flex-wrap: wrap; }
-  .sitehead .mark { display: flex; align-items: baseline; gap: 9px; text-decoration: none; flex-wrap: wrap; color: inherit; }
-  .sitehead .mark b { font: 700 17px/1 var(--display, 'Bricolage Grotesque', sans-serif); letter-spacing: -0.02em; }
-  .sitehead .mark span { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral-600, #5f5d58); }
-  .sitehead ul { list-style: none; display: flex; flex-wrap: wrap; gap: 22px; margin: 0; padding: 0; }
-  .sitehead a.lnk { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
-    text-decoration: none; color: var(--ink, var(--text)); }
-  .sitehead a.lnk:hover { color: var(--accent); }
-  .sitehead a.lnk[aria-current=page] { color: var(--accent); }
-  .sitehead a.mail { color: var(--accent); }
-
-  .sitefoot { border-top: 1px solid var(--rule); margin-top: 0; }
-  .sitefoot .in { max-width: 1200px; margin: 0 auto; padding: 26px 40px 44px; }
-  .sitefoot .row1 { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .sitefoot .row1 span { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink, var(--text)); }
-  .sitefoot .fine2 { margin-top: 18px; font: 400 13px/1.6 var(--body, sans-serif);
-    letter-spacing: 0; color: var(--neutral-600, #5f5d58); max-width: 78ch; }
-  .sitefoot .fine2 a { color: var(--accent); }
-  @media (max-width: 900px) {
-    .sitehead .in, .sitefoot .in { padding-inline: 20px; }
-  }
-</style>
+    @media (max-width: 900px) {
+      .about-hero-grid, .cap-3col { grid-template-columns: 1fr; }
+      .cap-col { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+    }
+  </style>
 </head>
 <body>
-<div class="sitehead">
-  <div class="in">
-    <a class="mark" href="/"><b>DUAA KHALID</b><span>AI Product + GTM</span></a>
-    <nav><ul>
-      <li><a class="lnk" href="/">Work</a></li>
-      <li><a class="lnk" href="/about" aria-current="page">About</a></li>
-      <li><a class="lnk" href="/faq">FAQ</a></li>
-      <li><a class="lnk" href="/resume.pdf" target="_blank" rel="noopener">Resume</a></li>
-      <li><a class="lnk mail" href="mailto:dk947@cornell.edu">Email</a></li>
-    </ul></nav>
-  </div>
-</div>
 
+  <!-- Header -->
+  <header class="sitehead">
+    <div class="band in">
+      <a class="mark" href="/">
+        <b>DUAA KHALID</b>
+        <span class="m">/ AI PRODUCT + GTM</span>
+      </a>
+      <nav>
+          <ul>
+            <li><a class="lnk" href="/">WORK</a></li>
+            <li><a class="lnk" href="/about" style="color: var(--accent);">ABOUT</a></li>
+            <li><a class="lnk" href="/faq">FAQ</a></li>
+            <li><a class="lnk" href="/resume.pdf" target="_blank" rel="noopener">RESUME</a></li>
+            <li><a class="lnk mail" href="mailto:dk947@cornell.edu">EMAIL</a></li>
+          </ul>
+        </nav>
+    </div>
+  </header>
 
+  <main>
+    <!-- About Hero Section -->
+    <section class="band pad rule">
+      <div class="about-hero-grid">
+        <!-- Left: Portrait Photo (Cropped Black Background) -->
+        <div class="portrait-card">
+          <div class="portrait-img-wrapper">
+            <img src="duaa-portrait.jpg" alt="Duaa Khalid at Dolce & Gabbana Expert Week" width="800" height="1066">
+          </div>
+          <span class="portrait-caption">DOLCE &amp; GABBANA EXPERT WEEK / 2026</span>
+        </div>
 
-<main>
+        <!-- Right: Bio & Highlights -->
+        <div class="about-txt-col">
+          <p class="m red">ABOUT / DUAA KHALID</p>
+          <h1>I learned product work on store floors, not in a lab.</h1>
+          
+          <p class="lead">Five years in commercial and GTM at LVMH and Dolce &amp; Gabbana taught me that operational problems are rarely abstract. A wrong row can change an advisor's commission. A slow workflow can cost a team hours every week.</p>
+          
+          <p class="lead">I moved from monitoring stock and logistics to building decision support, account health monitoring, field tools, and the validation layers behind them. In August 2026, I begin an MEng in Data Science &amp; Decision Analytics at Cornell Tech.</p>
 
-  <!-- ============ INTRO: PHOTO + TEXT ============ -->
-  <section class="wrap">
-    <p class="label accent">About</p>
-    <div class="intro" style="margin-top:26px">
-
-      <figure>
-        <img src="/duaa-dg-sign.jpg" alt="Duaa Khalid standing in front of a lit Dolce &amp; Gabbana sign"
-             width="800" height="923" loading="lazy">
-        <figcaption>Dolce &amp; Gabbana / 2026</figcaption>
-      </figure>
-
-      <div>
-        <h1>I learned product work on store floors, not in a lab.</h1>
-
-        <p class="lede" style="margin-top:24px">
-          Five years in commercial and GTM at LVMH and Dolce &amp; Gabbana taught me that
-          operational problems are rarely abstract. A wrong row changes what a person is
-          measured on. A slow workflow costs a team hours. Duplicate rows on the same
-          advisor, date, store and shift double count sales and inflate Days Worked, so
-          every rate calculated on top of them is wrong in a direction nobody can see.
-          Placing one account order took 45 minutes across 30 plus MENA locations, and
-          that 45 minutes was paid by a person, every time.
-        </p>
-
-        <p class="lede">
-          So the work moved. From monitoring stock and logistics flows across MENA
-          accounts and aligning replenishment to the promotional calendar, to owning the
-          sell-in decision support tool that got that order down to 5 minutes, to building
-          the account health monitoring layer that benchmarks a 13 market portfolio and
-          flags the at-risk accounts, to building the field tool 18 beauty advisors log
-          into daily and the validation layers underneath it.
-        </p>
-
-        <p class="lede">
-          Most of my work starts inside someone else's spreadsheet. A supervisor's export,
-          a catalog price, a phone call assembled from memory. The model is rarely the
-          interesting part. Deciding what counts as a valid row is, and so is getting a
-          field team in another country to work the new way.
-        </p>
-
-        <p class="lede">
-          I start an MEng in Data Science &amp; Decision Analytics at Cornell Tech in
-          August 2026, to build these properly.
-        </p>
-
-        <div class="callout">
-          <p class="label">What colleagues rely on me for</p>
-          <p class="big">Finding the operational detail everyone else has learned to work around.</p>
+          <!-- Red Highlight Card -->
+          <div class="rely-card">
+            <span class="m">WHAT COLLEAGUES RELY ON ME FOR</span>
+            <strong>Finding the operational detail everyone else has learned to work around.</strong>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ HOW I WORK ============ -->
-  <section class="wrap hairline">
-    <p class="label">How I work</p>
-    <h2 style="margin-top:18px">Four things I do in the same order every time.</h2>
-    <div class="grid four" style="margin-top:clamp(26px,4vw,44px)">
-
-      <div class="cell">
-        <p class="label accent">01</p>
-        <h3>Start with the operational reality</h3>
-        <p class="body">
-          The data arrives from someone else's system in a shape nobody designed. The
-          Egypt advisor export was a supervisor's Daxium file whose layout changed month
-          to month. That is the starting condition, not an edge case to handle later.
-        </p>
+    <!-- How I Work Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="intro" style="padding-block: 0 32px;">
+        <p class="m red">HOW I WORK</p>
+        <h2>The model is rarely the interesting part.</h2>
       </div>
 
-      <div class="cell">
-        <p class="label accent">02</p>
-        <h3>Define what valid data means</h3>
-        <p class="body">
-          The dedup key is a decision, not a detail: what makes two rows the same event
-          rather than two events. Here it was advisor, date, store and shift, and that one
-          definition sits underneath every number the app shows, so it gets settled before
-          anything is calculated.
-        </p>
+      <div class="capgrid">
+        <div>
+          <p class="m red">01</p>
+          <p><strong>Start with the operational reality.</strong></p>
+          <p style="font-size: 14px; color: #5f5d58; margin-top: 6px;">The data arrives from someone else's system in a shape nobody designed.</p>
+        </div>
+        <div>
+          <p class="m red">02</p>
+          <p><strong>Define what valid data means.</strong></p>
+          <p style="font-size: 14px; color: #5f5d58; margin-top: 6px;">The dedup key is a decision: what makes two rows the same event.</p>
+        </div>
+        <div>
+          <p class="m red">03</p>
+          <p><strong>Build with the field team.</strong></p>
+          <p style="font-size: 14px; color: #5f5d58; margin-top: 6px;">The rollout is training, onboarding, and sustained engagement, not a link.</p>
+        </div>
+        <div>
+          <p class="m red">04</p>
+          <p><strong>Measure adoption, not delivery.</strong></p>
+          <p style="font-size: 14px; color: #5f5d58; margin-top: 6px;">Optional tools that teams open daily show real product value.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="cell">
-        <p class="label accent">03</p>
-        <h3>Build with the field team</h3>
-        <p class="body">
-          The rollout was training, not a link. Onboarding and training covered roughly 20
-          field users into sustained daily use, on top of sales enablement workshops I
-          built and delivered for a 30 plus person advisor team: the curriculum, the live
-          sessions and the performance tracking. The tracker landed inside an existing
-          training relationship, which is why it stuck.
-        </p>
+    <!-- Career Path Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="tl">
+        <div>
+          <p class="m red">CAREER PATH</p>
+          <h2 style="margin-top:16px;">Every step started as somebody else's broken system.</h2>
+        </div>
+        <div class="rows">
+          <div class="r">
+            <p class="m red">NEXT / AUG 2026</p>
+            <div>
+              <p class="org">CORNELL TECH</p>
+            </div>
+            <p class="d">MEng in Data Science &amp; Decision Analytics, focused on better systems for high-consequence decisions.</p>
+          </div>
+          <div class="r">
+            <p class="m red">NOW / 2024&ndash;2026</p>
+            <div>
+              <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
+            </div>
+            <p class="d">Field tooling and commercial reporting across Egypt, including the sales tracker used daily by 18 beauty advisors.</p>
+          </div>
+          <div class="r">
+            <p class="m">PREVIOUSLY / 2021&ndash;2023</p>
+            <div>
+              <p class="org">LVMH &middot; MENA</p>
+            </div>
+            <p class="d">Commercial and GTM work across more than 30 locations, turning manual stock and order workflows into decision support.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="cell">
-        <p class="label accent">04</p>
-        <h3>Measure adoption, not delivery</h3>
-        <p class="body">
-          Nobody was required to use the tracker. 18 advisors across Cairo, Sharm and
-          Hurghada logged their own sales in it daily through the January to April window.
-          A mandated tool only tells you people were told to open it.
-        </p>
-        <p class="caveat">
-          <strong>18 live, about 20 onboarded.</strong> The January to April export holds
-          18 advisors. Onboarding and training covered roughly 20 field users, a figure
-          that includes people who moved off the team inside the window. Both are real and
-          they count different things.
-        </p>
-        <p class="caveat">
-          <strong>Markets, not doors.</strong> The data holds 3 distinct store values at
-          city level, so coverage is stated at market level: Cairo 12, Sharm 3, Hurghada 3.
-          No door count is claimed.
-        </p>
-      </div>
+    <!-- Capabilities Dark Section -->
+    <section class="dark">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">CAPABILITIES</p>
+            <h2 style="margin-top:16px;">Build the system. Operate the rollout. Model the decision.</h2>
+          </div>
 
-    </div>
-  </section>
+          <div class="cap-3col">
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">BUILD</p>
+              <ul>
+                <li>Python</li>
+                <li>SQL</li>
+                <li>Supabase</li>
+                <li>Firestore</li>
+                <li>Progressive web apps</li>
+              </ul>
+            </div>
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">OPERATE</p>
+              <ul>
+                <li>GTM</li>
+                <li>Field rollout</li>
+                <li>Account management</li>
+                <li>Enablement</li>
+                <li>Regional operations</li>
+              </ul>
+            </div>
+            <div class="cap-col-red">
+              <p class="m light">MODEL</p>
+              <ul>
+                <li>Excel modelling</li>
+                <li>Validation rules</li>
+                <li>Decision analytics</li>
+                <li>Account health</li>
+                <li>Commission logic</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- ============ CAREER PATH ============ -->
-  <section class="wrap hairline">
-    <p class="label">Career path</p>
-    <h2 style="margin-top:18px">Every step started as somebody else's broken system.</h2>
-    <div class="path">
-      <div class="row">
-        <p class="label date">Next / Aug 2026</p>
-        <p class="who">Cornell Tech</p>
-        <p class="what">
-          MEng in Data Science &amp; Decision Analytics. Going to build these properly.
-        </p>
-      </div>
-      <div class="row">
-        <p class="label date">Now / 2024-2026</p>
-        <p class="who">Dolce &amp; Gabbana Beauty</p>
-        <p class="role">Customer Success &amp; Key Account Manager, Travel Retail Middle East</p>
-        <p class="what">
-          A 13 market portfolio with no way to see which accounts were going wrong until
-          it had happened. Built the health monitoring layer that benchmarks accounts and
-          flags the at-risk ones, now the primary decision input across all 13 markets.
-          Then, in Egypt travel retail, framed the advisor data problem, defined the dedup
-          key, built the ingest pipeline and the app, and ran the rollout across 3 markets.
-          Presented to global beauty leadership in June 2026.
-        </p>
-      </div>
-      <div class="row">
-        <p class="label date">2022-2024</p>
-        <p class="who">LVMH Fragrance Brands</p>
-        <p class="role">Account Management &amp; Commercial Operations (Travel Retail, MEAI), Givenchy &amp; Kenzo</p>
-        <p class="what">
-          Placing one account order took 45 minutes across 30 plus MENA locations, and 5
-          when I was done. Internal product owner for the sell-in decision support tool:
-          two years of requirements, roadmap and feedback loops with the account managers
-          who used it every day, as the single point of contact across retailers,
-          marketing, demand planning and supply chain.
-        </p>
-      </div>
-      <div class="row">
-        <p class="label date">2021-2022</p>
-        <p class="who">LVMH Fragrance Brands</p>
-        <p class="role">Supply Chain &amp; Operations Coordinator, Benefit, MUFE, Givenchy &amp; Kenzo</p>
-        <p class="what">
-          Out of stocks and aged inventory tracked by hand across MENA accounts. Monitored
-          stock and logistics flows and aligned replenishment to the promotional calendar.
-        </p>
-      </div>
-    </div>
-  </section>
+    <!-- What's Next Section -->
+    <section class="band pad" style="padding-block: 72px;">
+      <div class="hero-section" style="padding-block: 0;">
+        <p class="m red">WHAT'S NEXT</p>
+        <h2>I'm looking for teams where product decisions have operational consequences.</h2>
+        <p class="lead" style="max-width: 640px;">Especially forward-deployed AI, decision systems, and products that have to work outside the demo.</p>
 
-  <!-- ============ CAPABILITIES ============ -->
-  <section class="wrap hairline">
-    <p class="label">Capabilities</p>
-    <h2 style="margin-top:18px">Build, operate, model.</h2>
-    <div class="grid" style="margin-top:clamp(26px,4vw,44px)">
-
-      <div class="cell">
-        <p class="label accent">Build</p>
-        <h3>Pipelines, validation, product</h3>
-        <p class="body">
-          Ingest pipelines and the dedup logic underneath a KPI. A PWA where 18 advisors
-          log daily sales. A Python generator that emits a buyer facing catalog and an
-          internal profit tracker from one item list, so the listing and the accounting
-          cannot disagree.
-        </p>
+        <div class="btnrow" style="margin-top: 16px;">
+          <a class="btn" href="mailto:dk947@cornell.edu">KHALIDDUAA1@GMAIL.COM</a>
+          <a class="btn" href="/" style="background: transparent; color: var(--ink);">VIEW SELECTED WORK &rarr;</a>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <div class="cell">
-        <p class="label accent">Operate</p>
-        <h3>Rollout, training, adoption</h3>
-        <p class="body">
-          Roughly 20 field users onboarded into sustained daily use across 3 Egyptian
-          markets, plus enablement workshops built and delivered for a 30 plus person
-          advisor team. Two years of feedback loops with the account managers who used the
-          LVMH sell-in tool every day.
-        </p>
-      </div>
-
-      <div class="cell fill">
-        <p class="label">Model</p>
-        <h3>The rules a system has to encode</h3>
-        <p class="body">
-          The UAE rental regulation model Homebase was built around: RERA bands, the 90 day
-          notice rule, Ejari sequencing and the bilingual requirement. Pricing rules that
-          will not display a saving unless it is real, because the generator prices against
-          purchase price rather than a catalog page.
-        </p>
-      </div>
-
-    </div>
-    <p class="caveat" style="max-width:70ch">
-      <strong>Model here means domain rules, not machine learning.</strong> No model has
-      been shipped into production. The sales tracker and the move-out generator contain
-      none at all, and Homebase's model path is opt in behind a flag. The honest AI signal
-      is the evaluation work on Homebase, which is written up on the
-      <a href="/faq">FAQ</a>.
-    </p>
-  </section>
-
-  <!-- ============ WHAT'S NEXT ============ -->
-  <div class="wrap">
-    <div class="cta">
-      <p class="label" style="color:rgba(255,255,255,0.9)">What's next</p>
-      <h2 style="margin-top:18px">Building a forward deployed or AI product team? Let's talk.</h2>
-      <p style="margin-top:18px;max-width:56ch;color:rgba(255,255,255,0.95)">
-        Open to roles starting after Cornell Tech, and to part time work sooner. The MEng
-        in Data Science &amp; Decision Analytics starts August 2026.
-      </p>
-      <div class="btnrow">
-        <a class="btn" href="mailto:dk947@cornell.edu">dk947@cornell.edu</a>
-        <a class="btn" href="https://linkedin.com/in/duaa-khalid">LinkedIn &rarr;</a>
-        <a class="btn" href="/resume.pdf" target="_blank" rel="noopener">Resume &rarr;</a>
-      </div>
-      <div class="foot">
-        <p>Duaa Khalid / 2026</p>
-        <p>Dubai &rarr; New York</p>
+  <!-- Footer -->
+  <footer class="sitefoot">
+    <div class="band in">
+      <div class="row1">
+        <span>DUAA KHALID / 2026</span>
+        <span>DUBAI &rarr; NEW YORK</span>
       </div>
     </div>
-  </div>
+  </footer>
 
-</main>
-
-
-
-<div class="sitefoot">
-  <div class="in">
-    <div class="row1"><span>Duaa Khalid / 2026</span><span>Dubai &rarr; New York</span></div>
-    <p class="fine2">Every figure on this site has a caveat attached to it, because the caveats are the reason the numbers are worth reading. They are all on the <a href="/faq">FAQ</a>, including why 18 users is a small number and what the AI work actually is. Contact <a href="mailto:dk947@cornell.edu">dk947@cornell.edu</a> &middot; <a href="https://github.com/khalidduaa1-byte">GitHub</a> &middot; <a href="https://linkedin.com/in/duaa-khalid">LinkedIn</a> &middot; <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a></p>
-  </div>
-</div>
+  <script src="script.js"></script>
 </body>
 </html>
