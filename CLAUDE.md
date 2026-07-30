@@ -88,10 +88,27 @@ a real browser check (`python3 -m http.server`, then Chromium at
 A fresh export from Claude Design **overwrites the `<head>` customizations**.
 After replacing `index.html`, re-apply all of these or they're silently lost:
 
-1. `<title>` — export ships as `Bundled Page`; should be `Duaa Khalid — Portfolio`
+**Head tags must go in TWO places.** The loader ends with
+`document.documentElement.replaceWith(...)`, which throws away the outer `<head>`
+entirely. Verified 2026-07-30 by dumping the rendered DOM: with the tags only in the
+outer `<head>`, there was **no `<title>` and no icon link after render** — the browser
+tab showed the URL instead of her name, and bookmarks/history saved it that way.
+
+- The **template's `<helmet>`** copy is what a *visitor* sees (it is inside the document
+  that replaces the original, so it survives).
+- The **outer `<head>`** copy is what *crawlers and link-preview bots* see, since they
+  read the raw HTML before JS runs. Social previews only ever worked because of this one.
+
+Keep both. Items 1, 3 and 4 below belong in both places; item 2 only matters in the outer
+`<head>`.
+
+1. `<title>` — export ships as `Bundled Page`; should be `Duaa Khalid — Portfolio`.
+   **Outer `<head>` alone has no effect on what a visitor sees.** After render the
+   runtime rewrites it as `<title data-dc-tpl="1">`, so grep for `<title` not `<title>`.
 2. `<meta name="viewport">` — **not in the export**; without it mobile renders zoomed-out
 3. `<meta name="description">` + `og:title` / `og:description` / `og:type` / `og:url`
-4. `<link rel="icon">` — inline SVG "DK" favicon on `#ec3013`
+4. `<link rel="icon">` — `/favicon.ico` in the helmet, plus the inline SVG "DK" on
+   `#ec3013` in the outer `<head>` for the pre-JS flash
 5. `resumeUrl` default — export ships as `#resume-pdf-to-add`, must be `/resume.pdf`
 6. Re-blank the placeholder fields listed below
 7. The `<noscript>` content fallback in `<body>` (name, positioning, three projects
