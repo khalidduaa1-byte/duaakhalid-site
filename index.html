@@ -97,6 +97,11 @@
           <h2>Beauty Advisor Sales Tracker</h2>
           <p>A PWA and ingest pipeline that de-duplicates a supervisor export before any KPI is calculated. It then gives 18 advisors a tool simple enough to use every day.</p>
 
+          <details class="cs-fold">
+            <summary>
+              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; RUN THE DEDUP</span>
+              <span class="fold-ic">+</span>
+            </summary>
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
@@ -161,6 +166,7 @@
               <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. Presented to global beauty leadership.</p>
             </div>
           </div>
+          </details>
 
           <p class="m tags">PWA &middot; PYTHON INGEST &middot; DATA VALIDATION &middot; FIELD ROLLOUT</p>
           <div class="btnrow">
@@ -289,6 +295,11 @@
           <h2>Move-Out Sale Site &amp; Tracker</h2>
           <p>One Python script generates the buyer-facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</p>
 
+          <details class="cs-fold">
+            <summary>
+              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT</span>
+              <span class="fold-ic">+</span>
+            </summary>
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
@@ -307,6 +318,7 @@
               <p>20 of 31 items sold in 30 days. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 still on the table across 11 items.</p>
             </div>
           </div>
+          </details>
 
           <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
           <div class="btnrow">
@@ -330,7 +342,12 @@
               <h2 style="margin-top:16px">Homebase</h2>
               <p style="margin-top:16px">A deterministic context block that helps a voice agent dispatch maintenance vendors. Structured by default, with the model behind an explicit opt-in flag.</p>
 
-              <div class="cs" style="margin-top:20px">
+              <details class="cs-fold" style="margin-top:20px">
+                <summary>
+                  <span class="m light">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; TRY IT</span>
+                  <span class="fold-ic">+</span>
+                </summary>
+              <div class="cs">
                 <div class="row">
                   <p class="m light">PROBLEM</p>
                   <p>Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.</p>
@@ -369,6 +386,7 @@
                   <p>Hackathon build, co-founded, no production usage, so there is no impact number to claim and I am not inventing one. The decision worth showing instead: the voice agent's system prompt stays static while per-call variation is injected as a structured block, so the prompt is not rewritten on every call. The default path is a plain template, with the model only behind a flag, because a string template was sufficient.</p>
                 </div>
               </div>
+              </details>
 
               <div class="btnrow" style="margin-top:24px">
                 <a class="btn light-btn" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener">VIEW CONCEPT PAGE &rarr;</a>

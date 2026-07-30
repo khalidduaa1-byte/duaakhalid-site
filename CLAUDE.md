@@ -94,9 +94,28 @@ Each project block carries a `.cs` block of four `.row` pairs: PROBLEM, BUILD, P
 IMPACT. The label is the existing `.m.red` mono token (`.m.light` inside the dark Homebase
 band), so the rows inherit the design system rather than introducing new type.
 
-Each project's original one-line summary paragraph **stays above** the `.cs` block. Duaa
-asked for these to be additions, not replacements. An earlier pass folded the summaries
-into BUILD and had to restore them; BUILD now carries mechanism the summary does not state.
+Each project's original one-line summary paragraph **stays above** the fold. Duaa asked for
+these to be additions, not replacements. An earlier pass folded the summaries into BUILD and
+had to restore them; BUILD now carries mechanism the summary does not state.
+
+**The whole `.cs` block is collapsed inside a `<details class="cs-fold">`, closed by
+default.** Expanded inline, the four rows made every project block roughly twice as tall and
+broke the scannable layout, which Duaa flagged. A modal was considered and rejected: it needs
+JS, a focus trap and an escape hatch, and it reads badly on mobile. Native `<details>` gets
+keyboard support and no-JS behaviour for free and reuses the `/faq` pattern.
+
+The summary label advertises what is inside, including the interactive bits ("RUN THE DEDUP",
+"TRY IT"), because otherwise the two demos are invisible behind a closed fold. **Keep these
+labels to one line**; at 12px mono in the Homebase column, anything longer than about 52
+characters wraps and pushes the `+` off centre. All three bars should measure 50px tall.
+
+The rows cascade in on open via a `cs-in` keyframe animation, staggered 65ms by
+`script.js`. This is an **animation, not a transition out of a hidden base state**, and that
+distinction is load-bearing: the rows' resting style is fully visible and the hidden frame
+exists only inside the keyframes, so a stalled animation or a dead script cannot strand the
+content invisible. Do not "simplify" this back to `opacity: 0` plus a transition. An earlier
+version used `IntersectionObserver`, which cannot work here at all, because a closed
+`<details>` is `display: none` and its rows never intersect.
 
 Two interactive pieces, both zero-dependency:
 
@@ -122,10 +141,8 @@ the same eight fields every time. That invariance *is* the demonstration, so if 
 field to one branch, add it to all of them. Built on the `.hb-terminal` classes that were
 already in `styles.css` and previously unused.
 
-**Scroll reveal** on `.cs .row` uses `IntersectionObserver` and nothing else. The hidden
-state is keyed to a `data-reveal` attribute that only JS sets, so with JS disabled the rows
-render normally instead of staying permanently invisible. It no-ops under
-`prefers-reduced-motion`.
+Both demos sit inside the collapsed fold, so remember to open it before checking either one
+in a browser.
 
 ## Images
 

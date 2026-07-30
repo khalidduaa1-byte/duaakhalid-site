@@ -286,32 +286,31 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ------------------------------------------------------------------
-   Scroll reveal on the case-study rows. IntersectionObserver only,
-   no library, per the "zero dependencies" note in CLAUDE.md.
-   data-reveal is set here rather than in the HTML so that with JS
-   disabled the rows render normally instead of staying invisible.
+   The case-study rows cascade in when their fold is opened.
+
+   Deliberately NOT IntersectionObserver: the rows sit inside a closed
+   <details>, so they are display:none and would never intersect.
+
+   This only ever ADDS a class that triggers a keyframe animation. The
+   rows' resting style is already visible, so nothing here can leave
+   content hidden if the animation or this script does not run.
 ------------------------------------------------------------------ */
 (function () {
-  var rows = document.querySelectorAll('.cs .row');
-  if (!rows.length) return;
+  var folds = document.querySelectorAll('.cs-fold');
+  if (!folds.length) return;
 
-  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (still || !('IntersectionObserver' in window)) return;
+  Array.prototype.forEach.call(folds, function (fold) {
+    var rows = fold.querySelectorAll('.cs .row');
 
-  var seen = new WeakMap();
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      e.target.style.transitionDelay = (seen.get(e.target) * 70) + 'ms';
-      e.target.classList.add('in');
-      obs.unobserve(e.target);
+    fold.addEventListener('toggle', function () {
+      if (!fold.open) return;
+      Array.prototype.forEach.call(rows, function (row, i) {
+        row.style.animationDelay = (i * 65) + 'ms';
+        row.classList.remove('in');
+        // Force a reflow so re-opening replays the animation.
+        void row.offsetWidth;
+        row.classList.add('in');
+      });
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  rows.forEach(function (row) {
-    var idx = Array.prototype.indexOf.call(row.parentNode.children, row);
-    seen.set(row, idx < 0 ? 0 : idx);
-    row.setAttribute('data-reveal', '');
-    obs.observe(row);
   });
 })();
