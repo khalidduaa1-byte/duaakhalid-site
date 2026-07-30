@@ -250,26 +250,8 @@ hers. No further copy needed; leave `gap` empty.
   from a hardcoded placeholder that the JS overwrites on a normal load; it should read
   11. Lives in a separate repo. The page discloses it as a caveat, which is the honest
   handling, but fixing it there would be better.
-- **`/ask` assistant — SHIPPED 2026-07-30, but not yet linked or enabled.**
-  Built by the cloud session, landed here from `duaakhalidsitenewfiles.tar.gz`.
-  - `api/ask.js` — Vercel serverless function, `@anthropic-ai/sdk`. Answers **only**
-    from `api/context.md`.
-  - `api/context.md` — **generated, never hand-edited.** `tools/build-context.py`
-    extracts the projects data, hero copy and career track out of `index.html`. That is
-    what structurally stops the bot claiming something the page does not. Change the
-    site, then regenerate. Hand-editing this file breaks the guarantee.
-  - `ask.html` — the UI. Hand-written, and it **reflows properly on mobile**, unlike
-    `index.html`.
-  - **Requires `ANTHROPIC_API_KEY` as a Vercel env var.** Without it the function
-    returns an error. Duaa must add this; it is a secret and cannot be committed.
-  - **Nav links deliberately NOT added yet.** The cloud session's version added
-    `<a href="/ask">Ask</a>` in the header nav and a second `/ask` button in the red
-    CTA section. Both were withheld so a public link does not point at a feature that
-    errors until the key is set. Add them once the key is live.
-  - **Cost/abuse: unresolved.** The per-IP rate limit is in-memory, and its own comment
-    says serverless instances are recycled so it is "a speed bump against a single
-    abusive client, not a real quota." A public page calling a paid API needs a hard
-    cap. Decide before linking it.
+- **`/ask` assistant — see its own section below.** Shipped 2026-07-30, not yet linked
+  or enabled.
 - **`bm2515/homebase` link is broken for the public.** Verified 2026-07-30: the repo is
   **private**, so `https://github.com/bm2515/homebase` returns 404 to every visitor. It
   is the co-founder's repo, not Duaa's, so the fix is his to make: ask him to make it
@@ -280,6 +262,76 @@ hers. No further copy needed; leave `gap` empty.
 - **Resume version**: currently the OpenAI/ADM variant, copied from
   `~/Desktop/Maven Mahesh Course/cv-enhancement/Duaa_Khalid_Resume_OpenAI_ADM.pdf`.
   Swap by replacing `resume.pdf` — no code change needed.
+
+## The /ask assistant
+
+A grounded Q&A bot at `/ask`. Answers only from what the site already says.
+
+| File | Role |
+| --- | --- |
+| `ask.html` | The chat page. Hand-written, standalone, **not** a Claude Design export — copies the CSS tokens rather than importing them, so a re-export cannot break it. Unlike `index.html` it reflows properly on mobile. |
+| `api/ask.js` | Vercel Node serverless function. The only place `ANTHROPIC_API_KEY` exists. |
+| `api/context.md` | Generated fact sheet the bot answers from. **Committed** — no build step on Vercel. |
+| `tools/build-context.py` | Regenerates `api/context.md` from `index.html`. |
+| `package.json` | Just `@anthropic-ai/sdk`. |
+| `vercel.json` | `cleanUrls: true`. Without it `/ask.html` serves but `/ask` 404s, and the nav links point at `/ask`. |
+
+**Setup:** add `ANTHROPIC_API_KEY` in Vercel → Settings → Environment Variables.
+Without it the endpoint returns 500 and the page shows an error; the rest of the site
+is unaffected.
+
+**After changing any site copy, regenerate the fact sheet:**
+
+```
+python3 tools/build-context.py   # then commit api/context.md
+```
+
+The point of generating it from `index.html` is that the bot **cannot claim something
+the page doesn't**. Hand-editing `api/context.md` breaks that property — change the
+site and regenerate instead.
+
+### Not enabled yet — two open decisions
+
+- **Nav links deliberately NOT added.** The cloud session's `index.html` had
+  `<a href="/ask">Ask</a>` in the header nav plus a second `/ask` button in the red CTA.
+  Both were withheld so a public link does not point at a feature that 500s until the
+  key is set. Add them once the key is live.
+- **No hard cost cap.** See the rate-limiting note below. A public page calling a paid
+  API should have a real quota before it is linked from the nav.
+
+### Known gap: the fact sheet does not cover the About page
+
+`build-context.py` extracts the hero, thesis, journey rows, projects and contact — its
+output has sections `Positioning`, `Career track`, `Projects`, `Contact` and nothing
+else. Verified 2026-07-30: zero hits for `Istanbul`, `Thailand`, `Bologna`, `Rome`,
+`commission`, `Expert Week`. So the bot cannot answer anything about the About-page
+narrative — the seminar itinerary, the markets, or the "advisor whose commission it is"
+line — even though all of it is on the site and factual. Regenerating does **not** fix
+this; the extractor would need an About section added. Low priority while the bot is
+disabled, but it means the bot currently knows less than the page.
+
+### Design decisions worth not undoing
+
+- **`thinking: {type: 'adaptive'}` with `effort: 'low'`, not `thinking: disabled`.**
+  On Claude Opus 5, disabling thinking can leak `<thinking>` tags into the visible
+  reply. Low effort is the cheaper lever and doesn't have that failure mode.
+- **`cache_control: ephemeral` on the system block.** The fact sheet is ~3K tokens
+  (measured: 12,012 chars / ~3,003 tokens) and identical every request, so after the
+  first call most of the input bills at roughly a tenth of the rate. Opus 5 caches
+  from 512 tokens.
+- **`stop_reason` is checked before the answer is used.** On a refusal the content is
+  empty or partial and must not be shown as a complete answer.
+- **The system prompt forbids the AI overclaim explicitly**, mirrors the site's caveat
+  discipline (if a number has a caveat, the bot gives both), and treats all visitor
+  input as questions rather than instructions.
+- **Rate limiting is in-memory and therefore best-effort** — serverless instances
+  recycle, so it slows one abusive client rather than enforcing a quota. For a real
+  limit, move `hits` to Vercel KV or Upstash.
+
+Tests live in the scratchpad, not the repo: a stubbed-SDK suite over `api/ask.js`
+(validation, streaming, refusal, truncation, transport error, rate limiting) and a
+Chromium run of `ask.html` against a stub SSE endpoint that splits frames mid-chunk.
+Re-create them if you change the streaming contract.
 
 ## Deploying
 
