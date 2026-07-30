@@ -111,3 +111,90 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+/* ------------------------------------------------------------------
+   Interactive target setting on the dashboard mockup.
+   Demo data only: sales are fixed, you set the target and the card
+   recalculates attainment, remaining, the bar and the status pill.
+   Saved to localStorage so it survives a reload.
+------------------------------------------------------------------ */
+(function () {
+  var CITIES = {
+    cairo:    { label: 'Cairo',    sales: 38916, target: 39400, pcs: '6.4' },
+    hurgadah: { label: 'Hurgadah', sales: 41972, target: 39500, pcs: '8.3' },
+    sharm:    { label: 'Sharm',    sales: 26875, target: 30800, pcs: '5.7' }
+  };
+  var KEY = 'dk.targets.v1';
+  var save = document.getElementById('tgt-save');
+  if (!save) return;
+
+  var citySel = document.getElementById('tgt-city');
+  var amount  = document.getElementById('tgt-amount');
+  var reset   = document.getElementById('tgt-reset');
+
+  function stored() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+  }
+  function persist(o) {
+    try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+  }
+  function k(n) { return '$' + (n / 1000).toFixed(1) + 'k'; }
+  function kt(n) { return '$' + Math.round(n / 1000) + 'k'; }
+
+  function paint(key) {
+    var c = CITIES[key];
+    var card = document.querySelector('.target-card[data-city="' + key + '"]');
+    if (!card) return;
+    var pct = c.sales / c.target;
+    var remaining = Math.max(0, c.target - c.sales);
+    var onTrack = pct >= 0.95;
+
+    card.querySelector('.tcard-val strong').textContent = k(c.sales);
+    card.querySelector('.tcard-sub').innerHTML = 'of ' + kt(c.target) + ' target &middot; Jul 2026';
+
+    var badge = card.querySelector('.track-badge');
+    badge.className = 'track-badge' + (onTrack ? '' : ' behind');
+    badge.innerHTML = onTrack ? '&check; On Track' : '&darr; Behind Target';
+
+    var bar = card.querySelector('.tcard-progress');
+    var w = Math.max(2, Math.min(100, pct * 100));
+    bar.innerHTML = '<div class="pbar-fill ' + (onTrack ? 'green' : 'orange') +
+                    '" style="width:' + w.toFixed(0) + '%"></div>';
+
+    var metrics = card.querySelectorAll('.tcard-metrics strong');
+    if (metrics[0]) metrics[0].textContent = k(remaining);
+    if (metrics[2]) metrics[2].textContent = c.pcs + ' pcs';
+  }
+
+  function applyStored() {
+    var o = stored();
+    Object.keys(CITIES).forEach(function (key) {
+      if (o[key] && o[key] > 0) CITIES[key].target = o[key];
+      paint(key);
+    });
+  }
+
+  save.addEventListener('click', function () {
+    var key = citySel.value;
+    var v = parseInt(amount.value, 10);
+    if (!v || v < 1000) { amount.focus(); return; }
+    CITIES[key].target = v;
+    var o = stored(); o[key] = v; persist(o);
+    paint(key);
+    amount.value = '';
+    save.textContent = 'Saved';
+    setTimeout(function () { save.textContent = 'Save Target'; }, 1200);
+  });
+
+  amount.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); save.click(); }
+  });
+
+  if (reset) reset.addEventListener('click', function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    CITIES.cairo.target = 39400; CITIES.hurgadah.target = 39500; CITIES.sharm.target = 30800;
+    Object.keys(CITIES).forEach(paint);
+  });
+
+  applyStored();
+})();

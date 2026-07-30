@@ -128,16 +128,21 @@
             </div>
 
             <div class="db-form-row">
-              <div class="input-box">July 2026 📅</div>
-              <div class="input-box">Cairo</div>
+              <div class="input-box">July 2026</div>
+              <select class="input-box" id="tgt-city" aria-label="City">
+                <option value="cairo">Cairo</option>
+                <option value="hurgadah">Hurgadah</option>
+                <option value="sharm">Sharm</option>
+              </select>
               <div class="input-box">Per BA target</div>
-              <div class="input-box placeholder">Target amount</div>
-              <button class="btn-save">Save Target</button>
+              <input class="input-box" id="tgt-amount" type="number" min="1000" max="200000" step="100" placeholder="Target amount" inputmode="numeric" aria-label="Target amount">
+              <button class="btn-save" id="tgt-save" type="button">Save Target</button>
             </div>
+            <p class="db-hint">Demo data, and it is live. Set a target and the card recalculates. <button type="button" id="tgt-reset" class="db-reset">Reset</button></p>
 
             <div class="db-cards-grid">
               <!-- Cairo Card -->
-              <div class="target-card">
+              <div class="target-card" data-city="cairo">
                 <div class="tcard-header">
                   <div class="tcard-title">
                     <span class="c-dot dot-green"></span>
@@ -161,7 +166,7 @@
               </div>
 
               <!-- Hurgadah Card -->
-              <div class="target-card">
+              <div class="target-card" data-city="hurgadah">
                 <div class="tcard-header">
                   <div class="tcard-title">
                     <span class="c-dot dot-orange"></span>
@@ -185,7 +190,7 @@
               </div>
 
               <!-- Sharm Card -->
-              <div class="target-card">
+              <div class="target-card" data-city="sharm">
                 <div class="tcard-header">
                   <div class="tcard-title">
                     <span class="c-dot dot-blue"></span>
@@ -223,7 +228,7 @@
           </div>
         </div>
         <div class="shot">
-          <div class="catalog-window">
+          <a class="shot-link" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live move-out sale catalog in a new tab"><div class="catalog-window">
             <div class="cat-bar">
               <span class="m">MOVE-OUT SALE CATALOG</span>
               <span class="cat-status-pill">LIVE ENGINE</span>
@@ -244,7 +249,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div></a>
         </div>
       </section>
 
@@ -264,14 +269,14 @@
               </div>
             </div>
             <div class="frame">
-              <div class="hb-terminal">
+              <a class="shot-link" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener" aria-label="Open the Homebase concept page in a new tab"><div class="hb-terminal">
                 <div class="hb-term-bar">HOMEBASE AGENT ENGINE v1.0</div>
                 <div class="hb-term-body">
                   <div class="term-line"><span class="t-red">&gt;</span> INGESTING VOICE STREAM...</div>
                   <div class="term-line"><span class="t-red">&gt;</span> PARSING CONTEXT SCHEMA [FIXED_BLOCK]</div>
                   <div class="term-line green-txt"><span class="t-red">&gt;</span> DISPATCH SUCCESS &rarr; TICKET #8491 ACKNOWLEDGED</div>
                 </div>
-              </div>
+              </div></a>
             </div>
           </div>
           <div class="strip">
