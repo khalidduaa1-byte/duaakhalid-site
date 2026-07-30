@@ -499,3 +499,20 @@ h2 {
 
 /* A city behind target reads red, matching the real dashboard. */
 .track-badge.behind { background: #FDE7E3; color: #C0341B; }
+
+/* Portrait: the file's own aspect drives the height, so it can never be stretched.
+   Declared width/height on the <img> match the file exactly to avoid layout shift. */
+.about-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.portrait-card { display: flex; flex-direction: column; gap: 10px; }
+.portrait-img-wrapper { background: #171716; overflow: hidden; }
+.portrait-img-wrapper img { display: block; width: 100%; height: auto; }
+.portrait-caption { font: 500 11px/1.4 var(--mono, monospace); letter-spacing: 0.1em; text-transform: uppercase; color: #5f5d58; }
+@media (max-width: 900px) { .about-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* The portrait is already cropped to the black wall, so nothing should re-crop it.
+   Something upstream was forcing a 3:4 wrapper with object-fit: cover, which sliced
+   the sign off at both edges. Let the file's own ratio drive the height instead. */
+.about-hero-grid .portrait-card .portrait-img-wrapper { aspect-ratio: auto; height: auto; }
+.about-hero-grid .portrait-card .portrait-img-wrapper img {
+  width: 100%; height: auto; aspect-ratio: auto; object-fit: fill;
+}
