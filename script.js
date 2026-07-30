@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="dock-content">
       <span class="dock-dot"></span>
       <span class="dock-text">DUBAI &rarr; NEW YORK &middot; Open to AI &amp; Product Roles</span>
-      <a href="mailto:khalidduaa1@gmail.com" class="dock-btn">GET IN TOUCH</a>
+      <a href="mailto:dk947@cornell.edu" class="dock-btn">GET IN TOUCH</a>
     </div>
   `;
   document.body.appendChild(floatingDock);
