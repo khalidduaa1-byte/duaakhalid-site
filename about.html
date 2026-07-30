@@ -15,27 +15,28 @@
      for display and body, IBM Plex Mono for the uppercase labels. font-display: swap. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;600&display=swap">
 <style>
   /* Hand-written, standalone, zero JavaScript. Token block shared with faq.html and
      home2.html. Every figure traces to context.md and carries its caveat. */
   :root {
-    --bg: #f3f2f2; --surface: #eae9e9; --text: #201e1d;
-    --divider: color-mix(in srgb, #201e1d 40%, transparent);
-    --rule: color-mix(in srgb, #201e1d 22%, transparent);
-    --neutral-600: #7d7979; --neutral-300: #d7d3d3;
-    --accent: #ec3013; --accent-200: #ffe0d9; --accent-600: #dd2b0f;
+    --bg: #F3F1EC; --surface: #EAE7E0; --text: #171716;
+    --divider: #B8B5AE;
+    --rule: #B8B5AE;
+    --neutral-600: #5f5d58; --neutral-300: #B8B5AE;
+    --accent: #F03419; --accent-200: #FBDDD6; --accent-600: #D42A10;
     --ink: #1b1918; --on-ink: #f3f2f2; --on-ink-muted: #a29c99;
     --ink-rule: rgba(243,242,242,0.22);
     --sans: 'Bricolage Grotesque', 'Archivo', system-ui, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --body: 'Inter', system-ui, -apple-system, Helvetica, Arial, sans-serif;
     --gutter: clamp(20px, 5vw, 56px);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     background: var(--bg); color: var(--text); min-height: 100vh;
-    font: 400 17px/1.55 var(--sans);
+    font: 400 17px/1.55 var(--body);
     overflow-wrap: break-word; display: flex; flex-direction: column;
   }
   a { color: var(--accent); }
@@ -122,9 +123,16 @@
   /* ---------- career path ---------- */
   .path { margin-top: clamp(26px, 4vw, 44px); border-top: 1px solid var(--rule); }
   .path .row {
-    display: grid; grid-template-columns: 170px minmax(0, 1fr) minmax(0, 1.5fr);
-    gap: 6px 32px; padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: 150px minmax(0, 240px) minmax(0, 1.5fr);
+    grid-template-rows: auto auto;
+    gap: 4px 32px; padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid var(--rule);
   }
+  /* Placed explicitly so a row works with or without a role line: the employer and
+     its title stack in column 2, and the description spans both rows in column 3. */
+  .path .date { grid-column: 1; grid-row: 1 / span 2; }
+  .path .who  { grid-column: 2; grid-row: 1; }
+  .path .role { grid-column: 2; grid-row: 2; }
+  .path .what { grid-column: 3; grid-row: 1 / span 2; }
   .path .who { font-weight: 700; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase; }
   .path .role { margin-top: 5px; font-size: 14px; line-height: 1.4; color: var(--neutral-600); }
   .path .what { font-size: 16px; line-height: 1.5; }
@@ -159,7 +167,8 @@
   @media (max-width: 900px) {
     .intro { grid-template-columns: minmax(0, 1fr); }
     figure { max-width: 460px; }
-    .path .row { grid-template-columns: minmax(0, 1fr); }
+    .path .row { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+    .path .date, .path .who, .path .role, .path .what { grid-column: 1; grid-row: auto; }
     .path .date { order: -1; }
   }
   @media (max-width: 760px) {
@@ -322,7 +331,7 @@
       <div class="row">
         <p class="label date">Now / 2024-2026</p>
         <p class="who">Dolce &amp; Gabbana Beauty</p>
-        <p class="role">Customer Success &amp; Key Account Manager,<br>Travel Retail Middle East</p>
+        <p class="role">Customer Success &amp; Key Account Manager, Travel Retail Middle East</p>
         <p class="what">
           A 13 market portfolio with no way to see which accounts were going wrong until
           it had happened. Built the health monitoring layer that benchmarks accounts and
@@ -335,7 +344,7 @@
       <div class="row">
         <p class="label date">2022-2024</p>
         <p class="who">LVMH Fragrance Brands</p>
-        <p class="role">Account Management &amp; Commercial Operations<br>(Travel Retail, MEAI), Givenchy &amp; Kenzo</p>
+        <p class="role">Account Management &amp; Commercial Operations (Travel Retail, MEAI), Givenchy &amp; Kenzo</p>
         <p class="what">
           Placing one account order took 45 minutes across 30 plus MENA locations, and 5
           when I was done. Internal product owner for the sell-in decision support tool:
@@ -347,7 +356,7 @@
       <div class="row">
         <p class="label date">2021-2022</p>
         <p class="who">LVMH Fragrance Brands</p>
-        <p class="role">Supply Chain &amp; Operations Coordinator,<br>Benefit, MUFE, Givenchy &amp; Kenzo</p>
+        <p class="role">Supply Chain &amp; Operations Coordinator, Benefit, MUFE, Givenchy &amp; Kenzo</p>
         <p class="what">
           Out of stocks and aged inventory tracked by hand across MENA accounts. Monitored
           stock and logistics flows and aligned replenishment to the promotional calendar.
