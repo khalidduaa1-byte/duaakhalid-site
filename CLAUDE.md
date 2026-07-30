@@ -1,331 +1,138 @@
-# duaakhalid.com — portfolio site
+# duaakhalid.com
 
-Static single-page portfolio. Live at https://duaakhalid.com (also `www.` and
+Duaa Khalid's portfolio. Live at https://duaakhalid.com (also `www.` and
 `duaakhalid-site.vercel.app`).
 
-## How this site is built
+## Architecture
 
-`index.html` is a **bundled export from Claude Design** — a single self-contained
-file (~294KB) with fonts and assets inlined, rendered client-side by JS. There is
-no build step and no framework. `resume.pdf` sits next to it and is served at
-`/resume.pdf`.
-
-The real editing surface is Claude Design. Hand-editing `index.html` is for small
-patches only — but see the journey sections below, which are hand-added and have no
-Claude Design source.
-
-### Bundle anatomy (measured, 2026-07-30)
-
-`index.html` is ~400 lines. Two of them carry everything:
-
-- **`<script type="__bundler/manifest">`** — gzipped base64 assets only: React
-  18.3.1, react-dom, the dc-runtime, three woff2 fonts. **No content strings.**
-  Never edit this.
-- **`<script type="__bundler/template">`** — a single JSON string holding the whole
-  page. All editable content is in here.
-
-An earlier version of this file claimed strings appear once in the manifest and once
-in the template. That is wrong — the manifest holds no copy. The real duplication is
-*inside* the template:
-
-| Region | Copies | Holds |
-| --- | --- | --- |
-| `<x-dc>` markup | **1** | hero H1 + sub, stat tiles, journey sections, About page, detail-view shells |
-| author `<style>` block | **1** | `om-rise`, `body`, `a`, plus the hand-added `.dk-*` rules |
-| `<script type="text/x-dc" data-dc-script>` | 1 of 2 | `projects()` data + `Component` class |
-| `<script data-dc-script>` | 2 of 2 | byte-identical duplicate of the above |
-
-So: **markup and CSS edits happen once; anything inside `projects()` or `Component`
-must be applied to both script copies** or the page renders stale.
-
-### How to edit it safely
-
-Do not hand-edit the escaped template. It mixes two escaping conventions:
-
-- Closing tags in the markup region are `</h1>`, not `</h1>`, because a raw
-  `</script>` would terminate the script tag early.
-- Apostrophes inside the single-quoted JS data strings are `\\u2019` in raw bytes.
-
-Instead decode, edit as plain text, and re-encode. This round-trips byte-identically:
-
-```python
-import json, re
-RX = re.compile(r'(<script type="__bundler/template">\n)(.*?)(\n  </script>)', re.S)
-src = open('index.html', encoding='utf-8').read()
-m = RX.search(src)
-tpl = json.loads(m.group(2))                 # readable HTML + JS
-# ... str.replace on tpl, asserting the expected occurrence count first ...
-out = json.dumps(tpl, ensure_ascii=False).replace('</', '<\\u002F')   # REQUIRED
-open('index.html', 'w', encoding='utf-8').write(src[:m.start(2)] + out + src[m.end(2):])
-```
-
-The `</` post-pass is mandatory: `json.dumps` emits `/` literally, and a bare
-`</script>` inside the string breaks the page.
-
-### Verifying an edit
-
-**`grep -c` does not work here.** The template is one ~90KB line, so `grep -c`
-returns 1 no matter how many matches exist. Always use:
-
-```
-grep -o '<string>' index.html | wc -l
-```
-
-Expect **1** for markup/CSS strings and **2** for anything in `projects()`.
-Then confirm the JSON still parses:
-
-```
-python3 -c "import json,re;s=open('index.html',encoding='utf-8').read();\
-m=re.search(r'__bundler/template\">\n(.*?)\n  </script>',s,re.S);print('ok',len(json.loads(m.group(1))))"
-```
-
-Greps prove nothing about what displays — the page is JS-rendered. Always finish with
-a real browser check (`python3 -m http.server`, then Chromium at
-`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`).
-
-## Re-export checklist (IMPORTANT)
-
-A fresh export from Claude Design **overwrites the `<head>` customizations**.
-After replacing `index.html`, re-apply all of these or they're silently lost:
-
-**Head tags must go in TWO places.** The loader ends with
-`document.documentElement.replaceWith(...)`, which throws away the outer `<head>`
-entirely. Verified 2026-07-30 by dumping the rendered DOM: with the tags only in the
-outer `<head>`, there was **no `<title>` and no icon link after render** — the browser
-tab showed the URL instead of her name, and bookmarks/history saved it that way.
-
-- The **template's `<helmet>`** copy is what a *visitor* sees (it is inside the document
-  that replaces the original, so it survives).
-- The **outer `<head>`** copy is what *crawlers and link-preview bots* see, since they
-  read the raw HTML before JS runs. Social previews only ever worked because of this one.
-
-Keep both. Items 1, 3 and 4 below belong in both places; item 2 only matters in the outer
-`<head>`.
-
-1. `<title>` — export ships as `Bundled Page`; should be `Duaa Khalid — Portfolio`.
-   **Outer `<head>` alone has no effect on what a visitor sees.** After render the
-   runtime rewrites it as `<title data-dc-tpl="1">`, so grep for `<title` not `<title>`.
-2. `<meta name="viewport">` — **not in the export**; without it mobile renders zoomed-out
-3. `<meta name="description">` + `og:title` / `og:description` / `og:type` / `og:url`
-4. `<link rel="icon">` — `/favicon.ico` in the helmet, plus the inline SVG "DK" on
-   `#ec3013` in the outer `<head>` for the pre-JS flash
-5. `resumeUrl` default — export ships as `#resume-pdf-to-add`, must be `/resume.pdf`
-6. Re-blank the placeholder fields listed below
-7. The `<noscript>` content fallback in `<body>` (name, positioning, three projects
-   with links, contact). Not in the export.
-7b. **The About-page headshot `<img>`.** A fresh export restores the grey hatched
-   `Headshot` placeholder. Re-apply by replacing that placeholder `<div>` with:
-   `<img src="/duaa-milan.jpg" alt="Duaa Khalid at Dolce &amp; Gabbana Expert Week 2026"
-   width="700" height="933" loading="lazy" style="display: block; width: 100%;
-   height: 380px; object-fit: cover; object-position: 50% 20%;">`
-   The photo file `duaa-milan.jpg` (700×933, 104KB) lives next to `index.html` and is
-   served at `/duaa-milan.jpg`. It is a real file, not inlined — do not base64 it into
-   the bundle. Source original: `~/Desktop/Duaa Milan.png`. Deliberately in colour,
-   not the design system's `grayscale(1)` imagery treatment; it is the only human
-   moment on the site and grayscale mutes it. Crop was checked at 8%/20%/35%
-   `object-position`; 20% keeps the full "EXPERT WEEK 2026" backdrop visible, which is
-   what contextualises the photo.
-8. **The hero H1 must not say "AI systems."** See the note under Open items.
-
-### 9. The hand-added journey sections (largest re-export risk)
-
-These have **no Claude Design source** and a fresh export drops all of them. They are
-the spine of the "why I'm moving to tech" argument, so losing them silently is the
-worst failure mode in this repo. Re-apply from git history (`git log -p index.html`):
-
-- **CSS**: the `.dk-*` rules at the end of the author `<style>` block — `.dk-mono`,
-  `.dk-sheet`, `.dk-reveal`, `.dk-step`, and the two
-  `.dk-mess:has(details[open]) tr.dup` highlight rules.
-- **Thesis section** — the "Most of my work starts inside someone else's spreadsheet"
-  paragraph promoted onto the home page, directly under the hero. It also still lives
-  on the About page; both copies are intentional.
-- **"Where my work starts"** — the `dk-mess` section: the illustrative export table
-  and the `<details>` "Show me the pair" reveal. Interaction is pure CSS
-  (`<details>` + `:has()`), no JS and no `Component` state, so it survives as long as
-  the markup and the CSS are both restored. Restoring one without the other leaves a
-  reveal that does nothing.
-- **"Five years of other people's systems"** — the five journey rows that replaced the
-  old Next / Now / Before / Region tile strip. Do not restore that strip; it argued
-  nothing.
-
-## Open content items (removed from the live page 2026-07-30)
-
-These were bracketed TODOs showing publicly. They were blanked, not deleted —
-the render logic is `showGap: showGaps && !!p.gap`, so an empty string hides the
-block cleanly with no layout gap. Restore by putting real text back in the same
-field.
-
-### 1. BA sales tracker — `gap` (was)
-> `[To fill: who pulled the export, how often, and how late it landed.]`
-
-Needed: who actually pulled the Daxium supervisor export, on what cadence, and
-how late it typically landed. Context already on the page: month-end totals
-"arrived weeks late."
-
-### 2. BA sales tracker — `gap2` (was)
-> `Month end review turnaround went from [before] to [after]. No cycle time figure
-> exists in the repo, so this stays a placeholder rather than an estimate.`
-
-Needed: real before/after month-end review turnaround. **Do not estimate this.**
-No cycle-time figure exists in the repo, and the page's whole credibility rests
-on not inventing numbers. Leave blank until measured.
-
-### 3. Homebase — `gap` — CLOSED 2026-07-30
-
-Was `[To confirm: exact scope split with my co-founder.]`. Already answered by the
-project's own "Team split" caveat: two person team, a professional engineer as the
-other founder, and the UAE rental regulation model as the part that was distinctly
-hers. No further copy needed; leave `gap` empty.
-
-## Resolved, do not re-open
-
-- **Résumé formatting** — two review rounds claimed broken strings in `resume.pdf`
-  ("Enable commu / commu Custom", "Fragrance Brands —Account Management
-  &Commercial Operations") and escalated them to "carelessness / red flag".
-  **Verified false 2026-07-30** by decoding the PDF's ToUnicode CMaps directly.
-  "Enable commu" does not exist; the text is `Enablement & Adoption: … executive-ready
-  communication`. `&Commercial` has zero hits; the PDF reads `Account Management &
-  Commercial Operations`. Every apparent missing space (`MiddleEast`, `ranlive`,
-  `intoplacement`, `readycommunication`, `&Gabbana`) sits **exactly on a line
-  boundary** — confirmed programmatically for all eight. They are artifacts of naive
-  text extraction, not defects. The PDF is clean.
-- **Advisor count, 18 vs ~20** — both figures are real and count different things.
-  18 advisors in the January–April export; roughly 20 field users onboarded and
-  trained, which includes people who moved off the team inside the window. Now stated
-  explicitly on the page in the tracker's "18 live, about 20 onboarded" caveat.
-- **JS-dependent rendering** — addressed by the `<noscript>` block in `<body>`. The
-  loader ends with `document.documentElement.replaceWith(...)`, so it is only ever
-  seen by crawlers that do not execute JS.
-
-## Other open items
-
-- **Hero must not claim "AI systems."** The H1 read *"I build AI systems that catch
-  data problems…"* until 2026-07-30. Verified against the projects: the sales tracker
-  has no model, Move-Out Sale has none, and Homebase's LLM path is opt-in
-  (`USE_LLM_SCOPE=true`) behind a deterministic template default. It is now *"Luxury
-  retail taught me what bad data costs…"*. Do not reintroduce a site-wide AI claim;
-  the Homebase Evaluation section carries the honest AI signal on its own.
-  - **Exception, added 2026-07-30 at Duaa's request:** the header carries a small role
-    descriptor reading **"AI Product & GTM"**. This is deliberate and is *not* the same
-    thing as the removed H1 claim. It names the domain and the roles she is targeting —
-    consistent with the existing CTA "Hiring for a forward deployed or AI product
-    role?" — rather than asserting that her three projects contain models. Do not
-    delete it as an overclaim. If a future review wants zero AI framing anywhere, the
-    agreed alternative wording is "Product · GTM · Data Systems", and that is Duaa's
-    call, not a correctness fix.
-- **Résumé is looser than the site in two places.** Cannot be fixed here (PDF only);
-  fix at the next export from the résumé source:
-  - Summary says *"drove daily adoption of an AI-assisted app I built (~20 users)"*.
-    There is no model in that app. Suggest "a sales tracker I built".
-  - Projects says Homebase *"automates RERA-compliant lease renewals"*. The site
-    correctly states that layer is listed as out of scope in the same README, so it is
-    spec, not product. Suggest scoping the bullet to what shipped.
-  - Summary says "4+ years" where the site says "Five years". Earliest role is
-    Oct 2021, so ~4y9m. Pick one and use it in both.
-- **Sourced from Duaa, not the repo**: "18 advisors … who were never required to use
-  it" (hero sub-headline, and the tracker's "Nobody was required to use it" adoption
-  row). She confirmed this directly on 2026-07-30. Not derivable from the export, so
-  do not flag it as unsupported — but do not extend it into an adoption *rate* either.
-- **Needed for the "Where my work starts" table**: one real anonymised pair of
-  duplicate rows from the Daxium export. The table currently uses illustrative rows
-  with the verified column set and dedup key, and is labelled as such on the page.
-  Swap the values in and drop the label once real rows exist.
-- **Needed for Homebase Evaluation**: how many usability sessions were run, and which
-  failure modes the log review actually surfaced. The résumé asserts both without
-  specifics and the repo records neither, so the page deliberately claims no numbers.
-- **Favicon — FIXED 2026-07-30.** The loader ends with
-  `document.documentElement.replaceWith(...)` and the *template's* `<head>` has no icon
-  link, so the inline-SVG `<link rel="icon">` in the outer `<head>` is dropped once JS
-  runs. The fix was the no-code-change route: a real `favicon.ico` (1,075 bytes, 64×64
-  PNG wrapped in an ICO container) now sits next to `index.html`, and the browser
-  requests `/favicon.ico` automatically even after the document is replaced. The inline
-  SVG link is still in `<head>` and still useful — it covers the pre-JS flash. Keep
-  both. Regenerate the ico by rendering a 64×64 "DK on #ec3013" SVG in headless Chrome
-  and wrapping the PNG with a 22-byte ICO header (no PIL on this machine).
-- **Layout is desktop-fixed.** The root container is `min-width: 1080px`, so the page
-  **cannot reflow** below that; mobile gets a scaled-down desktop layout and the
-  viewport meta only sets the initial scale. Build new sections at fixed desktop
-  width. A real mobile layout would mean rebuilding in Claude Design.
-- **Move-Out Sale live defect**: `moveoutsale.vercel.app` renders "0 items available"
-  from a hardcoded placeholder that the JS overwrites on a normal load; it should read
-  11. Lives in a separate repo. The page discloses it as a caveat, which is the honest
-  handling, but fixing it there would be better.
-- **`/faq` is not linked from `index.html` yet.** The static FAQ page replaced the `/ask`
-  assistant on 2026-07-30 (see its own section below). Its own header links back to `/`,
-  but the bundle's nav has no `/faq` entry, so the page is unreachable from the home page
-  until that link is added. `index.html` is a compiled bundle, so adding it means the
-  decode/re-encode round trip described above.
-- **`bm2515/homebase` link is broken for the public.** Verified 2026-07-30: the repo is
-  **private**, so `https://github.com/bm2515/homebase` returns 404 to every visitor. It
-  is the co-founder's repo, not Duaa's, so the fix is his to make: ask him to make it
-  public, or drop the link. **This affects the résumés too** — all three carry the same
-  URL as a clickable link. Same class of bug as the `moveoutsale` link that was fixed;
-  an earlier check here wrongly concluded the link was fine because `gh` was
-  authenticated as a user who has access.
-- **Resume version**: currently the OpenAI/ADM variant, copied from
-  `~/Desktop/Maven Mahesh Course/cv-enhancement/Duaa_Khalid_Resume_OpenAI_ADM.pdf`.
-  Swap by replacing `resume.pdf` — no code change needed.
-
-## The /faq page
-
-`faq.html` replaced the LLM-backed `/ask` assistant on 2026-07-30. The assistant is
-gone: no API calls, no key, no cost, nothing to rate limit.
+Three hand-written static HTML pages sharing one stylesheet and one script. **No build
+step, no framework, no dependencies.** Edit a file, push, it deploys.
 
 | File | Role |
 | --- | --- |
-| `faq.html` | The FAQ page, served at `/faq` by `cleanUrls`. Hand-written and standalone, **not** a Claude Design export. It copies the CSS tokens rather than importing them, so a re-export cannot break it. **Zero JavaScript**: the reveals are native `<details>`/`<summary>`. Unlike `index.html` it reflows properly on mobile, so it is still the only mobile-friendly page on the site. |
-| `context.md` | The verified fact sheet, moved up from `api/context.md`. Kept because it is useful on its own: it is the single source every claim on `faq.html` traces to. |
-| `vercel.json` | `cleanUrls: true`. Still required, or `/faq` 404s. |
-| `package.json` | Now metadata only. No dependencies, no scripts, nothing reads it. Safe to delete if you want. |
+| `index.html` | Home: hero, stat row, three project blocks, through-line, capabilities, CTA |
+| `about.html` | Portrait, bio, how-I-work, career path, capabilities |
+| `faq.html` | Ten hand-written Q&As, `<details>` accordions, zero JS |
+| `styles.css` | Every rule for all three pages |
+| `script.js` | Stat count-up, card tilt, interactive dashboard |
+| `context.md` | **The verified fact sheet. The only source for factual claims.** |
+| `vercel.json` | `cleanUrls: true` so `/about` and `/faq` work without `.html` |
+| `package.json` | Metadata only. No deps, no scripts. Nothing reads it. |
 
-Deleted in the same change: `ask.html`, `api/ask.js`, `tools/build-context.py`, and the
-`@anthropic-ai/sdk` dependency.
+> **History:** this replaced a compiled Claude Design bundle in July 2026. Earlier versions
+> of this file documented a `__bundler/template` JSON round-trip and an eight-item re-export
+> checklist. **All of that is obsolete.** Do not go looking for a bundler template; the HTML
+> is plain and directly editable.
 
-### `context.md` is now a frozen snapshot
+## Non-negotiables
 
-`tools/build-context.py` generated it from `index.html`, and that generator is gone. So
-the "the fact sheet cannot claim something the page does not" property is no longer
-enforced by a build step, it is enforced by hand. **After changing site copy, update
-`context.md` in the same commit**, or `faq.html` and the site drift apart.
+These were each decided deliberately, several after getting them wrong first. Do not
+undo them while chasing a visual or a quick edit.
 
-Two known gaps in it, both inherited from the extractor:
+1. **Never publish real advisor or commercial data.** The dashboard on the home page is
+   recreated in HTML with **invented** figures. It has been shipped with real production
+   data twice by accident. See "The dashboard is demo data" below.
+2. **No site-wide AI claim.** Duaa does not "build AI systems". The sales tracker and the
+   move-out generator contain no model; Homebase's model path is opt-in behind a flag.
+   The hero, the meta description and the OG tags must all stay clear of this. A role
+   descriptor (`AI Product + GTM`, "open to forward-deployed AI roles") is fine and
+   intended: it names what she is targeting, not what her projects contain.
+3. **Homebase is not a shipped product.** A hackathon build, roughly 3.5 hours, a CRUD app
+   over six Firestore collections with no auth and test-mode rules. The RERA compliance
+   layer is **specified, not shipped**. Never label it "live product".
+4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
+   private, so it 404s for every visitor. It was live on the site and in all three
+   résumés before this was caught.
+5. **Contact is `dk947@cornell.edu`** everywhere, including link text. A case-sensitive
+   find-and-replace once missed an all-caps `KHALIDDUAA1@GMAIL.COM` button label while
+   correctly fixing its `href`. Search case-insensitively.
+6. **No em dashes.** Stated preference. Commas or full stops.
+7. **Every outbound link opens in a new tab** (`target="_blank" rel="noopener"`).
+8. **The caveats live on `/faq`, not on the home page.** Attaching them to the stat tiles
+   suffocated the design. They are answered more fully on the FAQ, so nothing is lost.
 
-- It never covered the About page. Zero hits for `Istanbul`, `Thailand`, `Bologna`,
-  `Rome`, `commission`, `Expert Week`. That narrative is on the site and factual but is
-  not in the fact sheet, so `faq.html` does not use it.
-- It cites the Excel snapshot, not the live database. See the tracker's "Two snapshots,
-  one number" caveat.
+## The dashboard is demo data
 
-### Content rules for `faq.html` (do not undo)
+`index.html` recreates the Beauty Advisor tracker's "Targets & Commissions" view in HTML
+and CSS. The figures are invented, and the arithmetic is internally consistent so a
+technical reader can check it:
 
-- **Every number traces to `context.md`.** Nothing else is a source. No estimates.
-- **Caveats ship with the figures they qualify.** "18 live, about 20 onboarded",
-  "removed, not rejected", "markets, not doors", "no cycle time measured", "the honest
-  figure is 20 of 31". The page answers the awkward questions on purpose, including
-  "Isn't 18 users very small?" and "What have you not done?".
-- **No site-wide AI claim.** The page states plainly that the tracker and the move-out
-  generator contain no model, and that the real AI work is the Homebase evaluation. Same
-  discipline as the hero. See the note under Open items.
-- **Homebase's RERA and compliance layer is spec, not product.** Never write it as built.
-- **No link to `https://github.com/bm2515/homebase`.** That repo is private and 404s for
-  the public. Homebase is discussed, just not linked.
-- **The README's two unsourced impact stats are not repeated**, not even as figures. The
-  page says the README carries two unsourced statistics and leaves the numbers off.
-- **No em dashes**, Duaa's stated preference.
+| City | Sales | Target | Attainment | Status |
+| --- | --- | --- | --- | --- |
+| Cairo | 38,916 | 39,400 | 98.8% | On Track |
+| Hurgadah | 41,972 | 39,500 | 106.3% | On Track |
+| Sharm | 26,875 | 30,800 | 87.3% | Behind Target |
 
-### Verifying a change to it
+Every attainment equals sales ÷ target, and the city totals are the sums of eight
+invented advisors (`Yasmin K.`, `Tarek S.`, `Hana M.`, `Adam R.`, `Lina F.`, `Ziad H.`,
+`Maya N.`, `Omar D.`). Use only those names.
 
-```
-grep -c '<script' faq.html      # must be 0
-python3 -c "print(open('faq.html',encoding='utf-8').read().count(chr(8212)))"   # em dashes, must be 0
-```
+**Real figures that must never reappear:** `$104.3k`, `of $110k target`, `$56.8k`,
+`of $51k target`, `Jun 2026`, and any of `Mohamed`, `Mamdouh`, `Rehab`, `Veronia`, `Nada`.
 
-Then look at it in a browser at desktop **and** mobile width. One trap: headless Chrome
-clamps its window to roughly 500px wide, so `--window-size=390,1500 --screenshot` silently
-**crops** instead of reflowing, which looks exactly like a horizontal-overflow bug. To get
-a real 390px layout viewport, load `faq.html` inside a 390px-wide `<iframe>` on a wrapper
-page and screenshot that at desktop width. Shift the iframe with a negative `top` inside an
-`overflow: hidden` clip box to capture successive vertical slices.
+If the dashboard needs regenerating from the real app, do **not** run
+`Sales_management/deck_assets/seed_demo_data.sql` against production: its
+`monthly_targets` insert conflicts on `(month_key, team)` and would overwrite real
+Cairo/Sharm/Hurgadah targets. Stub the Supabase client locally instead. Note also that
+the commission slab percentages are **hardcoded** at `web_app/manager.html:1813`, so demo
+data alone does not hide them.
+
+### It is interactive
+
+Pick a city, enter a target, press Save. `script.js` recalculates attainment, remaining,
+the progress bar and the On Track / Behind Target pill, then persists to `localStorage`
+under `dk.targets.v1`. There is a Reset link. Threshold for On Track is **95%**.
+
+`.dashboard-window` uses `zoom: 1.22` to enlarge it. **Use `zoom`, not
+`transform: scale()`** — scale would move the visual position of the dropdown and input
+without moving their hit targets, silently breaking the interaction. Zoom drops to `1`
+below 900px.
+
+## Images
+
+| File | Used | Source |
+| --- | --- | --- |
+| `duaa-portrait.jpg` | about.html | `IMG_3483.JPG`, cropped to the black wall only, 1200x1247 |
+| `moveout-catalog.jpg` | index.html | Live capture of moveoutsale.vercel.app |
+| `homebase-shot.jpg` | index.html | homebase-labs.lovable.app, cropped above the fabricated stats |
+| `favicon.ico` | all | 64x64 "DK" on `#F03419` |
+| `duaa-dg-sign.jpg`, `duaa-milan.jpg`, `homebase-concept.jpg`, `sales-dashboard.jpg` | **unused** | earlier versions, safe to delete |
+
+**The Homebase crop matters.** `homebase-labs.lovable.app` advertises "98% Tenant
+satisfaction", "<2s Response time" and "94% faster issue resolution" for a build with no
+production usage, plus a free-trial strip and a Lovable watermark. The committed crop
+stops above all of it. Do not re-capture without re-cropping.
+
+**The portrait must not be re-cropped by CSS.** Something upstream forced a 3:4 wrapper
+with `object-fit: cover`, which sliced the D&G sign off at both edges. The override at the
+end of `styles.css` lets the file's own ratio drive the height. Keep the `<img>`
+`width`/`height` attributes matching the file exactly.
+
+## Design system
+
+Measured from the Framer original (`duaakhalid.framer.website`) by reading computed
+styles, not by eye. An earlier pass guessed and every value was slightly wrong.
+
+| Token | Value |
+| --- | --- |
+| Background | `#F3F1EC` |
+| Ink | `#171716` |
+| Accent | `#F03419` |
+| Hairline | `#B8B5AE` |
+| Display font | Bricolage Grotesque 700/800 |
+| Label font | IBM Plex Mono 500, 12px, `0.08em`, uppercase |
+| **Body font** | **Inter** 400, 18px/1.45 |
+| Band | `max-width: 1200px`, 40px gutters |
+
+Three families, not two. Setting body copy in Bricolage makes every paragraph read too
+heavy; that was a real bug.
+
+**All three pages must share one band width.** They once had 1200px, 1240px and 760px,
+so the header appeared to jump between pages. The FAQ holds its reading measure on the
+prose (`74ch`) rather than on the container.
+
+The header and footer are one shared component (`.sitehead` / `.sitefoot`), identical
+markup on every page, five nav links: Work, About, FAQ, Resume, Email.
 
 ## Deploying
 
@@ -335,16 +142,45 @@ Auto-deploys on push to `main` via Vercel (project `duaakhalid-site`).
 git add -A && git commit -m "..." && git push
 ```
 
-Manual deploy without a push: `vercel --prod`
+## Gotchas, all learned the hard way
 
-## Gotchas
+- **Count your tags after any structural edit.** Splicing HTML by raw string offsets
+  broke `index.html` once (104 open `<div>` vs 107 close). Check
+  `grep -o '<div' | wc -l` against `</div>` before committing.
+- **`sips --cropOffset` crops from the centre, not the top left.** It cost several
+  attempts. For a deterministic crop, render the image inside a fixed-size
+  `overflow: hidden` div in headless Chrome and screenshot that.
+- **Headless Chrome clamps its window to ~500px wide.** `--window-size=390,x` silently
+  *crops* instead of reflowing, which looks exactly like a horizontal-overflow bug. Load
+  the page in a 390px-wide iframe to get a true mobile layout viewport.
+- **Vercel bot-challenges heavy scripted traffic.** After many `curl` checks in one
+  session you get `HTTP 403` with `x-vercel-mitigated: challenge`, even from headless
+  Chrome. Nothing is broken; wait, or check in a real browser.
+- **Cloudflare proxy must stay OFF** (grey cloud) on the `duaakhalid.com` and `www` A
+  records pointing at `76.76.21.21`. Flexible SSL plus Vercel causes a redirect loop.
+  Switch Cloudflare SSL/TLS to Full (strict) first if you ever want the proxy on.
+- **Local DNS can lag.** Verify with `dig +short A duaakhalid.com @1.1.1.1`, not the
+  local resolver.
+- **Greps prove nothing about what renders.** Always finish with a real browser check.
 
-- **Cloudflare proxy must stay OFF** (grey cloud) on the `duaakhalid.com` and
-  `www` A records → `76.76.21.21`. Cloudflare's default "Flexible" SSL + Vercel
-  causes an infinite redirect loop. To enable the proxy, switch Cloudflare
-  SSL/TLS mode to **Full (strict)** first.
-- After a DNS change, the local router (`192.168.8.1`) may cache the old answer
-  for up to 30 min (Cloudflare negative TTL 1800s). Verify with
-  `dig +short A duaakhalid.com @1.1.1.1`, not the local resolver.
-- There is a **separate** Next.js portfolio at `~/Desktop/portfolio/`. Unrelated
-  to this deploy. If the domain ever moves there, detach it from this project first.
+## Open items
+
+- **Résumé variants**: three exist under
+  `~/Desktop/Maven Mahesh Course/cv-enhancement/` (ADM, CSM, PM), all regenerated with
+  the Cornell address and the dead Homebase link removed. `/resume.pdf` serves the ADM
+  variant. Regenerate with `scratchpad/build.py` then print to PDF via headless Chrome.
+- **PM variant job title unconfirmed**: it says "Key Account Manager & Internal Product
+  Owner"; ADM and CSM say "Customer Success & Key Account Manager". The site uses the
+  latter. Confirm against contract/LinkedIn before sending the PM variant.
+- **Real cycle-time figure**: the tracker's month-end turnaround improvement is real but
+  unmeasured. Left blank deliberately. **Do not estimate it.**
+- **Homebase evaluation specifics**: session count and the failure modes the log review
+  surfaced are not recorded in the repo, so no numbers are claimed.
+- **A live defect on moveoutsale.vercel.app**: renders "0 items available" from a
+  hardcoded placeholder that JS overwrites on a normal load. Should read 11.
+- **`Sales_management` attainment bug**: for `team_total` cities the Target column shows
+  the *team* target beside an individual's sales, so the percentage is not that advisor's
+  attainment. Affects production, feeds commission tiers.
+- **Possible additions**: scroll-reveal on section enter via `IntersectionObserver`
+  (no library needed). Deliberately **not** adopting Lenis smooth scroll or GSAP; the site
+  currently ships zero dependencies and that is worth keeping.
