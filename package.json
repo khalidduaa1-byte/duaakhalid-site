@@ -1,0 +1,13 @@
+{
+  "name": "duaakhalid-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio site for duaakhalid.com. Static index.html plus one serverless function for the /ask assistant.",
+  "scripts": {
+    "build:context": "python3 tools/build-context.py"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0"
+  }
+}

@@ -216,13 +216,15 @@ hers. No further copy needed; leave `gap` empty.
 - **Needed for Homebase Evaluation**: how many usability sessions were run, and which
   failure modes the log review actually surfaced. The résumé asserts both without
   specifics and the repo records neither, so the page deliberately claims no numbers.
-- **The favicon does not survive the render.** The loader ends with
-  `document.documentElement.replaceWith(...)` and the *template's* `<head>` has no
-  icon link, so the `<link rel="icon">` in the outer `<head>` is dropped once JS runs
-  and the browser falls back to a 404 on `/favicon.ico`. Verified identical before and
-  after the 2026-07-30 changes, so it is pre-existing, not a regression. The "DK" icon
-  therefore only shows during the pre-JS flash. Real fixes: add a `favicon.ico` next to
-  `index.html` (no code change), or add the icon link inside the template's `<helmet>`.
+- **Favicon — FIXED 2026-07-30.** The loader ends with
+  `document.documentElement.replaceWith(...)` and the *template's* `<head>` has no icon
+  link, so the inline-SVG `<link rel="icon">` in the outer `<head>` is dropped once JS
+  runs. The fix was the no-code-change route: a real `favicon.ico` (1,075 bytes, 64×64
+  PNG wrapped in an ICO container) now sits next to `index.html`, and the browser
+  requests `/favicon.ico` automatically even after the document is replaced. The inline
+  SVG link is still in `<head>` and still useful — it covers the pre-JS flash. Keep
+  both. Regenerate the ico by rendering a 64×64 "DK on #ec3013" SVG in headless Chrome
+  and wrapping the PNG with a 22-byte ICO header (no PIL on this machine).
 - **Layout is desktop-fixed.** The root container is `min-width: 1080px`, so the page
   **cannot reflow** below that; mobile gets a scaled-down desktop layout and the
   viewport meta only sets the initial scale. Build new sections at fixed desktop
@@ -231,10 +233,33 @@ hers. No further copy needed; leave `gap` empty.
   from a hardcoded placeholder that the JS overwrites on a normal load; it should read
   11. Lives in a separate repo. The page discloses it as a caveat, which is the honest
   handling, but fixing it there would be better.
-- **Future: "ask me about Duaa" chatbot.** Wants a server-side endpoint to hold the API
-  key and enforce topic guardrails, which a static bundle cannot do safely. Shape
-  would be a Vercel serverless function plus a small grounded context pack built from
-  this page and the résumé. Needs its own plan.
+- **`/ask` assistant — SHIPPED 2026-07-30, but not yet linked or enabled.**
+  Built by the cloud session, landed here from `duaakhalidsitenewfiles.tar.gz`.
+  - `api/ask.js` — Vercel serverless function, `@anthropic-ai/sdk`. Answers **only**
+    from `api/context.md`.
+  - `api/context.md` — **generated, never hand-edited.** `tools/build-context.py`
+    extracts the projects data, hero copy and career track out of `index.html`. That is
+    what structurally stops the bot claiming something the page does not. Change the
+    site, then regenerate. Hand-editing this file breaks the guarantee.
+  - `ask.html` — the UI. Hand-written, and it **reflows properly on mobile**, unlike
+    `index.html`.
+  - **Requires `ANTHROPIC_API_KEY` as a Vercel env var.** Without it the function
+    returns an error. Duaa must add this; it is a secret and cannot be committed.
+  - **Nav links deliberately NOT added yet.** The cloud session's version added
+    `<a href="/ask">Ask</a>` in the header nav and a second `/ask` button in the red
+    CTA section. Both were withheld so a public link does not point at a feature that
+    errors until the key is set. Add them once the key is live.
+  - **Cost/abuse: unresolved.** The per-IP rate limit is in-memory, and its own comment
+    says serverless instances are recycled so it is "a speed bump against a single
+    abusive client, not a real quota." A public page calling a paid API needs a hard
+    cap. Decide before linking it.
+- **`bm2515/homebase` link is broken for the public.** Verified 2026-07-30: the repo is
+  **private**, so `https://github.com/bm2515/homebase` returns 404 to every visitor. It
+  is the co-founder's repo, not Duaa's, so the fix is his to make: ask him to make it
+  public, or drop the link. **This affects the résumés too** — all three carry the same
+  URL as a clickable link. Same class of bug as the `moveoutsale` link that was fixed;
+  an earlier check here wrongly concluded the link was fine because `gh` was
+  authenticated as a user who has access.
 - **Resume version**: currently the OpenAI/ADM variant, copied from
   `~/Desktop/Maven Mahesh Course/cv-enhancement/Duaa_Khalid_Resume_OpenAI_ADM.pdf`.
   Swap by replacing `resume.pdf` — no code change needed.
