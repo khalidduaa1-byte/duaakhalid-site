@@ -183,20 +183,48 @@
     nav { font-size: 11px; }
     nav a { padding: 8px 8px; }
   }
+
+  /* ---- shared site chrome: identical markup and styling on every page ---- */
+  .sitehead { border-bottom: 1px solid var(--rule); }
+  .sitehead .in { max-width: 1200px; margin: 0 auto; padding: 24px 40px;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px 28px; flex-wrap: wrap; }
+  .sitehead .mark { display: flex; align-items: baseline; gap: 9px; text-decoration: none; flex-wrap: wrap; color: inherit; }
+  .sitehead .mark b { font: 700 17px/1 var(--display, 'Bricolage Grotesque', sans-serif); letter-spacing: -0.02em; }
+  .sitehead .mark span { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral-600, #5f5d58); }
+  .sitehead ul { list-style: none; display: flex; flex-wrap: wrap; gap: 22px; margin: 0; padding: 0; }
+  .sitehead a.lnk { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink, var(--text)); }
+  .sitehead a.lnk:hover { color: var(--accent); }
+  .sitehead a.lnk[aria-current=page] { color: var(--accent); }
+  .sitehead a.mail { color: var(--accent); }
+
+  .sitefoot { border-top: 1px solid var(--rule); margin-top: 0; }
+  .sitefoot .in { max-width: 1200px; margin: 0 auto; padding: 26px 40px 44px; }
+  .sitefoot .row1 { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .sitefoot .row1 span { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink, var(--text)); }
+  .sitefoot .fine2 { margin-top: 18px; font: 400 13px/1.6 var(--body, sans-serif);
+    letter-spacing: 0; color: var(--neutral-600, #5f5d58); max-width: 78ch; }
+  .sitefoot .fine2 a { color: var(--accent); }
+  @media (max-width: 900px) {
+    .sitehead .in, .sitefoot .in { padding-inline: 20px; }
+  }
 </style>
 </head>
 <body>
+<div class="sitehead">
+  <div class="in">
+    <a class="mark" href="/"><b>DUAA KHALID</b><span>AI Product + GTM</span></a>
+    <nav><ul>
+      <li><a class="lnk" href="/">Work</a></li>
+      <li><a class="lnk" href="/about" aria-current="page">About</a></li>
+      <li><a class="lnk" href="/faq">FAQ</a></li>
+      <li><a class="lnk" href="/resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a class="lnk mail" href="mailto:dk947@cornell.edu">Email</a></li>
+    </ul></nav>
+  </div>
+</div>
 
-<header>
-  <a class="wordmark" href="/"><b>DUAA KHALID</b> <span>AI Product + GTM</span></a>
-  <nav>
-    <a href="/">Work</a>
-    <a href="/about" aria-current="page">About</a>
-    <a href="/faq">FAQ</a>
-    <a href="/resume.pdf">Resume</a>
-    <a class="mail" href="mailto:dk947@cornell.edu">Email</a>
-  </nav>
-</header>
+
 
 <main>
 
@@ -426,7 +454,7 @@
       <div class="btnrow">
         <a class="btn" href="mailto:dk947@cornell.edu">dk947@cornell.edu</a>
         <a class="btn" href="https://linkedin.com/in/duaa-khalid">LinkedIn &rarr;</a>
-        <a class="btn" href="/resume.pdf">Resume &rarr;</a>
+        <a class="btn" href="/resume.pdf" target="_blank" rel="noopener">Resume &rarr;</a>
       </div>
       <div class="foot">
         <p>Duaa Khalid / 2026</p>
@@ -437,13 +465,13 @@
 
 </main>
 
-<footer>
-  <p class="note">
-    The work itself is on the <a href="/">work page</a>, with the caveat attached to every
-    figure. The awkward questions are answered on the <a href="/faq">FAQ</a>.
-  </p>
-  <p>dk947@cornell.edu &middot; <a href="https://github.com/khalidduaa1-byte">GitHub</a> &middot; <a href="https://linkedin.com/in/duaa-khalid">LinkedIn</a></p>
-</footer>
 
+
+<div class="sitefoot">
+  <div class="in">
+    <div class="row1"><span>Duaa Khalid / 2026</span><span>Dubai &rarr; New York</span></div>
+    <p class="fine2">Every figure on this site has a caveat attached to it, because the caveats are the reason the numbers are worth reading. They are all on the <a href="/faq">FAQ</a>, including why 18 users is a small number and what the AI work actually is. Contact <a href="mailto:dk947@cornell.edu">dk947@cornell.edu</a> &middot; <a href="https://github.com/khalidduaa1-byte">GitHub</a> &middot; <a href="https://linkedin.com/in/duaa-khalid">LinkedIn</a> &middot; <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a></p>
+  </div>
+</div>
 </body>
 </html>
