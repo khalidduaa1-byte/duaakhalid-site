@@ -1,10 +1,17 @@
 # Facts about Duaa Khalid
 
-Generated from index.html. Everything below is stated on her portfolio.
+The verified fact sheet for duaakhalid.com. Everything below is stated on the site, and
+nothing on the site should claim something that is not here. Maintained by hand: the
+generator that used to build this file is gone, so **update this in the same commit as any
+copy change**.
+
+Last synced to the live site: 2026-07-30.
 
 ## Positioning
-- Headline: Luxury retail taught me what bad data costs. I build the systems that catch it before it reaches the people making decisions.
-- Summary: Five years in commercial and GTM at LVMH and Dolce & Gabbana. I shipped a tracker to 18 beauty advisors across 3 Egyptian markets who were never required to use it, and they used it daily. Incoming MEng, Data Science & Decision Analytics, Cornell Tech, August 2026.
+- Headline: I turn unreliable operational data into decision systems people actually use.
+- Lead: Five years across luxury retail and GTM taught me where bad data becomes expensive. I build the validation, product, and rollout layer that catches it before it reaches the people making decisions.
+- Role descriptor: AI Product + GTM. This names the roles she is targeting, not a claim that her projects contain models.
+- Status: Incoming MEng, Data Science & Decision Analytics, Cornell Tech, August 2026. Dubai to New York.
 - In her own words: Most of my work starts inside someone else's spreadsheet. A supervisor's export, a catalog price, a phone call assembled from memory. The model is rarely the interesting part. Deciding what counts as a valid row is, and so is getting a field team in another country to work the new way.
 
 ## Career track (each step: the system that was broken, then what she did)
@@ -25,6 +32,10 @@ Generated from index.html. Everything below is stated on her portfolio.
 - Link (Live app): https://sales-management-phi-blue.vercel.app
 - Repository: https://github.com/khalidduaa1-byte/Sales_management
 - Numbers: 1,324 = rows ingested in one full run, January to April; 0 = rows rejected; 29 = duplicates removed; 396 = attendance rows
+- Dedup key, verified against the pipeline output: advisor + date + store + shift. The real column names are `ba_name`, `entry_date`, `store`, `shift`, `sales_amount`, `items_sold`, `working_days`.
+- Layout drift, verified: the same supervisor export arrived with 38, 38, 40 and 37 columns across four consecutive monthly sheets (Jan26, Feb26, march, APRIL). Column counts are structure, not commercial data, so this is safe to state publicly.
+- The duplicate-pair table on the home page uses **invented values and an invented advisor name** on the real column shape. It is labelled as illustrative on the page. No real advisor row is published.
+- The dashboard on the home page is **demo data**, recreated in HTML with invented figures and invented advisor names.
 - Adoption:
     - 18 advisors, 3 markets: Cairo 12, Sharm 3, Hurghada 3, read off the January to April export. Presented to global beauty leadership in June 2026.
     - Markets, not doors: The data holds 3 distinct store values at city level, so coverage is stated at market level. No door count is claimed.
@@ -65,7 +76,9 @@ Generated from index.html. Everything below is stated on her portfolio.
 - Problem: Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.
 - Her role: Co-founder. Owned problem framing and the UAE rental regulation model the product was built around, including RERA bands, the 90 day notice rule, Ejari sequencing and the bilingual requirement.
 - Outcome: A hackathon build with no production usage, so there is no impact number to claim. What is worth defending is the architecture.
-- Link (No deployment, see repo): https://github.com/bm2515/homebase
+- Link (Concept page): https://homebase-labs.lovable.app/
+- Do not link `https://github.com/bm2515/homebase`. It is the co-founder's repo, it is private, and it 404s for every visitor.
+- The concept page advertises impact stats ("98% tenant satisfaction", "<2s response time", "94% faster issue resolution") for a build with no production usage. Those figures are not repeated on the site, and the committed screenshot is cropped above them.
 - Scope note: What shipped in roughly 3.5 hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The README also carries a vision layer of RERA band checks, Smart Rental Index lookups, bilingual WhatsApp notices and a tenant facing agent. That layer is listed as out of scope in the same README, so it is spec, not product. This page covers only what shipped.
 - Design decisions:
     - Static prompt, structured context: The voice agent’s system prompt stays static and per call variation is injected as a context block with fixed fields, so the prompt is not rewritten on every call.
@@ -79,7 +92,7 @@ Generated from index.html. Everything below is stated on her portfolio.
     - Scope of what shipped: No auth, test mode Firestore rules, seed data. Not production hardened.
 
 ## Contact
-- Email: Khalidduaa1@gmail.com
+- Email: dk947@cornell.edu
 - LinkedIn: https://linkedin.com/in/duaa-khalid
 - GitHub: https://github.com/khalidduaa1-byte
 - Resume: https://duaakhalid.com/resume.pdf

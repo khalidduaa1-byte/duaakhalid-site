@@ -198,3 +198,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
   applyStored();
 })();
+
+/* ------------------------------------------------------------------
+   The duplicate-pair table runs its own dedup.
+   Values are illustrative (see CLAUDE.md: never publish real advisor
+   data). The duplicate row is struck through rather than deleted,
+   which matches the site's "removed, not rejected" language.
+------------------------------------------------------------------ */
+(function () {
+  var btn = document.getElementById('dedup-btn');
+  var table = document.getElementById('dupt');
+  if (!btn || !table) return;
+
+  var RAW = { rows: '2', sales: '4,150', days: '2' };
+  var CLEAN = { rows: '1', sales: '1,840', days: '1' };
+
+  var out = {
+    rows: document.getElementById('kpi-rows'),
+    sales: document.getElementById('kpi-sales'),
+    days: document.getElementById('kpi-days')
+  };
+
+  function paint(deduped) {
+    var v = deduped ? CLEAN : RAW;
+    Object.keys(out).forEach(function (k) {
+      if (!out[k]) return;
+      out[k].textContent = v[k];
+      out[k].classList.toggle('corrected', deduped);
+    });
+    table.classList.toggle('deduped', deduped);
+    btn.setAttribute('aria-pressed', deduped ? 'true' : 'false');
+    btn.innerHTML = deduped ? '&larr; SHOW RAW EXPORT' : 'RUN DEDUP &rarr;';
+  }
+
+  btn.addEventListener('click', function () {
+    paint(btn.getAttribute('aria-pressed') !== 'true');
+  });
+})();
+
+/* ------------------------------------------------------------------
+   Homebase context block generator.
+   The whole point is that the shape does not change, so this renders
+   the same eight fields for every combination.
+------------------------------------------------------------------ */
+(function () {
+  var issueSel = document.getElementById('hb-issue');
+  var urgSel = document.getElementById('hb-urg');
+  var out = document.getElementById('hb-out');
+  if (!issueSel || !urgSel || !out) return;
+
+  var ISSUES = {
+    ac:   { id: 'HB-4192', issue: 'AC not cooling',         vendor: 'CoolAir Technical FZE' },
+    leak: { id: 'HB-4207', issue: 'Kitchen sink leaking',   vendor: 'AquaFix Plumbing LLC' },
+    lock: { id: 'HB-4231', issue: 'Front door lock jammed', vendor: 'SecureKey Locksmiths' }
+  };
+  var URGENCY = {
+    routine:   { sla: '72h', window: 'Thu 10:00 to 14:00' },
+    urgent:    { sla: '24h', window: 'Tomorrow 08:00 to 12:00' },
+    emergency: { sla: '4h',  window: 'Today, next available' }
+  };
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function render() {
+    var i = ISSUES[issueSel.value];
+    var u = URGENCY[urgSel.value];
+    var fields = [
+      ['ticket_id', i.id],
+      ['unit', 'Marina Heights 1204'],
+      ['issue', i.issue],
+      ['urgency', urgSel.value],
+      ['sla', u.sla],
+      ['tenant_window', u.window],
+      ['vendor', i.vendor],
+      ['language', 'en + ar']
+    ];
+    out.innerHTML = fields.map(function (f) {
+      return '<div class="ln"><span>' + f[0] + '</span><b>' + esc(f[1]) + '</b></div>';
+    }).join('');
+  }
+
+  issueSel.addEventListener('change', render);
+  urgSel.addEventListener('change', render);
+  render();
+})();
+
+/* ------------------------------------------------------------------
+   Scroll reveal on the case-study rows. IntersectionObserver only,
+   no library, per the "zero dependencies" note in CLAUDE.md.
+   data-reveal is set here rather than in the HTML so that with JS
+   disabled the rows render normally instead of staying invisible.
+------------------------------------------------------------------ */
+(function () {
+  var rows = document.querySelectorAll('.cs .row');
+  if (!rows.length) return;
+
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still || !('IntersectionObserver' in window)) return;
+
+  var seen = new WeakMap();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.style.transitionDelay = (seen.get(e.target) * 70) + 'ms';
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  rows.forEach(function (row) {
+    var idx = Array.prototype.indexOf.call(row.parentNode.children, row);
+    seen.set(row, idx < 0 ? 0 : idx);
+    row.setAttribute('data-reveal', '');
+    obs.observe(row);
+  });
+})();

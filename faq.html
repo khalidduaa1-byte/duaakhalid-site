@@ -25,34 +25,43 @@
       transition: border-color 0.2s ease;
     }
     .faq-item:hover { border-color: var(--ink); }
-    .faq-question {
+    /* Native <details>, so the reveals work with JS disabled and are keyboard
+       operable. The list-style resets remove the default disclosure triangle
+       without losing the summary's built-in button semantics. */
+    .faq-item > summary {
       padding: 22px 28px;
       font: 700 18px/1.3 var(--display);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
       user-select: none;
       background: #ffffff;
+      list-style: none;
     }
-    .faq-question .toggle-icon {
+    .faq-item > summary::-webkit-details-marker { display: none; }
+    .faq-item > summary::marker { content: ''; }
+    .faq-item > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+    .faq-item .toggle-icon {
       font-family: var(--mono);
       font-weight: 500;
       color: var(--accent);
       font-size: 20px;
+      flex-shrink: 0;
       transition: transform 0.2s ease;
     }
+    .faq-item[open] > summary .toggle-icon { transform: rotate(45deg); }
     .faq-answer {
-      padding: 0 28px 24px;
+      padding: 18px 28px 24px;
       font-size: 16px;
       line-height: 1.6;
       color: #2e2d2a;
-      display: none;
       border-top: 1px solid #f1f5f9;
-      padding-top: 18px;
     }
-    .faq-item.active .faq-answer { display: block; }
-    .faq-item.active .toggle-icon { transform: rotate(45deg); }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-item, .faq-item .toggle-icon { transition: none; }
+    }
     .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: 40px; border-radius: 8px; margin-top: 40px; }
     .honest-caveats h3 { font: 700 24px var(--display); color: var(--on-dark); }
     .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
@@ -97,55 +106,128 @@
       <div class="faq-container">
         
         <!-- Q1 -->
-        <div class="faq-item active">
-          <div class="faq-question">
+        <details class="faq-item" open>
+          <summary>
             <span>01. What did you actually build across these projects?</span>
             <span class="toggle-icon">+</span>
-          </div>
+          </summary>
           <div class="faq-answer">
             <p><strong>Beauty Advisor Sales Tracker:</strong> A PWA for Dolce &amp; Gabbana Beauty in travel retail MEA where 18 advisors log daily sales, backed by an ingest pipeline that de-duplicates exports before KPIs are calculated.</p>
             <p style="margin-top:10px;"><strong>LVMH Sell-in Tool:</strong> Internal product owner for Givenchy &amp; Kenzo sell-in decision support tool, cutting ordering time from 45 mins to 5 mins across 30+ locations.</p>
             <p style="margin-top:10px;"><strong>Dolce &amp; Gabbana Account Health:</strong> Benchmarking layer tracking a 13-market portfolio that flags at-risk accounts early.</p>
             <p style="margin-top:10px;"><strong>Move-Out Sale Site:</strong> A Python generator producing a buyer-facing catalog and internal profit tracker from a single source list.</p>
           </div>
-        </div>
+        </details>
 
         <!-- Q2 -->
-        <div class="faq-item">
-          <div class="faq-question">
+        <details class="faq-item">
+          <summary>
             <span>02. What is the dedup key and why does it matter?</span>
             <span class="toggle-icon">+</span>
-          </div>
+          </summary>
           <div class="faq-answer">
             <p>The dedup key defines what makes two rows the same event rather than two events. Here it was <code>advisor + date + store + shift</code>.</p>
             <p style="margin-top:10px;">Duplicate rows double-count sales and inflate Days Worked, distorting every daily KPI. Settling this key upfront ensured that across 1,324 ingested rows, 29 duplicates were safely removed and zero rows were rejected.</p>
           </div>
-        </div>
+        </details>
 
         <!-- Q3 -->
-        <div class="faq-item">
-          <div class="faq-question">
+        <details class="faq-item">
+          <summary>
             <span>03. Isn't 18 beauty advisors a small number?</span>
             <span class="toggle-icon">+</span>
-          </div>
+          </summary>
           <div class="faq-answer">
             <p>Yes, 18 is a small number and I am not going to dress it up. What matters is that <strong>nobody was required to use it</strong>.</p>
             <p style="margin-top:10px;">The tracker was optional. All 18 advisors across Cairo, Sharm, and Hurghada logged into it daily because it solved a real friction point. Mandated tools show compliance; optional tools that teams open daily show real product adoption.</p>
+            <p style="margin-top:10px;"><strong>18 live, about 20 onboarded.</strong> The January to April export holds 18 advisors. Onboarding and training covered roughly 20 field users, a figure that includes people who moved off the team inside the window. Both numbers are real and they count different things.</p>
           </div>
-        </div>
+        </details>
 
         <!-- Q4 -->
-        <div class="faq-item">
-          <div class="faq-question">
+        <details class="faq-item">
+          <summary>
             <span>04. How much AI is actually in these projects?</span>
             <span class="toggle-icon">+</span>
-          </div>
+          </summary>
           <div class="faq-answer">
             <p>Less than the word usually implies, and I would rather say so directly than let it slide.</p>
             <p style="margin-top:10px;">The Sales Tracker and Move-Out generator contain no ML/AI models. Homebase contains an opt-in model path behind a feature flag (<code>USE_LLM_SCOPE=true</code>), while its default path is a deterministic template builder.</p>
-            <p style="margin-top:10px;">The real AI work was evaluation: running structured usability sessions and analyzing voice agent call output logs to catch failure modes before production.</p>
+            <p style="margin-top:10px;">The real AI work was evaluation: running structured usability sessions and analyzing voice agent call output logs to catch failure modes before production. The session count is not recorded in the repo, so I do not claim a number.</p>
           </div>
-        </div>
+        </details>
+
+        <!-- Q5 -->
+        <details class="faq-item">
+          <summary>
+            <span>05. Were 29 rows rejected by the pipeline?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Removed, not rejected.</strong> The 29 were valid rows that collapsed as duplicates against the key. Nothing failed validation and nothing was thrown away as bad data: 1,324 rows in, 0 rejected.</p>
+            <p style="margin-top:10px;">The distinction matters because "rejected" would imply the export was malformed. It was not. It was duplicated, which is a quieter problem and a more dangerous one, because every row looks individually plausible.</p>
+          </div>
+        </details>
+
+        <!-- Q6 -->
+        <details class="faq-item">
+          <summary>
+            <span>06. Why do you say 3 markets instead of 3 stores?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Markets, not doors.</strong> The data holds 3 distinct store values at city level, Cairo, Sharm and Hurghada, so coverage is stated at market level. I do not claim a door count, because the export does not support one.</p>
+          </div>
+        </details>
+
+        <!-- Q7 -->
+        <details class="faq-item">
+          <summary>
+            <span>07. Did it make month-end reporting faster?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, and I cannot prove by how much, so I am not going to put a figure on it.</p>
+            <p style="margin-top:10px;"><strong>No cycle time measured.</strong> Before the tracker, month-end totals arrived weeks late. After it, daily numbers were available. But no before-and-after turnaround was ever logged, so any specific improvement I quoted would be an estimate dressed as a measurement.</p>
+          </div>
+        </details>
+
+        <!-- Q8 -->
+        <details class="faq-item">
+          <summary>
+            <span>08. The move-out sheet says 21 of 32. Your site says 20 of 31.</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>The sheet is counting rows, not objects. A <code>COUNTIF</code> includes one synthetic Dining Set Bundle row whose table and chairs are also listed individually, so the bundle is counted twice.</p>
+            <p style="margin-top:10px;"><strong>The honest figure is 20 of 31.</strong> That is the number on the site. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate, measured against what was paid for the items sold and not against total apartment spend.</p>
+          </div>
+        </details>
+
+        <!-- Q9 -->
+        <details class="faq-item">
+          <summary>
+            <span>09. What have you not done?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>I have not shipped a machine learning model to production. I have not worked at engineering scale: the largest user base here is 18 people, and the largest data volume is a few thousand rows. I have not run a team of engineers.</p>
+            <p style="margin-top:10px;">Homebase's RERA compliance layer is specified in the README and explicitly listed as out of scope there, so it is a spec and not a product. I have not built it.</p>
+            <p style="margin-top:10px;">What I have done is take a broken operational input, decide what a valid record is, and get a field team in another country to work the new way without being told to. That is the part I would defend.</p>
+          </div>
+        </details>
+
+        <!-- Q10 -->
+        <details class="faq-item">
+          <summary>
+            <span>10. Is anything on your own sites broken right now?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. The move-out catalog renders "0 items available" from a hardcoded placeholder that the JavaScript overwrites on a normal load. It should read 11. It is not sold out.</p>
+            <p style="margin-top:10px;">It lives in a separate repository from this site. I would rather list it here than have you find it and wonder what else is unchecked.</p>
+          </div>
+        </details>
 
       </div>
 
@@ -156,6 +238,13 @@
           <li><strong>No production model shipped:</strong> Homebase's model path is opt-in behind a flag; primary architecture is deterministic rules &amp; validation.</li>
           <li><strong>Scope limits:</strong> The sales tracker covers 3 Egyptian markets (Cairo, Sharm, Hurghada) and 18 advisors in travel retail.</li>
           <li><strong>No cycle time measured:</strong> Month-end turnaround improved, but without an explicit log in the repo, no cycle time claim is made.</li>
+          <li><strong>Removed, not rejected:</strong> The 29 duplicates were valid rows that collapsed against the key. 1,324 in, 0 rejected.</li>
+          <li><strong>Markets, not doors:</strong> Coverage is stated at city level because that is what the export supports. No store count is claimed.</li>
+          <li><strong>18 live, about 20 onboarded:</strong> Two real figures counting different things, not a rounding of one number.</li>
+          <li><strong>Two snapshots, one number:</strong> The Jan to Apr Excel splits the 18 advisors 12 Cairo / 3 Sharm / 3 Hurghada; the live database through 3 June splits 11 / 3 / 4. Same advisors, different snapshots. The site cites the Excel.</li>
+          <li><strong>The honest move-out figure is 20 of 31:</strong> The sheet's 21 of 32 double-counts a synthetic bundle row.</li>
+          <li><strong>The dashboard on the home page is demo data:</strong> Recreated in HTML with invented figures. No real advisor performance is published anywhere on this site.</li>
+          <li><strong>Homebase's compliance layer is spec, not product:</strong> Listed as out of scope in the same README that describes it.</li>
           <li><strong>Degree status:</strong> Cornell Tech MEng in Data Science &amp; Decision Analytics starts in August 2026.</li>
         </ul>
       </div>
@@ -187,15 +276,6 @@
     </div>
   </footer>
 
-  <script>
-    // Simple interactive accordion logic
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-  </script>
   <script src="script.js"></script>
 </body>
 </html>

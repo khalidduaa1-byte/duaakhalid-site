@@ -10,11 +10,11 @@ step, no framework, no dependencies.** Edit a file, push, it deploys.
 
 | File | Role |
 | --- | --- |
-| `index.html` | Home: hero, stat row, three project blocks, through-line, capabilities, CTA |
+| `index.html` | Home: hero, stat row, three project blocks each with a PROBLEM / BUILD / PROOF / IMPACT body, through-line, capabilities, CTA |
 | `about.html` | Portrait, bio, how-I-work, career path, capabilities |
-| `faq.html` | Ten hand-written Q&As, `<details>` accordions, zero JS |
+| `faq.html` | Ten hand-written Q&As, native `<details>` accordions, no page-specific JS (it loads the shared `script.js` only for the footer dock) |
 | `styles.css` | Every rule for all three pages |
-| `script.js` | Stat count-up, card tilt, interactive dashboard |
+| `script.js` | Stat count-up, card tilt, interactive dashboard, dedup toggle, Homebase context generator, case-study scroll reveal |
 | `context.md` | **The verified fact sheet. The only source for factual claims.** |
 | `vercel.json` | `cleanUrls: true` so `/about` and `/faq` work without `.html` |
 | `package.json` | Metadata only. No deps, no scripts. Nothing reads it. |
@@ -88,6 +88,45 @@ under `dk.targets.v1`. There is a Reset link. Threshold for On Track is **95%**.
 without moving their hit targets, silently breaking the interaction. Zoom drops to `1`
 below 900px.
 
+## The case-study bodies
+
+Each project block carries a `.cs` block of four `.row` pairs: PROBLEM, BUILD, PROOF,
+IMPACT. The label is the existing `.m.red` mono token (`.m.light` inside the dark Homebase
+band), so the rows inherit the design system rather than introducing new type.
+
+Each project's original one-line summary paragraph **stays above** the `.cs` block. Duaa
+asked for these to be additions, not replacements. An earlier pass folded the summaries
+into BUILD and had to restore them; BUILD now carries mechanism the summary does not state.
+
+Two interactive pieces, both zero-dependency:
+
+**The duplicate-pair table (`#dupt`).** Press RUN DEDUP and the duplicate row is struck
+through and faded while three KPI chips correct themselves: rows 2 to 1, sales counted
+4,150 to 1,840, days worked 2 to 1. It toggles back. The row is struck through rather than
+deleted, which matches the site's own "removed, not rejected" language.
+
+- **The values and the advisor name are invented**, on the real column shape. This is
+  deliberate, see non-negotiable #1. Only `Hana M.` from the approved list appears. The
+  real duplicate groups in `normalized_daily_sales.csv` are on `Nada`, `Mary` and `Marwa`,
+  and `Nada` is a forbidden name, so a real export excerpt cannot be used here.
+- **Six columns is the maximum that fits.** The table sits in a half-band column about
+  408px wide. `working_days` and `items_sold` were dropped because at eight columns
+  `status` was pushed out of view, which hides the kept/removed tags that are the whole
+  point. The days-worked inflation is carried by the KPI chip instead. If you add a column,
+  re-measure `scrollWidth` against `clientWidth` on `.dupt-wrap` and confirm it is equal.
+- The `38, 38, 40 and 37 columns` line is a **real, verified** fact from
+  `Sales_management/sales_data.xlsx`. Column counts are structure, not commercial data.
+
+**The Homebase context generator (`#hb-out`).** Two selects, and the block re-renders with
+the same eight fields every time. That invariance *is* the demonstration, so if you add a
+field to one branch, add it to all of them. Built on the `.hb-terminal` classes that were
+already in `styles.css` and previously unused.
+
+**Scroll reveal** on `.cs .row` uses `IntersectionObserver` and nothing else. The hidden
+state is keyed to a `data-reveal` attribute that only JS sets, so with JS disabled the rows
+render normally instead of staying permanently invisible. It no-ops under
+`prefers-reduced-motion`.
+
 ## Images
 
 | File | Used | Source |
@@ -96,7 +135,7 @@ below 900px.
 | `moveout-catalog.jpg` | index.html | Live capture of moveoutsale.vercel.app |
 | `homebase-shot.jpg` | index.html | homebase-labs.lovable.app, cropped above the fabricated stats |
 | `favicon.ico` | all | 64x64 "DK" on `#F03419` |
-| `duaa-dg-sign.jpg`, `duaa-milan.jpg`, `homebase-concept.jpg`, `sales-dashboard.jpg` | **unused** | earlier versions, safe to delete |
+| `duaa-dg-sign.jpg`, `duaa-milan.jpg`, `homebase-concept.jpg`, `sales-dashboard.jpg` | **unused** | earlier versions. Kept on disk on purpose: Duaa asked for additions rather than deletions, and they cost nothing unreferenced. Do not delete without asking. |
 
 **The Homebase crop matters.** `homebase-labs.lovable.app` advertises "98% Tenant
 satisfaction", "<2s Response time" and "94% faster issue resolution" for a build with no
@@ -177,7 +216,8 @@ git add -A && git commit -m "..." && git push
 - **Homebase evaluation specifics**: session count and the failure modes the log review
   surfaced are not recorded in the repo, so no numbers are claimed.
 - **A live defect on moveoutsale.vercel.app**: renders "0 items available" from a
-  hardcoded placeholder that JS overwrites on a normal load. Should read 11.
+  hardcoded placeholder that JS overwrites on a normal load. Should read 11. Still present
+  as of 2026-07-30. Separate repo, so it is disclosed as FAQ item 10 rather than fixed here.
 - **`Sales_management` attainment bug**: for `team_total` cities the Target column shows
   the *team* target beside an individual's sales, so the percentage is not that advisor's
   attainment. Affects production, feeds commission tiers.

@@ -562,3 +562,113 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
    keeping layout and click targets correct (transform: scale would not). */
 .dashboard-window { zoom: 1.22; }
 @media (max-width: 900px) { .dashboard-window { zoom: 1; } }
+
+/* Case-study body inside each project block: PROBLEM / BUILD / PROOF / IMPACT.
+   The :not(.m) guard matters. `.cs .row p` alone outranks `.m` on specificity and
+   would blow the 12px mono labels up to 15px body size. */
+.cs { display: flex; flex-direction: column; gap: 18px; }
+.cs .row { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+.cs .row p:not(.m) { font-size: 15px; line-height: 1.5; color: #2e2d2a; }
+.cs .row .m { padding-top: 3px; }
+.dark .cs .row p:not(.m) { color: var(--on-dark-muted); }
+@media (max-width: 900px) { .cs .row { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+
+/* Illustrative duplicate-pair table. Invented values on the real column shape;
+   see the "never publish real advisor data" non-negotiable in CLAUDE.md.
+   The four highlighted columns are the dedup key. */
+.dupt-wrap { margin-top: 12px; border: 1px solid var(--rule); background: #fff; overflow-x: auto; }
+/* Six columns is the most that fits a half-band column without clipping.
+   Do not add columns or raise the font without re-checking that `status` is
+   still visible; the kept/removed tags are the point of the interaction. */
+.dupt { border-collapse: collapse; width: 100%; font: 500 10px/1.4 var(--mono); }
+.dupt th, .dupt td { padding: 6px 6px; text-align: left; white-space: nowrap; border-bottom: 1px solid #e9e6df; }
+.dupt th { font-weight: 600; color: #5f5d58; text-transform: uppercase; letter-spacing: 0.06em; }
+.dupt tbody tr:last-child td { border-bottom: 0; }
+.dupt .k { background: rgba(240, 52, 25, 0.07); }
+.dupt th.k { color: var(--accent); }
+.dupt-note { margin-top: 8px; font: 400 11.5px/1.5 var(--mono); color: #5f5d58; }
+.dupt-note.light { color: var(--on-dark-muted); opacity: 0.75; }
+
+/* The dedup interaction. The duplicate row is struck through rather than deleted,
+   which matches the site's own "removed, not rejected" language. */
+.dupt tr.is-dup td { background: rgba(240, 52, 25, 0.04); }
+/* Reserve the status width up front so the table does not reflow when the
+   tags appear on dedup. */
+.dupt .st { text-align: right; min-width: 58px; }
+.dupt .tag {
+  display: none;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 8.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.dupt.deduped .tag { display: inline-block; }
+.dupt .tag.keep { background: #dcfce7; color: #15803d; }
+.dupt .tag.gone { background: #fee2e2; color: #dc2626; }
+.dupt tbody tr { transition: opacity 0.35s ease; }
+.dupt.deduped tr.is-dup { opacity: 0.4; }
+.dupt.deduped tr.is-dup td:not(.st) { text-decoration: line-through; }
+
+.dupt-bar { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.dupt-btn {
+  font: 600 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.dupt-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-1px); }
+.dupt-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.dupt-kpis { display: flex; flex-wrap: wrap; gap: 14px; }
+.kpi { display: flex; flex-direction: column; gap: 3px; font-family: var(--mono); }
+.kpi b { font-size: 9px; font-weight: 600; letter-spacing: 0.07em; color: #5f5d58; }
+.kpi i {
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.25s ease;
+}
+.kpi i.corrected { color: #15803d; }
+.kpi i.inflated { color: var(--accent); }
+
+/* Homebase context-block generator, on the existing .hb-terminal shell */
+.hb-form { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 12px; }
+.hb-lbl { font: 600 9px/1 var(--mono); letter-spacing: 0.08em; color: #a3a3a3; }
+.hb-sel {
+  font: 500 10.5px var(--mono);
+  background: #111110;
+  color: var(--on-dark);
+  border: 1px solid var(--rule-dark);
+  border-radius: 3px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.hb-sel:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hb-term-body .ln { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 10px; }
+.hb-term-body .ln span { color: #8a8a85; }
+.hb-term-body .ln b { font-weight: 500; color: var(--on-dark); }
+
+/* Scroll reveal. The hidden state is keyed to data-reveal, which only JS sets,
+   so with JS off every row renders normally instead of staying invisible. */
+.cs .row[data-reveal] { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.cs .row[data-reveal].in { opacity: 1; transform: none; }
+
+/* At 390px the table has about 348px to work with, so it needs to run tighter
+   still or `status` is pushed out of view and the tags become unreachable. */
+@media (max-width: 900px) {
+  .dupt { font-size: 9px; }
+  .dupt th, .dupt td { padding: 5px 4px; }
+  .dupt .st { min-width: 50px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs .row[data-reveal] { opacity: 1; transform: none; transition: none; }
+  .dupt tbody tr, .kpi i, .dupt-btn { transition: none; }
+  .dupt-btn:hover { transform: none; }
+}

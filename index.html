@@ -96,6 +96,72 @@
           <p class="m red">01 / FIELD DATA SYSTEM</p>
           <h2>Beauty Advisor Sales Tracker</h2>
           <p>A PWA and ingest pipeline that de-duplicates a supervisor export before any KPI is calculated. It then gives 18 advisors a tool simple enough to use every day.</p>
+
+          <div class="cs">
+            <div class="row">
+              <p class="m red">PROBLEM</p>
+              <p>Advisor performance arrived as a supervisor's Daxium Excel export whose layout changed month to month, with duplicate rows on the same advisor, date, store and shift. Duplicates double count sales and inflate Days Worked, so no daily KPI could be trusted and productivity could not be compared across cities until month end.</p>
+            </div>
+            <div class="row">
+              <p class="m red">BUILD</p>
+              <p>The dedup key is advisor plus date plus store plus shift, applied before any KPI is calculated rather than corrected afterwards. 18 advisors across 3 Egyptian markets, Cairo, Sharm and Hurghada, log their own sales daily.</p>
+            </div>
+            <div class="row">
+              <p class="m red">PROOF</p>
+              <div>
+                <p>Two rows that look like two days of work and are actually one. The highlighted columns are the dedup key. Run it and watch the KPIs correct themselves.</p>
+
+                <div class="dupt-wrap">
+                  <table class="dupt" id="dupt">
+                    <thead>
+                      <tr>
+                        <th class="k">ba_name</th>
+                        <th class="k">entry_date</th>
+                        <th class="k">store</th>
+                        <th class="k">shift</th>
+                        <th>sales_amount</th>
+                        <th class="st">status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="k">Hana M.</td>
+                        <td class="k">2026-03-14</td>
+                        <td class="k">Cairo</td>
+                        <td class="k">Morning</td>
+                        <td>1,840</td>
+                        <td class="st"><span class="tag keep">kept</span></td>
+                      </tr>
+                      <tr class="is-dup">
+                        <td class="k">Hana M.</td>
+                        <td class="k">2026-03-14</td>
+                        <td class="k">Cairo</td>
+                        <td class="k">Morning</td>
+                        <td>2,310</td>
+                        <td class="st"><span class="tag gone">removed</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="dupt-bar">
+                  <button type="button" class="dupt-btn" id="dedup-btn" aria-pressed="false" aria-controls="dupt">RUN DEDUP &rarr;</button>
+                  <div class="dupt-kpis" aria-live="polite">
+                    <span class="kpi"><b>ROWS</b><i id="kpi-rows">2</i></span>
+                    <span class="kpi"><b>SALES COUNTED</b><i id="kpi-sales">4,150</i></span>
+                    <span class="kpi"><b>DAYS WORKED</b><i id="kpi-days">2</i></span>
+                  </div>
+                </div>
+
+                <p class="dupt-note">The data columns and the four-column key are the real schema. Status is added here to show what the pipeline did, and the rule shown keeps the first occurrence. Values and advisor name are illustrative. The same export arrived with 38, 38, 40 and 37 columns across four consecutive months.</p>
+              </div>
+            </div>
+            <div class="row">
+              <p class="m red">IMPACT</p>
+              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. Presented to global beauty leadership.</p>
+            </div>
+          </div>
+
           <p class="m tags">PWA &middot; PYTHON INGEST &middot; DATA VALIDATION &middot; FIELD ROLLOUT</p>
           <div class="btnrow">
             <a class="btn" href="https://sales-management-phi-blue.vercel.app" target="_blank" rel="noopener">VIEW DASHBOARD EVIDENCE &rarr;</a>
@@ -160,7 +226,7 @@
                 </div>
                 <div class="tcard-metrics">
                   <div><span>Remaining</span><strong>$0.5k</strong></div>
-                  <div><span>Daily needed</span><strong>&mdash;</strong></div>
+                  <div><span>Daily needed</span><strong>&ndash;</strong></div>
                   <div><span>Last 7-day avg qty/day</span><strong class="green-text">6.4 pcs</strong></div>
                 </div>
               </div>
@@ -184,7 +250,7 @@
                 </div>
                 <div class="tcard-metrics">
                   <div><span>Remaining</span><strong>$0.0k</strong></div>
-                  <div><span>Daily needed</span><strong>&mdash;</strong></div>
+                  <div><span>Daily needed</span><strong>&ndash;</strong></div>
                   <div><span>Last 7-day avg qty/day</span><strong class="green-text">8.3 pcs</strong></div>
                 </div>
               </div>
@@ -207,7 +273,7 @@
                 </div>
                 <div class="tcard-metrics">
                   <div><span>Remaining</span><strong>$3.9k</strong></div>
-                  <div><span>Daily needed</span><strong>&mdash;</strong></div>
+                  <div><span>Daily needed</span><strong>&ndash;</strong></div>
                   <div><span>Last 7-day avg qty/day</span><strong class="green-text">5.7 pcs</strong></div>
                 </div>
               </div>
@@ -222,6 +288,26 @@
           <p class="m red">02 / PERSONAL BUILD</p>
           <h2>Move-Out Sale Site &amp; Tracker</h2>
           <p>One Python script generates the buyer-facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</p>
+
+          <div class="cs">
+            <div class="row">
+              <p class="m red">PROBLEM</p>
+              <p>Selling 31 pieces of furniture meant re-answering the same questions item by item over WhatsApp, and pricing everything off store catalog pages that turned out to be wrong by more than double. One dresser was recorded at AED 1,100 when it had actually cost 499, which put a phantom discount badge on a live page.</p>
+            </div>
+            <div class="row">
+              <p class="m red">BUILD</p>
+              <p>The generator prices against purchase price, not the store catalog page, so a saving cannot be displayed unless it is real. Bundles carry their cost on the bundle line, with no invented per-item split, and unallocated cost stays visible instead of being quietly spread around.</p>
+            </div>
+            <div class="row">
+              <p class="m red">PROOF</p>
+              <p>The live catalog, generated from the same item list that feeds the profit tracker.</p>
+            </div>
+            <div class="row">
+              <p class="m red">IMPACT</p>
+              <p>20 of 31 items sold in 30 days. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 still on the table across 11 items.</p>
+            </div>
+          </div>
+
           <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
           <div class="btnrow">
             <a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a>
@@ -243,6 +329,47 @@
               <p class="m light">03 / AI PRODUCT &middot; HACKATHON 2026</p>
               <h2 style="margin-top:16px">Homebase</h2>
               <p style="margin-top:16px">A deterministic context block that helps a voice agent dispatch maintenance vendors. Structured by default, with the model behind an explicit opt-in flag.</p>
+
+              <div class="cs" style="margin-top:20px">
+                <div class="row">
+                  <p class="m light">PROBLEM</p>
+                  <p>Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.</p>
+                </div>
+                <div class="row">
+                  <p class="m light">BUILD</p>
+                  <p>Eight fixed fields, assembled per call so nothing is left to whoever is on the phone. The LLM path only runs with <code>USE_LLM_SCOPE=true</code>; the default is a plain template builder, because a string template was sufficient for the job.</p>
+                </div>
+                <div class="row">
+                  <p class="m light">PROOF</p>
+                  <div>
+                    <p>Change the ticket. The block keeps its shape, because the shape is the product.</p>
+                    <div class="hb-terminal">
+                      <div class="hb-term-bar">build_context() &middot; deterministic path</div>
+                      <div class="hb-form">
+                        <label class="hb-lbl" for="hb-issue">ISSUE</label>
+                        <select id="hb-issue" class="hb-sel">
+                          <option value="ac">AC not cooling</option>
+                          <option value="leak">Kitchen sink leaking</option>
+                          <option value="lock">Front door lock jammed</option>
+                        </select>
+                        <label class="hb-lbl" for="hb-urg">URGENCY</label>
+                        <select id="hb-urg" class="hb-sel">
+                          <option value="routine">routine</option>
+                          <option value="urgent">urgent</option>
+                          <option value="emergency">emergency</option>
+                        </select>
+                      </div>
+                      <div class="hb-term-body" id="hb-out"></div>
+                    </div>
+                    <p class="dupt-note light">Same eight fields every call, whatever you pick. The system prompt never changes; only this block does.</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <p class="m light">IMPACT</p>
+                  <p>Hackathon build, co-founded, no production usage, so there is no impact number to claim and I am not inventing one. The decision worth showing instead: the voice agent's system prompt stays static while per-call variation is injected as a structured block, so the prompt is not rewritten on every call. The default path is a plain template, with the model only behind a flag, because a string template was sufficient.</p>
+                </div>
+              </div>
+
               <div class="btnrow" style="margin-top:24px">
                 <a class="btn light-btn" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener">VIEW CONCEPT PAGE &rarr;</a>
               </div>
