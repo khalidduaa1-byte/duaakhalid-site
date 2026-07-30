@@ -1,94 +1,51 @@
-# duaakhalid.com — portfolio site
+# PM Interview Prep — Coaching Handoff
 
-Static single-page portfolio. Live at https://duaakhalid.com (also `www.` and
-`duaakhalid-site.vercel.app`).
+## Project Overview
+Duaa is preparing for Product Manager interviews, working through the Exponent PM course (currently in the **Product Strategy** module) and doing live mock interviews with Claude acting as interviewer. The goal is to build the skills the course and top companies (Meta, OpenAI, Google DeepMind, frontier AI labs) actually grade for — not just structured answers, but answers with a defensible point of view.
 
-## How this site is built
+Format that works: paste a course lesson or a real prompt, Claude breaks it down and/or runs a live mock with real pushback (interrupting, forcing tradeoffs, telling her when something is wrong rather than just polishing it).
 
-`index.html` is a **bundled export from Claude Design** — a single self-contained
-file (~294KB) with fonts and assets inlined, rendered client-side by JS. There is
-no build step and no framework. `resume.pdf` sits next to it and is served at
-`/resume.pdf`.
+## Current State
+Just finished reading the **Growth Questions** lesson. Have not yet done a rep on it. The parked **OpenAI "memory machine — go to market"** strategy mock is still unrun. Also parked: a de-specified regulatory-strategy question ("how does a regulatory relationship become a competitive asset for an AI lab / how could government access restrictions create vendor asymmetry") available to run cold with no web search needed.
 
-Because it's a compiled bundle, content lives inside an escaped JS template in
-`<script type="__bundler/template">`. Strings appear **twice** — once in the
-`__bundler/manifest` section and once in `__bundler/template`. Any edit must
-replace **both copies** or the page renders stale content.
+Web search status is **uncertain** — it may be off at the admin level. Past-chat search works (that's a different tool). For anything requiring current facts, verify via primary sources; do not rely on Claude's recall (training cutoff Jan 2026).
 
-The real editing surface is Claude Design. Hand-editing `index.html` is for small
-patches only.
+## Technical Constraints & Rules
+- **Claude's knowledge cutoff is Jan 2026.** Any claimed news after that (e.g. a briefing citing "GPT-5.6," recent government/lab actions) is UNVERIFIED. Do not analyze on top of unverified premises — interrogate the premise first. This is itself a senior strategy move (framework Step 1).
+- Claude is **not a neutral source on Anthropic, OpenAI, or their competitive standing** — flag this whenever claims about these companies come up, especially since Anthropic is on the interview target list.
+- Keep pushback **real**, not flattering-refinement. Watch for the agreeable-AI trap: if every proposal comes back "great instinct, here's the better version," that's agreement in a smart voice, not friction. Human peer mocks (Pramp/Exponent) are recommended for live claim-under-pressure reps because an AI charitably fills gaps a confused human peer would expose.
 
-## Re-export checklist (IMPORTANT)
+## Decisions Made
+### The through-line lesson: STATE THE CLAIM
+Duaa's #1 recurring gap across every session: she *arrives* at the sharp insight but *under-states* it — murmurs the conclusion, wraps it back into a feature list, or changes the subject at the hard moment. It's a performance habit, not an aptitude gap. The fix, drilled repeatedly:
+- **A claim = one sentence about what the real problem is, phrased so someone could disagree.** Shape: **"the real problem isn't X, it's Y."**
+- The Y must be about the *user's pain*, not about a gap in the market's product catalog ("there's no fully-AI coach yet" is circular, not a claim).
+- Say the claim BEFORE describing any feature. Features should read as consequences of the claim.
+- "Why this company wins" is a *separate* second sentence, added only when the prompt names a company / is strategic. Don't force it.
 
-A fresh export from Claude Design **overwrites the `<head>` customizations**.
-After replacing `index.html`, re-apply all of these or they're silently lost:
+### Skills established / drilled
+- **Clarifying questions must FRAME, not just gather info.** Weak: "what kind of animal?" Strong: "is this A or B, *because* that changes X." Fork + why-clause. At least one clarifying question should carry this weight; don't over-narrate every one.
+- **Anchor to business model, not mission** (strategy Step 2). Reason about what a company *optimizes for* (revenue engine), not its stated mission. But hold BOTH — don't cynically reduce everything to revenue, and don't replace user value with the company's business metric (her volunteering north-star mistake).
+- **North-star metric test:** "could this number go up while my product fails at its thesis?" If yes, it's the wrong metric. Avoid the engagement/adoption reflex. Tie the metric to the user value claimed.
+- **Guiding principles = constraints that RULE OUT options** (strategy Step 4 — her newest skill). Test: if it doesn't kill at least one named option, it's wallpaper. A real principle names a *deliberate sacrifice* ("we'll be bad at X on purpose to be unbeatable at Y"). Recipe: constraint + because + the option it eliminates.
+- **Closing move** (strategy Step 6): make a specific call, name the strongest counter-argument, defeat it on merits, then flag the signal that would prove you wrong. A recommendation without a counter-argument is just a preference.
 
-1. `<title>` — export ships as `Bundled Page`; should be `Duaa Khalid — Portfolio`
-2. `<meta name="viewport">` — **not in the export**; without it mobile renders zoomed-out
-3. `<meta name="description">` + `og:title` / `og:description` / `og:type` / `og:url`
-4. `<link rel="icon">` — inline SVG "DK" favicon on `#ec3013`
-5. `resumeUrl` default — export ships as `#resume-pdf-to-add`, must be `/resume.pdf`
-6. Re-blank the placeholder fields listed below
+### Strategy framework (6 steps), mapped to her strengths/gaps
+1. Clarify (frame not gather) — *started*
+2. Anchor to business model — *forming*
+3. Map landscape / "why now" (needs current-events homework — her thinnest, fixable via daily briefing habit) — *weakest, but did it cold on Apple privacy-vs-capability tension successfully*
+4. Guiding principles — *newest, drilled today*
+5. Generate & filter options (max 3 survive) — *decent*
+6. Argue & close (name+defeat counter-argument) — *growth edge*
 
-## Open content items (removed from the live page 2026-07-30)
+### Growth questions (just covered)
+- **Diagnose before prescribe.** Model the business first, find which loop (acquisition/activation/retention/distribution) is actually constrained, THEN prescribe.
+- **Turn the goal into an equation first** (the new technique): e.g. DAU = MAU × (DAU/MAU frequency). The equation exposes the weak term. Keep it simple and *right*, not complex.
+- **Acquisition is the default-trap** — the growth version of a wallpaper claim. Distrust "get more users."
+- **Retention is a moat, not a metric** — when constrained, it's upstream of acquisition (compounds into word-of-mouth, lower CAC).
 
-These were bracketed TODOs showing publicly. They were blanked, not deleted —
-the render logic is `showGap: showGaps && !!p.gap`, so an empty string hides the
-block cleanly with no layout gap. Restore by putting real text back in the same
-field.
-
-### 1. BA sales tracker — `gap` (was)
-> `[To fill: who pulled the export, how often, and how late it landed.]`
-
-Needed: who actually pulled the Daxium supervisor export, on what cadence, and
-how late it typically landed. Context already on the page: month-end totals
-"arrived weeks late."
-
-### 2. BA sales tracker — `gap2` (was)
-> `Month end review turnaround went from [before] to [after]. No cycle time figure
-> exists in the repo, so this stays a placeholder rather than an estimate.`
-
-Needed: real before/after month-end review turnaround. **Do not estimate this.**
-No cycle-time figure exists in the repo, and the page's whole credibility rests
-on not inventing numbers. Leave blank until measured.
-
-### 3. Homebase — `gap` (was)
-> `[To confirm: exact scope split with my co-founder.]`
-
-Needed: the precise ownership boundary between Duaa and her co-founder. Page
-currently claims problem framing + the UAE rental regulation model (RERA bands,
-90-day notice, Ejari sequencing, bilingual requirement) as distinctly hers.
-
-## Other open items
-
-- **Advisor count**: page says "18 beauty advisors"; other project notes say ~20
-  active BAs. Confirm which is correct for the Jan–Apr window and make consistent.
-- **JS-dependent rendering**: the page requires JavaScript, so crawlers and some
-  link-preview bots may see an empty page. The OG tags in `<head>` are static, so
-  social previews work, but indexed body text may be thin. Fix would need a
-  static text fallback in `<noscript>`.
-- **Resume version**: currently the OpenAI/ADM variant, copied from
-  `~/Desktop/Maven Mahesh Course/cv-enhancement/Duaa_Khalid_Resume_OpenAI_ADM.pdf`.
-  Swap by replacing `resume.pdf` — no code change needed.
-
-## Deploying
-
-Auto-deploys on push to `main` via Vercel (project `duaakhalid-site`).
-
-```
-git add -A && git commit -m "..." && git push
-```
-
-Manual deploy without a push: `vercel --prod`
-
-## Gotchas
-
-- **Cloudflare proxy must stay OFF** (grey cloud) on the `duaakhalid.com` and
-  `www` A records → `76.76.21.21`. Cloudflare's default "Flexible" SSL + Vercel
-  causes an infinite redirect loop. To enable the proxy, switch Cloudflare
-  SSL/TLS mode to **Full (strict)** first.
-- After a DNS change, the local router (`192.168.8.1`) may cache the old answer
-  for up to 30 min (Cloudflare negative TTL 1800s). Verify with
-  `dig +short A duaakhalid.com @1.1.1.1`, not the local resolver.
-- There is a **separate** Next.js portfolio at `~/Desktop/portfolio/`. Unrelated
-  to this deploy. If the domain ever moves there, detach it from this project first.
+## Next Steps (pick one)
+1. **Growth Step-1 rep (recommended, no web search needed):** take "10x Duolingo" / "3x Airbnb users" — write ONLY the growth equation + which term is the constraint + why. No ideas/features. Isolates the new muscle.
+2. **Full strategy mock:** run the parked OpenAI memory-machine ("go to market") end-to-end with real pushback. Rule to enforce: she must say "my claim is the real problem isn't ___, it's ___" BEFORE describing anything.
+3. **De-specified regulatory-strategy question** (reps identical to the unverified GPT-5.6 briefing, but built on no unverified facts).
+4. **Set up the daily briefing habit** (fixes Step 3 landscape gap): a calibrated prep Project + daily prompt with three drills folded in — (a) "why would [company] do [move] now?", (b) frame it as a claim, (c) one guiding principle it implies. Runs manually in-chat if scheduled-task automation isn't available; check support.claude.com for current feature availability.
