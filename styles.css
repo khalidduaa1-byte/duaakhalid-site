@@ -553,3 +553,12 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
 .shot-link { display: block; text-decoration: none; color: inherit; transition: opacity 0.18s; }
 .shot-link:hover { opacity: 0.92; }
 .shot-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Real screenshots in the project visuals */
+.shot-img { display: block; width: 100%; height: auto; }
+.shot-link .shot-img { transition: opacity 0.18s; }
+
+/* The dashboard mockup is built at a small fixed scale; zoom enlarges it while
+   keeping layout and click targets correct (transform: scale would not). */
+.dashboard-window { zoom: 1.22; }
+@media (max-width: 900px) { .dashboard-window { zoom: 1; } }
