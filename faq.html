@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ - Duaa Khalid</title>
+<meta name="description" content="Questions I get asked about my work, answered directly: what I built, the dedup key, why 18 users, and what I have not done.">
+<meta property="og:title" content="FAQ - Duaa Khalid">
+<meta property="og:description" content="Questions I get asked about my work, answered directly: what I built, the dedup key, why 18 users, and what I have not done.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://duaakhalid.com/faq">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23ec3013'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23f3f2f2' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
+<style>
+  /* Same tokens as index.html so the two pages read as one site. Deliberately
+     hand-written and standalone: a Claude Design re-export cannot break it.
+     No JavaScript on this page at all; the reveals are native <details>. */
+  :root {
+    --bg: #f3f2f2; --surface: #eae9e9; --text: #201e1d;
+    --divider: color-mix(in srgb, #201e1d 40%, transparent);
+    --neutral-600: #7d7979; --neutral-300: #d7d3d3;
+    --accent: #ec3013; --accent-200: #ffe0d9; --accent-600: #dd2b0f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    font: 400 17px/1.55 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex; flex-direction: column;
+  }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-600); }
+
+  header {
+    border-bottom: 2px solid var(--divider); display: flex;
+    justify-content: space-between; align-items: center;
+    padding: 20px clamp(20px, 5vw, 56px); gap: 16px; flex-wrap: wrap;
+  }
+  .wordmark { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; text-decoration: none; color: var(--text); }
+  nav { display: flex; gap: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  nav a { padding: 8px 12px; text-decoration: none; color: var(--text); transition: background 0.2s; }
+  nav a:hover { background: rgba(32,30,29,0.07); color: var(--text); }
+  nav a[aria-current=page] { background: var(--accent-200); }
+
+  main { flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: clamp(28px, 5vw, 56px) clamp(20px, 5vw, 56px) 0; }
+  h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 800; max-width: 24ch; }
+  .lede { margin-top: 16px; color: var(--neutral-600); max-width: 58ch; font-size: 16px; }
+  .lede + .lede { margin-top: 12px; }
+
+  .qa-list { margin-top: 36px; }
+  .qa { border-top: 1px solid var(--divider); }
+  .qa:last-of-type { border-bottom: 1px solid var(--divider); }
+  .qa > summary {
+    cursor: pointer; list-style: none; display: block; position: relative;
+    padding: 18px 44px 18px 0; font-size: 19px; font-weight: 700;
+    letter-spacing: -0.015em; line-height: 1.3; transition: color 0.15s;
+  }
+  .qa > summary::-webkit-details-marker { display: none; }
+  .qa > summary::after {
+    content: '+'; position: absolute; right: 6px; top: 16px;
+    font-size: 22px; font-weight: 400; line-height: 1; color: var(--accent);
+    transition: transform 0.18s; transform-origin: 50% 50%;
+  }
+  .qa[open] > summary::after { transform: rotate(45deg); }
+  .qa > summary:hover { color: var(--accent); }
+  .qa > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .answer { padding: 0 0 26px; max-width: 62ch; }
+  .answer p + p { margin-top: 14px; }
+  .answer ul { margin: 14px 0; padding-left: 20px; list-style: none; }
+  .answer li { margin-top: 10px; position: relative; }
+  .answer li::before {
+    content: ''; position: absolute; left: -20px; top: 0.6em;
+    width: 8px; height: 2px; background: var(--accent);
+  }
+  .answer li strong { font-weight: 700; }
+  .note {
+    margin-top: 16px; padding: 12px 14px; background: var(--surface);
+    border-left: 2px solid var(--accent); font-size: 15px; color: var(--neutral-600);
+  }
+  .note strong { color: var(--text); font-weight: 700; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; background: var(--surface); padding: 1px 5px; }
+
+  .close { margin: 40px 0 0; padding-bottom: 8px; }
+  .close h2 { font-size: 19px; font-weight: 800; letter-spacing: -0.015em; }
+  .close p { margin-top: 12px; max-width: 58ch; }
+  .close ul { margin-top: 14px; padding-left: 0; list-style: none; font-size: 16px; }
+  .close li { margin-top: 8px; }
+
+  footer {
+    border-top: 2px solid var(--divider); padding: 18px clamp(20px, 5vw, 56px);
+    font-size: 12px; color: var(--neutral-600); margin-top: 48px;
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .qa > summary { font-size: 17px; padding: 16px 34px 16px 0; }
+    .qa > summary::after { right: 2px; top: 14px; font-size: 20px; }
+    .answer { padding-bottom: 22px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="wordmark" href="/">DUAA KHALID</a>
+  <nav>
+    <a href="/">Work</a>
+    <a href="/faq" aria-current="page">FAQ</a>
+    <a href="/resume.pdf">Resume</a>
+    <a href="mailto:Khalidduaa1@gmail.com" style="color: var(--accent);">Email</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Questions I get asked.</h1>
+  <p class="lede">
+    Written by me. These are the questions that actually come up when someone reads
+    the site, including the uncomfortable ones about how small the numbers are.
+  </p>
+  <p class="lede">
+    Where a figure has a caveat, the caveat is here with it. That is the point of
+    the page.
+  </p>
+
+  <div class="qa-list">
+
+    <details class="qa" open>
+      <summary>What did you actually build?</summary>
+      <div class="answer">
+        <p>Four things. The first three came out of five years in commercial and GTM at LVMH and Dolce &amp; Gabbana. The fourth is personal.</p>
+        <ul>
+          <li><strong>A beauty advisor sales tracker</strong> for Dolce &amp; Gabbana Beauty in travel retail MEA. A PWA where 18 advisors log daily sales, behind an ingest pipeline that de-duplicates the supervisor export before any KPI is calculated. I framed the problem, defined the dedup key, built the pipeline and the app, and ran the rollout across 3 markets. Live with 18 advisors across Cairo, Sharm and Hurghada, and presented to global beauty leadership in June 2026.</li>
+          <li><strong>A sell-in decision support tool</strong> at LVMH, for Givenchy and Kenzo. Placing one account order took 45 minutes across 30 plus MENA locations. I was the internal product owner and got it to 5 minutes: defining the requirements, prioritising the roadmap, and running feedback loops for two years with the account managers who used it every day.</li>
+          <li><strong>An account health monitoring layer</strong> at Dolce &amp; Gabbana Beauty, for a 13 market portfolio that had no way to see which accounts were going wrong until it had already happened. It benchmarks accounts and flags the at-risk ones, and it is now the primary decision input across all 13 markets.</li>
+          <li><strong>A move-out sale site and tracker</strong>, personal, in Dubai. One Python script generates the buyer facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</li>
+        </ul>
+        <p>There is also Homebase, which I co-founded with one other person. That one was a hackathon build with no production usage, so I treat it differently. See the two Homebase questions below.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Why are you moving from luxury retail into tech?</summary>
+      <div class="answer">
+        <p>Most of my work starts inside someone else's spreadsheet. A supervisor's export, a catalog price, a phone call assembled from memory. The model is rarely the interesting part. Deciding what counts as a valid row is, and so is getting a field team in another country to work the new way.</p>
+        <p>That has been the shape of every job I have had. Out of stocks and aged inventory tracked by hand across MENA accounts. An order that took 45 minutes because the tool made it take 45 minutes. A 13 market portfolio with no early warning. Advisor performance arriving as an Excel export whose layout changed month to month. Every time the fix was a system, and every time I ended up owning it from the commercial side of the table.</p>
+        <p>Luxury retail taught me what bad data costs. I build the systems that catch it before it reaches the people making decisions. I am starting an MEng in Data Science and Decision Analytics at Cornell Tech in August 2026 to build these properly.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What is the dedup key, and why does it matter?</summary>
+      <div class="answer">
+        <p>Egypt beauty advisor performance reached me as a supervisor's Daxium Excel export. The layouts changed month to month, and there were duplicate rows on the same advisor, date, store and shift.</p>
+        <p>Duplicates do two things. They double count sales, and they inflate Days Worked. So every rate you calculate on top of them is wrong in a direction you cannot see, no daily KPI can be trusted, and advisor productivity cannot be compared across cities until month end totals arrive weeks late.</p>
+        <p>The dedup key is the decision about what makes two rows the same event rather than two events. Here it is advisor, date, store and shift. That one definition sits underneath every number the app shows, which is why I treat it as the actual work rather than a detail of the pipeline. In one full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed, 396 attendance rows.</p>
+        <div class="note">
+          <strong>Removed, not rejected.</strong> The 29 were valid rows that collapsed as duplicates. Nothing was rejected as bad data.
+        </div>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Isn't 18 users very small?</summary>
+      <div class="answer">
+        <p>Yes. Eighteen is a small number and I am not going to dress it up.</p>
+        <p>The thing I would look at instead is that nobody was required to use it. The tracker was not mandated. Eighteen advisors across Cairo, Sharm and Hurghada logged their own sales in it daily through the January to April window, because they chose to. Adoption is the number that matters here, not headcount. A mandated tool tells you people were told to open it. An optional one that a whole team opens daily tells you it was worth opening.</p>
+        <p>The other half of it is that the rollout was training, not a link. Onboarding and training covered roughly 20 field users into sustained daily use, on top of sales enablement workshops I built and delivered for a 30 plus person advisor team at Dolce &amp; Gabbana: I wrote the curriculum, ran the live sessions and tracked performance. The tracker landed inside an existing training relationship, which is why it stuck.</p>
+        <div class="note">
+          <strong>18 live, about 20 onboarded.</strong> The January to April export holds 18 advisors. Onboarding and training covered roughly 20 field users, a figure that includes people who moved off the team inside the window. Both are real and they count different things.
+        </div>
+        <div class="note">
+          <strong>Markets, not doors.</strong> The data holds 3 distinct store values at city level, so I state coverage at market level: Cairo 12, Sharm 3, Hurghada 3. No door count is claimed.
+        </div>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What is the actual AI work here?</summary>
+      <div class="answer">
+        <p>Less than the word usually implies, and I would rather say so than let it slide.</p>
+        <p>The sales tracker contains no model. The move-out sale generator contains no model. Both are ingest, rules and interface. Homebase has a model path, but it is opt in behind a flag, <code>USE_LLM_SCOPE=true</code>, and the default path is a deterministic template builder, because a string template was sufficient for the job.</p>
+        <p>The genuine AI work is the evaluation on Homebase. Two parts. The build went in front of real users in structured usability sessions rather than being demoed. And I read the output logs from the vendor call flow back to find where the generated context block went wrong, and the failure modes that surfaced drove the next iteration.</p>
+        <p>That is the part I would defend in an interview: deciding what a correct output looks like for a given call, then checking whether the thing actually produced it instead of trusting the happy path.</p>
+        <div class="note">
+          <strong>No session count.</strong> The number of usability sessions is not recorded in the repo, so I do not claim one.
+        </div>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What was yours and what was your co-founder's on Homebase?</summary>
+      <div class="answer">
+        <p>Two person team, and the other founder is a professional engineer. The part that was distinctly mine was the problem framing and the UAE rental regulation model the product was built around: RERA bands, the 90 day notice rule, Ejari sequencing and the bilingual requirement. I also owned the evaluation described above.</p>
+        <p>What the product is: a fixed format context block that a voice agent uses to dispatch maintenance vendors. Dispatching a vendor by phone means a human assembling the same context every time, what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc it comes out differently on every call and details get dropped.</p>
+        <p>The architecture is the part worth defending. The voice agent's system prompt stays static and per call variation is injected as a context block with fixed fields, so the prompt is not rewritten on every call.</p>
+        <div class="note">
+          <strong>What shipped, and what did not.</strong> In roughly 3.5 hours: a CRUD app over six Firestore collections with seed data, no auth, test mode rules. Not production hardened, and no production usage, so there is no impact number to claim. The README also carries a vision layer of RERA band checks, Smart Rental Index lookups, bilingual WhatsApp notices and a tenant facing agent. That layer is listed as out of scope in the same README, so it is spec, not product. I do not describe the compliance automation as built.
+        </div>
+        <div class="note">
+          <strong>Two numbers I will not repeat.</strong> The README carries two impact statistics, one on manager time spent on compliance and one on the share of tenant disputes arising from move out terms. Neither is sourced, so I leave both off this page until they are. The repo is my co-founder's and it is private, so there is no link here either.
+        </div>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Why build a whole site for a furniture sale instead of posting on a marketplace?</summary>
+      <div class="answer">
+        <p>Thirty one items on a marketplace is thirty one listings and thirty one separate threads answering the same three questions about size, condition and whether the price moves. One catalog answers all of it once, and the link is the only thing you send. The marketplace also has no accounting side. It tells you an item is gone. It does not tell you whether you recovered what you paid for it.</p>
+        <p>A spreadsheet on its own does not work either, because a sheet has no buyer facing surface. Prices get retyped into listings and the two versions drift apart within days. Here the catalog and the tracker are two outputs of one run over one item list, so a correction cannot land in one place and be missed in the other. Deploy is one push, which means the price fix and the accounting update happen in the same action.</p>
+        <p>The rule underneath it is one no platform enforces: nothing on a marketplace checks that the price you crossed out is what you actually paid. That is how a dresser recorded at AED 1,100 that had really cost 499 ended up with a phantom discount badge on a live page. The generator prices against purchase price, so a saving cannot be displayed unless it is real. I learned that twice, the second time on a dining table recorded at 1,499 when the 2,100 already included four chairs.</p>
+        <p>Result: 20 of 31 items sold in 30 days, AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 is still on the table across 11 items.</p>
+        <div class="note">
+          <strong>What 78.6% measures.</strong> Recovery against what was paid for the items sold, not against total apartment spend.
+        </div>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What are the limits of the tracker's numbers?</summary>
+      <div class="answer">
+        <ul>
+          <li><strong>No cycle time measured.</strong> Month end review turnaround improved, and I believe it is real, but no cycle time figure exists in the repo. So it stays a blank on the site rather than an estimate.</li>
+          <li><strong>Two snapshots, one number.</strong> The January to April Excel splits the 18 advisors 12 Cairo, 3 Sharm, 3 Hurghada. The live database through 3 June splits them 11, 3 and 4. Same 18 advisors, different snapshots. The site cites the Excel.</li>
+          <li><strong>0 rejected is not a quality claim.</strong> It means nothing was thrown out. The 29 duplicates were removed by collapsing, not rejected.</li>
+          <li><strong>The scope is three markets.</strong> Egypt travel retail, Cairo, Sharm and Hurghada, one advisor team. That is the whole of it. Nothing on the site claims more.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What have you not done?</summary>
+      <div class="answer">
+        <p>The honest list, because the caveats are the part of my work I am most confident about.</p>
+        <ul>
+          <li><strong>I have not shipped a model into production.</strong> Two of the three projects contain no model at all, and Homebase's model path is opt in behind a flag.</li>
+          <li><strong>I have not built the Homebase compliance layer.</strong> RERA band checks, Smart Rental Index lookups and bilingual notices are specified in the README and listed as out of scope in the same README. Spec, not product.</li>
+          <li><strong>I have not measured everything I built.</strong> No cycle time figure on the tracker. No usability session count on Homebase. Both are things I would have instrumented if I were doing it again.</li>
+          <li><strong>My own numbers needed correcting.</strong> The move-out sheet says 21 of 32, because a COUNTIF counts rows and not objects, and one row is a synthetic Dining Set Bundle whose table and chairs are also listed individually. The honest figure is 20 of 31. Per item days to sell is not in the tracker either: my dates come from git history, which records when an item was marked sold rather than when money changed hands, and the Excel has a Sold Date column the script never writes.</li>
+          <li><strong>There is a live defect I have not fixed.</strong> The move-out site renders 0 items available from a hardcoded placeholder that the JS overwrites on a normal load. It should read 11. Not sold out.</li>
+          <li><strong>One cost is deliberately unallocated.</strong> Curtains, AED 2,100 across two rooms, left unallocated with a written note that real recovery is worse than the tracker shows until it is resolved.</li>
+          <li><strong>I have not done the degree yet.</strong> Cornell Tech starts in August 2026.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What are you looking for, and when are you available?</summary>
+      <div class="answer">
+        <p>I am open to roles starting after Cornell Tech, and to part time work sooner. The MEng in Data Science and Decision Analytics starts August 2026.</p>
+        <p>The work that fits is the work in the questions above: the data arrives from someone else's system in a shape nobody designed, somebody has to decide what counts as a valid row, and then a field team in another country has to be brought along or none of it holds. I have spent five years on the commercial side of that, and the last stretch of it building the thing rather than requesting it. I am looking for a role where both count.</p>
+        <p>Email is the fastest route: <a href="mailto:Khalidduaa1@gmail.com">Khalidduaa1@gmail.com</a>.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <section class="close">
+    <h2>See the work</h2>
+    <p>Everything on this page is on the site or in a repo. The links:</p>
+    <ul>
+      <li>Sales tracker, live app: <a href="https://sales-management-phi-blue.vercel.app">sales-management-phi-blue.vercel.app</a></li>
+      <li>Sales tracker, repository: <a href="https://github.com/khalidduaa1-byte/Sales_management">github.com/khalidduaa1-byte/Sales_management</a></li>
+      <li>Move-out sale, live site: <a href="https://moveoutsale.vercel.app">moveoutsale.vercel.app</a></li>
+      <li>Move-out sale, repository: <a href="https://github.com/khalidduaa1-byte/moveout-sale">github.com/khalidduaa1-byte/moveout-sale</a></li>
+      <li>Resume: <a href="/resume.pdf">duaakhalid.com/resume.pdf</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/duaa-khalid">linkedin.com/in/duaa-khalid</a></li>
+      <li>GitHub: <a href="https://github.com/khalidduaa1-byte">github.com/khalidduaa1-byte</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>Every figure on this page comes from the same source as the rest of the site, caveats
+  included. Anything not answered here, email
+  <a href="mailto:Khalidduaa1@gmail.com">Khalidduaa1@gmail.com</a>.</footer>
+</body>
+</html>

@@ -250,8 +250,11 @@ hers. No further copy needed; leave `gap` empty.
   from a hardcoded placeholder that the JS overwrites on a normal load; it should read
   11. Lives in a separate repo. The page discloses it as a caveat, which is the honest
   handling, but fixing it there would be better.
-- **`/ask` assistant — see its own section below.** Shipped 2026-07-30, not yet linked
-  or enabled.
+- **`/faq` is not linked from `index.html` yet.** The static FAQ page replaced the `/ask`
+  assistant on 2026-07-30 (see its own section below). Its own header links back to `/`,
+  but the bundle's nav has no `/faq` entry, so the page is unreachable from the home page
+  until that link is added. `index.html` is a compiled bundle, so adding it means the
+  decode/re-encode round trip described above.
 - **`bm2515/homebase` link is broken for the public.** Verified 2026-07-30: the repo is
   **private**, so `https://github.com/bm2515/homebase` returns 404 to every visitor. It
   is the co-founder's repo, not Duaa's, so the fix is his to make: ask him to make it
@@ -263,75 +266,66 @@ hers. No further copy needed; leave `gap` empty.
   `~/Desktop/Maven Mahesh Course/cv-enhancement/Duaa_Khalid_Resume_OpenAI_ADM.pdf`.
   Swap by replacing `resume.pdf` — no code change needed.
 
-## The /ask assistant
+## The /faq page
 
-A grounded Q&A bot at `/ask`. Answers only from what the site already says.
+`faq.html` replaced the LLM-backed `/ask` assistant on 2026-07-30. The assistant is
+gone: no API calls, no key, no cost, nothing to rate limit.
 
 | File | Role |
 | --- | --- |
-| `ask.html` | The chat page. Hand-written, standalone, **not** a Claude Design export — copies the CSS tokens rather than importing them, so a re-export cannot break it. Unlike `index.html` it reflows properly on mobile. |
-| `api/ask.js` | Vercel Node serverless function. The only place `ANTHROPIC_API_KEY` exists. |
-| `api/context.md` | Generated fact sheet the bot answers from. **Committed** — no build step on Vercel. |
-| `tools/build-context.py` | Regenerates `api/context.md` from `index.html`. |
-| `package.json` | Just `@anthropic-ai/sdk`. |
-| `vercel.json` | `cleanUrls: true`. Without it `/ask.html` serves but `/ask` 404s, and the nav links point at `/ask`. |
+| `faq.html` | The FAQ page, served at `/faq` by `cleanUrls`. Hand-written and standalone, **not** a Claude Design export. It copies the CSS tokens rather than importing them, so a re-export cannot break it. **Zero JavaScript**: the reveals are native `<details>`/`<summary>`. Unlike `index.html` it reflows properly on mobile, so it is still the only mobile-friendly page on the site. |
+| `context.md` | The verified fact sheet, moved up from `api/context.md`. Kept because it is useful on its own: it is the single source every claim on `faq.html` traces to. |
+| `vercel.json` | `cleanUrls: true`. Still required, or `/faq` 404s. |
+| `package.json` | Now metadata only. No dependencies, no scripts, nothing reads it. Safe to delete if you want. |
 
-**Setup:** add `ANTHROPIC_API_KEY` in Vercel → Settings → Environment Variables.
-Without it the endpoint returns 500 and the page shows an error; the rest of the site
-is unaffected.
+Deleted in the same change: `ask.html`, `api/ask.js`, `tools/build-context.py`, and the
+`@anthropic-ai/sdk` dependency.
 
-**After changing any site copy, regenerate the fact sheet:**
+### `context.md` is now a frozen snapshot
+
+`tools/build-context.py` generated it from `index.html`, and that generator is gone. So
+the "the fact sheet cannot claim something the page does not" property is no longer
+enforced by a build step, it is enforced by hand. **After changing site copy, update
+`context.md` in the same commit**, or `faq.html` and the site drift apart.
+
+Two known gaps in it, both inherited from the extractor:
+
+- It never covered the About page. Zero hits for `Istanbul`, `Thailand`, `Bologna`,
+  `Rome`, `commission`, `Expert Week`. That narrative is on the site and factual but is
+  not in the fact sheet, so `faq.html` does not use it.
+- It cites the Excel snapshot, not the live database. See the tracker's "Two snapshots,
+  one number" caveat.
+
+### Content rules for `faq.html` (do not undo)
+
+- **Every number traces to `context.md`.** Nothing else is a source. No estimates.
+- **Caveats ship with the figures they qualify.** "18 live, about 20 onboarded",
+  "removed, not rejected", "markets, not doors", "no cycle time measured", "the honest
+  figure is 20 of 31". The page answers the awkward questions on purpose, including
+  "Isn't 18 users very small?" and "What have you not done?".
+- **No site-wide AI claim.** The page states plainly that the tracker and the move-out
+  generator contain no model, and that the real AI work is the Homebase evaluation. Same
+  discipline as the hero. See the note under Open items.
+- **Homebase's RERA and compliance layer is spec, not product.** Never write it as built.
+- **No link to `https://github.com/bm2515/homebase`.** That repo is private and 404s for
+  the public. Homebase is discussed, just not linked.
+- **The README's two unsourced impact stats are not repeated**, not even as figures. The
+  page says the README carries two unsourced statistics and leaves the numbers off.
+- **No em dashes**, Duaa's stated preference.
+
+### Verifying a change to it
 
 ```
-python3 tools/build-context.py   # then commit api/context.md
+grep -c '<script' faq.html      # must be 0
+python3 -c "print(open('faq.html',encoding='utf-8').read().count(chr(8212)))"   # em dashes, must be 0
 ```
 
-The point of generating it from `index.html` is that the bot **cannot claim something
-the page doesn't**. Hand-editing `api/context.md` breaks that property — change the
-site and regenerate instead.
-
-### Not enabled yet — two open decisions
-
-- **Nav links deliberately NOT added.** The cloud session's `index.html` had
-  `<a href="/ask">Ask</a>` in the header nav plus a second `/ask` button in the red CTA.
-  Both were withheld so a public link does not point at a feature that 500s until the
-  key is set. Add them once the key is live.
-- **No hard cost cap.** See the rate-limiting note below. A public page calling a paid
-  API should have a real quota before it is linked from the nav.
-
-### Known gap: the fact sheet does not cover the About page
-
-`build-context.py` extracts the hero, thesis, journey rows, projects and contact — its
-output has sections `Positioning`, `Career track`, `Projects`, `Contact` and nothing
-else. Verified 2026-07-30: zero hits for `Istanbul`, `Thailand`, `Bologna`, `Rome`,
-`commission`, `Expert Week`. So the bot cannot answer anything about the About-page
-narrative — the seminar itinerary, the markets, or the "advisor whose commission it is"
-line — even though all of it is on the site and factual. Regenerating does **not** fix
-this; the extractor would need an About section added. Low priority while the bot is
-disabled, but it means the bot currently knows less than the page.
-
-### Design decisions worth not undoing
-
-- **`thinking: {type: 'adaptive'}` with `effort: 'low'`, not `thinking: disabled`.**
-  On Claude Opus 5, disabling thinking can leak `<thinking>` tags into the visible
-  reply. Low effort is the cheaper lever and doesn't have that failure mode.
-- **`cache_control: ephemeral` on the system block.** The fact sheet is ~3K tokens
-  (measured: 12,012 chars / ~3,003 tokens) and identical every request, so after the
-  first call most of the input bills at roughly a tenth of the rate. Opus 5 caches
-  from 512 tokens.
-- **`stop_reason` is checked before the answer is used.** On a refusal the content is
-  empty or partial and must not be shown as a complete answer.
-- **The system prompt forbids the AI overclaim explicitly**, mirrors the site's caveat
-  discipline (if a number has a caveat, the bot gives both), and treats all visitor
-  input as questions rather than instructions.
-- **Rate limiting is in-memory and therefore best-effort** — serverless instances
-  recycle, so it slows one abusive client rather than enforcing a quota. For a real
-  limit, move `hits` to Vercel KV or Upstash.
-
-Tests live in the scratchpad, not the repo: a stubbed-SDK suite over `api/ask.js`
-(validation, streaming, refusal, truncation, transport error, rate limiting) and a
-Chromium run of `ask.html` against a stub SSE endpoint that splits frames mid-chunk.
-Re-create them if you change the streaming contract.
+Then look at it in a browser at desktop **and** mobile width. One trap: headless Chrome
+clamps its window to roughly 500px wide, so `--window-size=390,1500 --screenshot` silently
+**crops** instead of reflowing, which looks exactly like a horizontal-overflow bug. To get
+a real 390px layout viewport, load `faq.html` inside a 390px-wide `<iframe>` on a wrapper
+page and screenshot that at desktop width. Shift the iframe with a negative `top` inside an
+`overflow: hidden` clip box to capture successive vertical slices.
 
 ## Deploying
 
