@@ -663,7 +663,15 @@
        used to be the demo row for theirs. */
     .cw-right,
     .cw-demo-grid > .shot,
-    .cw-demo-grid > .frame { grid-column: 2; grid-row: 1; }
+    .cw-demo-grid > .frame { grid-column: 2; grid-row: 1; align-self: stretch; }
+    /* The mount fills the row rather than sitting at its natural height. The
+       three visuals have very different aspect ratios (the Homebase capture is
+       2.2:1 against the catalog's 4:3), so at natural height one slide had a
+       200px void under its picture and another had none. Filling the row means
+       the panel's top and bottom edges always line up with the narrative's,
+       and the picture centres inside it. */
+    .cw-right { display: flex; }
+    .cw-right > .shot { flex: 1; }
 
     .cw-org { font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; margin-top: 10px; }
     .cw-title { font: 800 clamp(26px, 3vw, 38px)/1.08 var(--display); letter-spacing: -.02em; margin-top: 6px; }
@@ -690,7 +698,12 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       column-gap: clamp(28px, 4vw, 56px);
       row-gap: 14px;
-      align-items: start;
+      /* Centred, not top-aligned. The prose in this band is a caption for the
+         widget beside it and the two are never the same height: Homebase's is
+         two lines against a 295px terminal. Top-aligned that read as content
+         that had stopped early; centred it reads as a caption paired with the
+         thing it captions. */
+      align-items: center;
     }
     .cw-demo-run > .dupt-lead   { grid-area: 1 / 1; margin-bottom: 0; }
     .cw-demo-run > .dupt-wrap   { grid-area: 1 / 2; margin-top: 0; }
@@ -711,12 +724,31 @@
       align-items: center; justify-content: center;
       box-sizing: border-box;
     }
-    /* An ink mount is invisible on the ink slide, so Homebase's gets the card
-       surface and a hairline instead. */
-    .cw-dark .cw-demo-grid > .frame {
-      background: var(--card-dark);
-      border: 1px solid var(--rule-dark);
+    /* Slide 2 is the one exception to the column assignment, and it is a
+       better slide for it. The Homebase capture is 2.2:1, so in a half column
+       it was 224px tall against a 422px narrative and left the same dead
+       column the metrics used to. So the payload and the picture swap places:
+       the context generator, which is the thing worth touching, goes up beside
+       the narrative, and the screenshot runs the full width underneath, where
+       a 2.2:1 image is exactly the right shape to close a slide.
+       The caption travels with the generator so it still introduces it. */
+    .cw-dark .cw-demo-run {
+      grid-column: 2; grid-row: 1;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 12px;
+      align-items: start;
     }
+    .cw-dark .cw-demo-run > .dupt-lead,
+    .cw-dark .cw-demo-run > .hb-terminal { grid-area: auto; }
+    /* No mount at full width: a hairline is enough to say the edge is meant,
+       and the image sits inside the band gutters rather than bleeding. */
+    .cw-dark .cw-demo-grid > .frame {
+      grid-column: 1 / -1; grid-row: 2;
+      background: transparent;
+      border: 1px solid var(--rule-dark);
+      padding: 0;
+    }
+    .cw-dark .cw-demo-grid > .frame .shot-img { max-height: none; }
     .cw-right-img .shot-img { width: 100%; height: auto; max-height: none; }
     .cw-demo-grid .shot-link, .cw-right-img .shot-link { width: 100%; }
     .cw-demo-grid .shot-img {
