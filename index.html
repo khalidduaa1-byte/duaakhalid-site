@@ -208,6 +208,35 @@
       .creds .since { margin-left: 0; flex-basis: 100%; }
     }
 
+    /* Hero split. Copy on the left, the rollout sequence on the right, so the
+       proof is the first thing a reader meets rather than something two thirds
+       down the page. Collapses to one column below 1000px, where a side by side
+       would squeeze both halves below their comfortable measure. */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(32px, 4vw, 64px);
+      align-items: start;
+    }
+    .hero-copy .twoup { display: block; }
+    .hero-copy .note { margin-top: 14px; }
+    .hero-side {
+      border: 1px solid var(--rule);
+      padding: 20px 22px 22px;
+      margin-top: 8px;
+    }
+    .hero-side-lbl {
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+    /* In the hero the label column would eat the measure, so the step stacks. */
+    .hero-side .log > .row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    @media (max-width: 1000px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr); }
+      .hero-copy .twoup { display: grid; }
+    }
+
     /* Rollout log stepper. Progressive enhancement only: with JS off this stays the
        plain stacked list it has always been, and script.js adds .is-stepper to turn
        it into one step at a time. min-height is set in JS from the tallest step so
@@ -245,11 +274,17 @@
     /* The dots are 8px, which is a fine size for a dot and an impossible size
        for a thumb. Padding grows the button to a 28x44 hit area while
        background-clip: content-box keeps the paint on the 8px content box, so
-       the dot itself is unchanged. Making the dots bigger would have read as
-       bullets rather than as a position indicator. */
+       the dot itself is unchanged. box-sizing has to go back to content-box for
+       this: the global reset makes it border-box, under which width: 8px would
+       swallow the padding instead of adding to it. Making the dots bigger was
+       the alternative and they stop reading as a position indicator. */
     @media (max-width: 900px) {
       .log-dots { gap: 0; margin-left: -10px; }
-      .log-dot { padding: 18px 10px; background-clip: content-box; }
+      .log-dot {
+        box-sizing: content-box;
+        padding: 18px 10px;
+        background-clip: content-box;
+      }
       .log-dot:focus-visible { outline-offset: -12px; }
       .log-btn { padding: 12px 16px; min-height: 44px; }
       .log-bar { gap: 4px 12px; margin-bottom: 18px; }
@@ -284,10 +319,15 @@
     .footnow .m.red { display: block; margin-bottom: 6px; }
 
     /* Anchor targets clear the sticky header without a negative-offset hack.
-       The header is ~67px wide-screen but ~99px below 900px, where the six nav
-       items wrap to a second line, so the offset has to follow it. */
+       The header is 67px wide-screen. Below 900px the mark and the nav each get
+       their own row, which used to mean 99px at 390px and 149px at 360px where
+       the six items wrapped a second time. The nav now holds one row down to
+       360px and the header measures 86px across 360, 390 and 430, so one mobile
+       offset covers all three with the same ~26px of clearance the desktop value
+       has. Re-measure both if the nav item count or the header padding changes.
+       Verified in a real browser at 360, 390, 430 and 1440. */
     .anchor { display: block; height: 0; scroll-margin-top: 92px; }
-    @media (max-width: 900px) { .anchor { scroll-margin-top: 124px; } }
+    @media (max-width: 900px) { .anchor { scroll-margin-top: 112px; } }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     /* Scroll-spy state, set by script.js */
@@ -319,6 +359,8 @@
   <main>
 <!-- Hero Section -->
     <section class="hero-section band pad rule">
+      <div class="hero-grid">
+      <div class="hero-copy">
       <div class="avail">
         <span class="m red">NEW YORK &middot; OPEN TO FORWARD-DEPLOYED AI ROLES</span>
       </div>
@@ -328,6 +370,44 @@
       <div class="twoup">
         <p class="lead">Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team used them every day without being told to. All of that in an industry that blocks AI on employee laptops.</p>
         <p class="note">MEng, Data Science &amp; Decision Analytics. Dubai to New York, August 2026.</p>
+      </div>
+      </div>
+
+      <!-- The rollout, lifted into the hero so the sequence is the first thing
+           a reader meets rather than something 68% down the page. -->
+      <aside class="hero-side">
+        <p class="m red hero-side-lbl">THE ROLLOUT &middot; WHAT SHIPPING ACTUALLY LOOKED LIKE</p>
+<div class="cs log" id="rollout-log" aria-live="polite">
+        <div class="row">
+          <p class="m red">DAY 0</p>
+          <p>Decided to build rather than wait. The licensed platform was never going to fit this market, and a replacement cost nothing but my own time.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAY 2</p>
+          <p>A running site, with Supabase behind it, which I had never used before this. The advisors live on their phones, so rather than ship a native app I had them add the site to their home screen from the browser. That decision saved weeks and it is the least clever thing on this page.</p>
+        </div>
+        <div class="row">
+          <p class="m red">WEEK 1</p>
+          <p>Three advisors and the sales supervisor. Nobody else. The supervisor got the dashboard, with commissions and targets calculating themselves instead of being worked out by hand, because that was the job she was actually doing. I collected everything they hated for a week and fixed it before anyone else saw the thing.</p>
+        </div>
+        <div class="row">
+          <p class="m red">APRIL</p>
+          <p>Launched to everyone. Then went back and loaded January to March myself, writing SQL against Supabase from the records that already existed, so the history was there from the first day people opened it.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAYS LATER</p>
+          <p>The signup wall. People could not register. Nothing whatsoever to do with the app.</p>
+        </div>
+        <div class="row">
+          <p class="m red">THE MONTH AFTER</p>
+          <p>WhatsApp and the app running side by side while people got themselves registered, which they did on different dates. So for every advisor there was a window where I was entering their sales and they were also starting to enter their own, with no way for them to see what I had already put in. That overlap is where the dedup key came from. It was never a data cleanliness problem. They could not see what the system already knew about them.</p>
+        </div>
+        <div class="row">
+          <p class="m red">JUNE 2026</p>
+          <p>Presented to global beauty leadership. One full run across January to April: 1,324 rows in, 0 rejected, 29 duplicates removed. Still nobody required to use it.</p>
+        </div>
+      </div>
+      </aside>
       </div>
 
       <div class="creds">
@@ -991,45 +1071,6 @@
       </details>
     </section>
 
-<!-- The rollout log -->
-    <section class="band pad rule" style="padding-block: 56px;">
-      <div class="intro" style="padding-block: 0 28px;">
-        <p class="m red">02 / THE ROLLOUT LOG</p>
-        <h2>What shipping it actually looked like.</h2>
-        <p class="lead" style="max-width: 660px; margin-top: 10px;">Not the outcome, the sequence. Most of the interesting decisions here are not technical ones.</p>
-      </div>
-
-      <div class="cs log" id="rollout-log" aria-live="polite">
-        <div class="row">
-          <p class="m red">DAY 0</p>
-          <p>Decided to build rather than wait. The licensed platform was never going to fit this market, and a replacement cost nothing but my own time.</p>
-        </div>
-        <div class="row">
-          <p class="m red">DAY 2</p>
-          <p>A running site, with Supabase behind it, which I had never used before this. The advisors live on their phones, so rather than ship a native app I had them add the site to their home screen from the browser. That decision saved weeks and it is the least clever thing on this page.</p>
-        </div>
-        <div class="row">
-          <p class="m red">WEEK 1</p>
-          <p>Three advisors and the sales supervisor. Nobody else. The supervisor got the dashboard, with commissions and targets calculating themselves instead of being worked out by hand, because that was the job she was actually doing. I collected everything they hated for a week and fixed it before anyone else saw the thing.</p>
-        </div>
-        <div class="row">
-          <p class="m red">APRIL</p>
-          <p>Launched to everyone. Then went back and loaded January to March myself, writing SQL against Supabase from the records that already existed, so the history was there from the first day people opened it.</p>
-        </div>
-        <div class="row">
-          <p class="m red">DAYS LATER</p>
-          <p>The signup wall. People could not register. Nothing whatsoever to do with the app.</p>
-        </div>
-        <div class="row">
-          <p class="m red">THE MONTH AFTER</p>
-          <p>WhatsApp and the app running side by side while people got themselves registered, which they did on different dates. So for every advisor there was a window where I was entering their sales and they were also starting to enter their own, with no way for them to see what I had already put in. That overlap is where the dedup key came from. It was never a data cleanliness problem. They could not see what the system already knew about them.</p>
-        </div>
-        <div class="row">
-          <p class="m red">JUNE 2026</p>
-          <p>Presented to global beauty leadership. One full run across January to April: 1,324 rows in, 0 rejected, 29 duplicates removed. Still nobody required to use it.</p>
-        </div>
-      </div>
-    </section>
 
 <!-- Point of view -->
     <section class="dark" id="pov">

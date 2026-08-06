@@ -16,7 +16,7 @@ it deploys.
 
 | File | Role |
 | --- | --- |
-| `index.html` | The whole site. Hero, then `#about`, `#work`, `#notes`, `#faq`, now note, CTA |
+| `index.html` | The whole site. Hero (split: copy left, rollout stepper right), then `#about`, `#work`, `#notes`, `#faq`, CTA. The now note lives in the footer |
 | `about.html`, `notes.html`, `faq.html` | Redirect stubs to `/#about`, `/#notes`, `/#faq`. `canonical` + `noindex, follow` + meta refresh + `location.replace`. They exist so older inbound links and any printed résumé URLs still land somewhere |
 | `styles.css` | Every shared rule. Page-specific CSS lives in the `<style>` block in `index.html` |
 | `script.js` | Stat count-up, card tilt, interactive dashboard, dedup toggle, Homebase context generator, case-study scroll reveal |
@@ -116,6 +116,21 @@ under `dk.targets.v1`. There is a Reset link. Threshold for On Track is **95%**.
 `transform: scale()`**. Scale would move the visual position of the dropdown and input
 without moving their hit targets, silently breaking the interaction. Zoom drops to `1`
 below 900px.
+
+## The hero is split, and the rollout stepper lives in it
+
+`.hero-grid` puts the copy left and the seven-step rollout sequence right, side by side above
+the fold, collapsing to one column below 1000px. It was originally a section in `#notes`, about
+two thirds down the page, and Duaa could not find it. **Do not move it back down.** The whole
+point is that the proof is the first thing a reader meets.
+
+The stepper is **progressive enhancement**. `#rollout-log` ships as a plain stacked list of seven
+dated rows and `script.js` upgrades it by adding `.is-stepper`. With JS off you get the full list,
+which is the honest fallback. Do not invert this by hiding rows in CSS by default.
+
+`script.js` finds the component by `id`, so the markup can move without breaking it. The
+container is pinned to the tallest step measured **before** anything is hidden, so advancing
+cannot jump the page.
 
 ## The case-study bodies
 

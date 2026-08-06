@@ -524,13 +524,16 @@ h2 {
 
   /* Header. At 360px the six nav items wrapped to a THIRD line and the header
      went to 149px, while .anchor only cleared 124px, so every anchored section
-     landed underneath it. A tighter gap keeps the nav on one row down to 360px,
-     and the links carry their own vertical padding so the tap target is ~36px
-     rather than 14px without the header getting taller. If you change the nav
-     item count or these paddings, re-measure .anchor's scroll-margin-top. */
-  .sitehead .in { padding: 13px var(--pad); gap: 4px 20px; }
+     landed underneath it. A tighter gap keeps the nav on one row down to 360px.
+     The links then carry their own vertical padding, which turns a 14px-tall
+     tap target into a 44px one, and the smaller box padding pays for it: the
+     header is 94px at 360, 390 and 430, where it used to be 149, 99 and 99.
+     If you change the nav item count or these paddings, re-measure .anchor's
+     scroll-margin-top. */
+  .sitehead .in { padding: 10px var(--pad); gap: 2px 20px; }
+  .sitehead .mark { padding-block: 5px; }
   .sitehead ul { gap: 0 16px; }
-  .sitehead a.lnk { display: block; padding: 11px 0; }
+  .sitehead a.lnk { display: block; padding: 15px 0; }
 
   /* min-height: 420px left up to 150px of empty black under a visual that is
      only as tall as the phone is wide. */
@@ -538,12 +541,7 @@ h2 {
 
   /* The dock is fixed 20px off the bottom of the viewport, so at the end of the
      page it sat on top of the last footer line. */
-  .sitefoot .in { padding-bottom: 96px; }
-
-  /* Tap targets. These all measured between 24px and 39px tall. */
-  .btn { min-height: 44px; }
-  .dupt-btn { padding: 14px 16px; }
-  .hb-sel { min-height: 44px; padding: 8px 10px; font-size: 11.5px; }
+  .sitefoot .in { padding-bottom: 104px; }
 }
 
 /* Portrait: the file's own aspect drives the height, so it can never be stretched.
@@ -605,8 +603,10 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
   .db-form-row .btn-save { font-size: 12px; min-height: 44px; padding: 8px 10px; }
   .db-form-row div.input-box { display: flex; align-items: center; }
   .db-form-row .btn-save { grid-column: 1 / -1; }
-  .db-hint { font-size: 11px; margin-top: 8px; flex-wrap: wrap; }
-  .db-reset { padding: 6px 0; }
+  /* The negative margin keeps the hint line the height it looks, while the
+     padding gives Reset a 44px box to be tapped in. */
+  .db-hint { font-size: 11px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+  .db-reset { padding: 14px 10px; margin: -8px -10px; }
 }
 
 /* The case studies collapse by default, so the project blocks stay scannable.
@@ -751,6 +751,19 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
   .dupt { font-size: 9px; }
   .dupt th, .dupt td { padding: 5px 3px; }
   .dupt .st { min-width: 46px; }
+}
+
+/* Touch targets.
+   This block sits at the end of the file on purpose. .dupt-btn, .hb-sel and
+   .dock-btn all declare their padding further down than the "Mobile Breakdown"
+   media query, so an override placed up there loses the cascade at equal
+   specificity and silently does nothing. Everything here measured between 24px
+   and 39px tall on a phone before the change. */
+@media (max-width: 900px) {
+  .btn { min-height: 44px; }
+  .dupt-btn { padding: 15px 16px; }
+  .hb-sel { min-height: 44px; padding: 8px 10px; font-size: 11.5px; }
+  .dock-btn { padding: 11px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
