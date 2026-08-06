@@ -615,7 +615,7 @@
     /* ------------------------------------------------------------------
        SELECTED WORK CAROUSEL
        One case study on screen at a time. Narrative left, the numbers and
-       the WHAT BROKE box right, so the proof is never behind a click. This
+       the lesson box right, so the proof is never behind a click. This
        replaced three stacked <details> folds that nobody opened.
        Progressive enhancement: without JS all three slides render stacked,
        which is the old behaviour minus the folds.
@@ -644,27 +644,54 @@
     .cw-met dt { font: 800 clamp(20px, 2vw, 26px)/1 var(--display); letter-spacing: -.02em; color: var(--accent); }
     .cw-met dd { font: 400 15px/1.45 var(--body); color: #2e2d2a; }
 
-    .cw-broke { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--accent); }
-    .cw-broke p + p { font: 400 15px/1.6 var(--body); color: #2e2d2a; margin-top: 8px; }
 
     .cw-demo { margin-top: clamp(26px, 3vw, 38px); }
     .cw-demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
     .cw-demo-grid.one { grid-template-columns: minmax(0, 1fr); }
-    .cw-demo-grid .shot, .cw-demo-grid .shot.fit { min-height: 0; }
+    /* .shot's dark surface is declared as ".proj .shot" in styles.css and the
+       carousel has no .proj ancestor, so it arrived transparent and the cue,
+       which is coloured for a dark ground, went invisible on cream. */
+    .cw-right-img .shot {
+      background: var(--ink); min-height: 0; padding: 18px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cw-right-img .shot-img { width: 100%; height: auto; max-height: none; }
+    .cw-demo-grid .shot-link { width: 100%; }
+    .cw-demo-grid .shot-img {
+      width: 100%; height: auto; max-height: 420px;
+      object-fit: contain; object-position: center;
+    }
+    .cw-demo-grid .frame { width: 100%; }
+    .cw-demo-grid .shot, .cw-demo-grid .shot.fit {
+      min-height: 0;
+      background: var(--ink);
+      display: flex; flex-direction: column; gap: 16px;
+      align-items: center; justify-content: center;
+      padding: 22px; box-sizing: border-box;
+    }
     .dupt-lead { font: 400 14.5px/1.6 var(--body); color: #2e2d2a; margin-bottom: 12px; }
 
     /* The Homebase slide keeps the dark treatment it had as a band. */
     .cw-dark { background: var(--ink); color: var(--on-dark); margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); border-top-color: var(--rule-dark); }
     .cw-dark .cw-org { color: #a3a3a3; }
-    .cw-dark .cw-body, .cw-dark .cw-met dd, .cw-dark .cw-broke p + p { color: var(--on-dark-muted); }
+    .cw-dark .cw-body, .cw-dark .cw-met dd { color: var(--on-dark-muted); }
     .cw-dark .cw-met { border-bottom-color: var(--rule-dark); }
     .cw-dark .dupt-lead.light { color: var(--on-dark-muted); }
 
     /* Transport */
     .cw-bar {
       display: flex; align-items: center; gap: 12px 18px; flex-wrap: wrap;
-      margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--rule);
+      margin-top: 4px; padding: 20px 0 4px; border-top: 1px solid var(--rule);
     }
+    /* NEXT is the primary action here. As a hairline button beside PREV it read
+       as a pair of equal minor controls and readers scrolled past the whole bar
+       instead of using it. */
+    .cw-btn.cw-next {
+      background: var(--ink); color: var(--bg); border-color: var(--ink);
+      font-weight: 600; padding: 13px 22px;
+    }
+    .cw-btn.cw-next:hover { background: var(--accent); border-color: var(--accent); }
+    .cw-upnext b { color: var(--ink); font-weight: 600; }
     .cw-btn {
       font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase;
       background: transparent; color: var(--ink); border: 1px solid var(--rule);
@@ -682,7 +709,7 @@
     .cw-num:hover { color: var(--ink); }
     .cw-num[aria-current="true"] { color: var(--accent); border-color: var(--accent); }
     .cw-num:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .cw-upnext { margin-left: auto; font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; }
+    .cw-upnext { margin-left: auto; text-align: right; font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; }
 
     /* JS-on: one slide at a time */
     .cw.is-carousel > .cw-track > .cw-slide { display: none; }
@@ -995,10 +1022,6 @@
             <div class="cw-met"><dt>18</dt><dd>advisors daily, none required to</dd></div>
             <div class="cw-met"><dt>2 days</dt><dd>decision to a running site</dd></div>
             </dl>
-            <div class="cw-broke">
-              <p class="m red">&rarr; WHAT BROKE</p>
-              <p>The signup screen. The app itself worked. Advisors could not get in, because not everyone has an email account they can reach, and I had never thought to check whether the people I built it for could get to the login screen. WhatsApp ran alongside for a month rather than forcing the change.</p>
-            </div>
           </div>
         </div>
         <div class="cw-demo">
@@ -1181,10 +1204,6 @@
             <div class="cw-met"><dt>3.5 hrs</dt><dd>what actually got built</dd></div>
             <div class="cw-met"><dt>0</dt><dd>production usage, so no impact claim</dd></div>
             </dl>
-            <div class="cw-broke">
-              <p class="m light">&rarr; WHAT BROKE</p>
-              <p>Most of it, in the sense that most of it never shipped. What exists is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification. The concept page also advertises satisfaction and response time figures for a build with no production usage. They are not mine and they are not repeated here.</p>
-            </div>
           </div>
         </div>
         <div class="cw-demo">
@@ -1216,31 +1235,17 @@
           </div>
         </div>
       </article>
-      <article class="cw-slide" id="cs-3" data-n="3">
+      <article class="cw-slide cw-simple" id="cs-3" data-n="3">
         <div class="cw-main">
           <div class="cw-left">
             <p class="m red">03 / PERSONAL BUILD</p>
             <p class="cw-org">MOVE-OUT SALE &middot; DUBAI, 2026</p>
             <h3 class="cw-title">Move-Out Sale Site &amp; Tracker</h3>
-            <p class="cw-body">A catalog fixes the messaging and does nothing about the part that was costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. The real problem was that the listing and the accounting were two separate documents, free to disagree with each other, so one Python script now generates both from a single item list.</p>
+            <p class="cw-body">A personal build, and a small one. A catalog fixes the messaging and does nothing about the part that was costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. So one Python script now generates the buyer facing catalog and the profit tracker from a single item list, and prices against what was paid, which means a saving cannot be displayed unless it is real.</p>
             <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
             <div class="btnrow"><a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a></div>
           </div>
-          <div class="cw-right">
-            <dl class="cw-metrics">
-            <div class="cw-met"><dt>20 of 31</dt><dd>items sold in 30 days</dd></div>
-            <div class="cw-met"><dt>78.6%</dt><dd>recovery on what was paid</dd></div>
-            <div class="cw-met"><dt>AED 4,900</dt><dd>still on the table, 11 items</dd></div>
-            <div class="cw-met"><dt>1</dt><dd>script, two outputs</dd></div>
-            </dl>
-            <div class="cw-broke">
-              <p class="m red">&rarr; WHAT BROKE</p>
-              <p>A dresser went live carrying a discount badge that was not real. I had recorded it at AED 1,100 when it actually cost 499, because I trusted a store catalog page instead of the receipt. That is the whole reason the generator prices against what was paid. The catalog also had a counter that could show 0 items available. I listed it on this site as an open defect while it was open, and it is fixed.</p>
-            </div>
-          </div>
-        </div>
-        <div class="cw-demo">
-          <div class="cw-demo-grid one">
+          <div class="cw-right cw-right-img">
 <div class="shot">
           <a class="shot-link" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live move-out sale catalog in a new tab"><img class="shot-img" src="/moveout-catalog.jpg" alt="The live move-out sale catalog showing furniture listings" width="1600" height="1200" loading="lazy"></a>
         </div>

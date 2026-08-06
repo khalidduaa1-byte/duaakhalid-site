@@ -687,7 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   var upnext = document.createElement('span');
   upnext.className = 'cw-upnext';
-  var next = mk('cw-btn', 'NEXT &rarr;', 'Next case study', function () { go(i + 1); });
+  var next = mk('cw-btn cw-next', 'NEXT CASE STUDY &rarr;', 'Next case study', function () { go(i + 1); });
 
   bar.appendChild(prev); bar.appendChild(nums); bar.appendChild(upnext); bar.appendChild(next);
   cw.appendChild(bar);
@@ -699,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
       b.classList.toggle('on', k === i);
       b.setAttribute('aria-current', k === i ? 'true' : 'false');
     });
-    upnext.textContent = 'Next: ' + titleOf(slides[(i + 1) % slides.length]);
+    upnext.innerHTML = 'Up next &nbsp;<b>' + titleOf(slides[(i + 1) % slides.length]) + '</b>';
   }
 
   // Arrow keys move between case studies while focus is inside the transport.
