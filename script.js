@@ -321,8 +321,33 @@ document.addEventListener('DOMContentLoaded', () => {
    Progressive enhancement, deliberately. The log ships as a plain stacked
    list of dated rows, which is what it was and what it stays if this script
    never runs. Only once we know JS is alive do we add .is-stepper and show
-   one step at a time. The container is pinned to the tallest step first, so
-   advancing never jumps the page under the reader.
+   one step at a time.
+
+   Above the step, in order: a phase strip, then the dots, the counter and the
+   transport. Seven dated entries read as a diary. Grouped into DECIDE, BUILD,
+   LAUNCH and FIX they read as a process, and because each segment is as wide
+   as the number of steps it holds, the shape of the whole rollout stays on
+   screen while only one step is open. FIX holds the last two because June is
+   the evidence the fix held: the 29 duplicates removed are the dedup key from
+   the month before, doing its job.
+
+   The rail under the phase names is hand-drawn inline SVG rather than a
+   border, because it is a measured scale and not a progress bar: a tall cap
+   at each phase edge, a short tick at each step boundary inside a phase, an
+   accent fill up to the current step, and a drawn station mark riding the
+   leading edge of that fill. Original geometry, no image files, no
+   dependencies, and it is aria-hidden because the buttons already say it.
+
+   Three faults from the design review are fixed here.
+   1. The box was pinned to the tallest step, so four of the seven sat above
+      a hole. It now eases between the real heights, which takes the dead
+      space out without snapping the page under the reader.
+   2. The dots were 8px painted in --rule, with no hit area. The dot is still
+      8px; the button around it is 24px square, and it carries a done state so
+      the row reads as a sequence rather than as decoration.
+   3. Autoplay started on load and moved the page under a reader who was
+      somewhere else. It starts paused, playing is a deliberate act, and under
+      prefers-reduced-motion the play button is not built at all.
 ------------------------------------------------------------------ */
 (function () {
   var log = document.getElementById('rollout-log');
@@ -332,12 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DWELL = 7000;
-  var i = 0, timer = null, playing = !reduce;
+  var GLIDE = 300;                     // must match the height transition in the CSS
+  var i = 0, timer = null, sizeT = null, playing = false;
 
-  // Measure before hiding anything, so the box cannot resize per step.
-  var tallest = 0;
-  rows.forEach(function (r) { tallest = Math.max(tallest, r.offsetHeight); });
-  log.style.minHeight = tallest + 'px';
   log.classList.add('is-stepper');
 
   var labelOf = function (r) {
@@ -345,10 +367,104 @@ document.addEventListener('DOMContentLoaded', () => {
     return el ? el.textContent.trim() : '';
   };
 
+  /* ---- the phase strip ------------------------------------------------
+     Phases are declared by their first step only; each one runs up to the
+     step before the next begins, and the last runs to the end. So adding an
+     eighth row extends FIX instead of falling off the strip. */
+  var PHASES = [
+    { name: 'DECIDE', from: 0 },
+    { name: 'BUILD',  from: 1 },
+    { name: 'LAUNCH', from: 3 },
+    { name: 'FIX',    from: 5 }
+  ].filter(function (p) { return p.from < rows.length; });
+
+  PHASES.forEach(function (p, n) {
+    p.to = (n + 1 < PHASES.length) ? PHASES[n + 1].from - 1 : rows.length - 1;
+    p.span = p.to - p.from + 1;
+  });
+
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS(SVGNS, tag);
+    Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    return el;
+  }
+
+  // The station mark: a cream diamond knocks the rail out behind it, an accent
+  // diamond outline sits on that, and a small solid diamond marks the point.
+  function stationMark() {
+    var s = svgEl('svg', {
+      'class': 'ph-mark', width: '14', height: '14', viewBox: '0 0 14 14',
+      'aria-hidden': 'true', focusable: 'false'
+    });
+    s.appendChild(svgEl('path', { 'class': 'mk-halo', d: 'M7 0 14 7 7 14 0 7Z' }));
+    s.appendChild(svgEl('path', { 'class': 'mk-ring', d: 'M7 2 12 7 7 12 2 7Z' }));
+    s.appendChild(svgEl('path', { 'class': 'mk-core', d: 'M7 5.1 8.9 7 7 8.9 5.1 7Z' }));
+    return s;
+  }
+  var marker = stationMark();
+
+  var strip = document.createElement('div');
+  strip.className = 'log-phases';
+  strip.setAttribute('role', 'group');
+  strip.setAttribute('aria-label', 'Rollout phases');
+
+  var phEls = PHASES.map(function (p, n) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ph';
+    b.style.flexGrow = String(p.span);   // the segment is as wide as the phase is long
+    b.setAttribute('aria-label',
+      p.name + ', phase ' + (n + 1) + ' of ' + PHASES.length + ', ' +
+      (p.span === 1 ? 'step ' + (p.from + 1)
+                    : 'steps ' + (p.from + 1) + ' to ' + (p.to + 1)) +
+      ' of ' + rows.length);
+
+    var nm = document.createElement('span');
+    nm.className = 'ph-name';
+    nm.textContent = p.name;
+    b.appendChild(nm);
+
+    var rail = document.createElement('span');
+    rail.className = 'ph-rail';
+    var s = svgEl('svg', {
+      'class': 'ph-svg', viewBox: '0 0 100 12', preserveAspectRatio: 'none',
+      'aria-hidden': 'true', focusable: 'false'
+    });
+    s.appendChild(svgEl('line', {
+      'class': 'ph-base', x1: 0, y1: 6, x2: 100, y2: 6, 'vector-effect': 'non-scaling-stroke'
+    }));
+    for (var t = 1; t < p.span; t++) {
+      s.appendChild(svgEl('line', {
+        'class': 'ph-tick', x1: (t / p.span) * 100, y1: 4, x2: (t / p.span) * 100, y2: 8,
+        'vector-effect': 'non-scaling-stroke'
+      }));
+    }
+    s.appendChild(svgEl('line', {
+      'class': 'ph-cap', x1: 0.5, y1: 0.5, x2: 0.5, y2: 11.5, 'vector-effect': 'non-scaling-stroke'
+    }));
+    s.appendChild(svgEl('line', {
+      'class': 'ph-cap', x1: 99.5, y1: 0.5, x2: 99.5, y2: 11.5, 'vector-effect': 'non-scaling-stroke'
+    }));
+    var fill = svgEl('line', {
+      'class': 'ph-fill', x1: 0, y1: 6, x2: 0, y2: 6, 'vector-effect': 'non-scaling-stroke'
+    });
+    s.appendChild(fill);
+    rail.appendChild(s);
+    b.appendChild(rail);
+
+    b.addEventListener('click', function () { stop(); show(p.from); });
+    strip.appendChild(b);
+    return { btn: b, rail: rail, fill: fill, p: p };
+  });
+
+  /* ---- dots, counter, transport --------------------------------------- */
   var bar = document.createElement('div');
   bar.className = 'log-bar';
   var dots = document.createElement('div');
   dots.className = 'log-dots';
+  dots.setAttribute('role', 'group');
+  dots.setAttribute('aria-label', 'Jump to a step');
   var count = document.createElement('span');
   count.className = 'log-count';
   var ctl = document.createElement('div');
@@ -364,6 +480,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return d;
   });
 
+  // Arrow keys walk the dots, which is what a reader expects once one of them
+  // has focus, and it saves seven tab stops to reach the last step.
+  dots.addEventListener('keydown', function (e) {
+    var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    stop();
+    show(i + d);
+    dotEls[i].focus();
+  });
+
   function mkBtn(label, aria, fn) {
     var b = document.createElement('button');
     b.type = 'button';
@@ -375,7 +502,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return b;
   }
   mkBtn('←', 'Previous step', function () { stop(); show(i - 1); });
-  var playBtn = mkBtn(playing ? 'Pause' : 'Play', 'Pause or play the sequence', function () {
+  // No autoplay under prefers-reduced-motion, so no control for it either.
+  var playBtn = reduce ? null : mkBtn('Play', 'Play the sequence', function () {
     playing ? stop() : start();
   });
   mkBtn('→', 'Next step', function () { stop(); show(i + 1); });
@@ -383,30 +511,78 @@ document.addEventListener('DOMContentLoaded', () => {
   bar.appendChild(dots);
   bar.appendChild(count);
   bar.appendChild(ctl);
+  log.parentNode.insertBefore(strip, log);
   log.parentNode.insertBefore(bar, log);
 
   function pad(n) { return n < 10 ? '0' + n : String(n); }
 
-  function show(n) {
+  /* Height. The old code pinned the box to the tallest step, which left the
+     four short ones sitting above a hole. Instead the box eases from the
+     height it is at to the height the incoming step actually needs, then goes
+     back to auto so a resize still reflows normally. */
+  function resize(prevH, instant) {
+    clearTimeout(sizeT);
+    log.style.height = '';
+    var nextH = log.offsetHeight;
+    if (instant || reduce || Math.abs(prevH - nextH) < 1) return;
+    log.style.height = prevH + 'px';
+    log.classList.add('is-sizing');
+    void log.offsetHeight;                       // commit the start height
+    log.style.height = nextH + 'px';
+    sizeT = setTimeout(function () {
+      log.style.height = '';
+      log.classList.remove('is-sizing');
+    }, GLIDE + 60);
+  }
+
+  function show(n, instant) {
+    var prevH = log.offsetHeight;
     i = (n + rows.length) % rows.length;
     rows.forEach(function (r, k) { r.classList.toggle('on', k === i); });
+
     dotEls.forEach(function (d, k) {
       d.classList.toggle('on', k === i);
-      d.setAttribute('aria-current', k === i ? 'true' : 'false');
+      d.classList.toggle('done', k < i);
+      if (k === i) d.setAttribute('aria-current', 'step');
+      else d.removeAttribute('aria-current');
     });
-    count.textContent = pad(i + 1) + ' / ' + pad(rows.length) + '  ·  ' + labelOf(rows[i]);
+
+    phEls.forEach(function (x) {
+      var p = x.p;
+      // Fill to the end of the current step's slot, so the strip completes on
+      // the last step and the mark reads as a playhead rather than a dot.
+      var pct = i > p.to ? 100 : i < p.from ? 0 : ((i - p.from + 1) / p.span) * 100;
+      x.fill.setAttribute('x2', pct);
+      var here = i >= p.from && i <= p.to;
+      x.btn.classList.toggle('now', here);
+      x.btn.classList.toggle('done', i > p.to);
+      if (here) {
+        x.btn.setAttribute('aria-current', 'step');
+        x.rail.appendChild(marker);              // one mark, moved to the live phase
+        marker.style.left = 'clamp(7px, ' + pct + '%, calc(100% - 7px))';
+      } else {
+        x.btn.removeAttribute('aria-current');
+      }
+    });
+
+    count.textContent = pad(i + 1) + ' / ' + pad(rows.length);
+    resize(prevH, instant);
   }
 
   function start() {
-    if (reduce) return;
+    if (reduce || !playBtn) return;
     playing = true;
     playBtn.textContent = 'Pause';
+    playBtn.setAttribute('aria-label', 'Pause the sequence');
     clearInterval(timer);
     timer = setInterval(function () { show(i + 1); }, DWELL);
   }
   function stop() {
     playing = false;
-    playBtn.textContent = 'Play';
+    if (playBtn) {
+      playBtn.textContent = 'Play';
+      playBtn.setAttribute('aria-label', 'Play the sequence');
+    }
     clearInterval(timer);
   }
 
@@ -415,8 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
   log.addEventListener('mouseleave', function () { if (playing) start(); });
   log.addEventListener('focusin', stop);
 
-  show(0);
-  if (playing) start();
+  show(0, true);
 })();
 
 /* ------------------------------------------------------------------

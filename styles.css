@@ -590,9 +590,11 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
      the window's own overflow: hidden sliced "Behind Target" off the Sharm card.
      Verified at 360, 390 and 430. Giving the pill its own line inside the card
      is what lets the three columns fit; stacking the cards was the alternative
-     and it triples the height of the mockup. */
-  .tcard-title { flex-wrap: wrap; justify-content: flex-start; }
-  .tcard-title .track-badge { flex-basis: 100%; }
+     and it triples the height of the mockup. Grid rather than a wrapped flex
+     row because justify-self keeps the pill the width of its own text, and a
+     flex-basis: 100% item stretches into a full-width banner. */
+  .tcard-title { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 4px; }
+  .tcard-title .track-badge { grid-column: 1 / -1; justify-self: start; }
 
   /* The control row is the one genuinely interactive part of the mockup, and
      the cue above it says "try it", but at zoom 1 the select, the number input
@@ -606,7 +608,7 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
   /* The negative margin keeps the hint line the height it looks, while the
      padding gives Reset a 44px box to be tapped in. */
   .db-hint { font-size: 11px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
-  .db-reset { padding: 14px 10px; margin: -8px -10px; }
+  .db-reset { padding: 15px 10px; margin: -9px -10px; }
 }
 
 /* The case studies collapse by default, so the project blocks stay scannable.
@@ -761,7 +763,7 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
    and 39px tall on a phone before the change. */
 @media (max-width: 900px) {
   .btn { min-height: 44px; }
-  .dupt-btn { padding: 15px 16px; }
+  .dupt-btn { padding: 16px; }
   .hb-sel { min-height: 44px; padding: 8px 10px; font-size: 11.5px; }
   .dock-btn { padding: 11px 14px; }
 }
