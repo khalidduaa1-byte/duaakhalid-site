@@ -87,7 +87,12 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1.2fr;
       gap: 0;
-      margin-top: 36px;
+      /* The section lost its h2 and standfirst when it moved to the bottom of
+         the page, so this margin was stacking on .dark .inner's 36px gap and
+         leaving 72px of empty ink under a single 12px label. That read as a
+         heading that had failed to render. .inner's gap alone is the right
+         step from a label to the thing it labels. */
+      margin-top: 0;
       border: 1px solid var(--rule-dark);
     }
     .cap-col {
@@ -185,7 +190,10 @@
     }
     .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: clamp(24px, 3vw, 40px); border-radius: var(--r); margin-top: var(--sec-half); }
     .honest-caveats h3 { font: 700 24px var(--display); color: var(--on-dark); }
-    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; max-width: var(--measure); }
+    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
+    /* The cap sits on the item, not the list: ch resolves against the element's
+       own font-size and the <ul> inherits 18px while the items are 15px. */
+    .honest-caveats li { max-width: var(--measure); }
     .honest-caveats li { color: var(--on-dark-muted); font-size: 15px; }
 
     /* Hero credibility strip. Display face rather than the mono label, because at
@@ -497,8 +505,9 @@
       .log-btn { padding: 12px 16px; min-height: 44px; }
       /* Same treatment for the phase buttons, which measured 29px tall. The
          padding takes them to 44 and the matching negative margin spends it in
-         the 16px gap already under the strip, so nothing moves on screen. */
-      .ph { padding-bottom: 15px; margin-bottom: -15px; }
+         the 16px gap already under the strip, so nothing moves on screen.
+         17, not 15: measured at 42.0px, two short of the target. */
+      .ph { padding-bottom: 17px; margin-bottom: -15px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -627,22 +636,26 @@
 
        ONE SHAPE, three slides. Switching used to change the geometry as
        well as the content, because the three slides were three different
-       templates: two of them were narrative-over-a-two-column-demo and the
-       third was narrative-beside-an-image. Every slide is now
+       templates: two were narrative-over-a-two-column-demo and the third was
+       narrative-beside-an-image. Every slide is now
 
-           row 1   narrative (col 1)   |   the primary visual (col 2)
-           row 2   the interactive payload, prose left, widget right
+           row 1   narrative (col 1)  |  the compact interactive piece (col 2)
+           row 2   the one wide product-looking piece, full width
                    (slides 1 and 2 only; slide 3 is deliberately just row 1)
 
-       so NEXT changes what you read and not where anything is.
+       so NEXT changes what you read and not where anything is. Which piece
+       goes where is decided by its shape, not by what it is: the dedup table
+       and the context generator are built for a narrow column, the dashboard
+       and the Homebase capture are wide, and putting each where it fits is
+       what closed the dead half-columns the metrics list used to leave.
 
        The slide itself is the grid. .cw-main, .cw-demo and .cw-demo-grid are
        wrappers with no layout job left, so they are taken out of the box tree
        with display: contents and their children land directly in the slide's
-       two columns. That is what lets slide 1's dashboard sit beside the
-       narrative while its dedup table sits in the band below, without moving
-       a single line of markup, and it means all four blocks share one gutter
-       instead of three grids each computing their own.
+       two columns. That is what lets slide 1's table sit beside the narrative
+       while its dashboard runs across the bottom, without moving a single line
+       of markup, and it means every block shares one gutter instead of three
+       grids each computing their own.
 
        Progressive enhancement is unchanged: with JS off every slide is a
        plain grid and all three render stacked.

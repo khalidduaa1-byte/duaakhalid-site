@@ -137,49 +137,69 @@ which is the honest fallback. Do not invert this by hiding rows in CSS by defaul
 container is pinned to the tallest step measured **before** anything is hidden, so advancing
 cannot jump the page.
 
-## The case-study bodies
+## The case studies are a carousel
 
-Each project block carries a `.cs` block of six `.row` pairs, in this order: PROBLEM,
-**WHAT IT ACTUALLY WAS**, BUILD, PROOF, **WHAT BROKE**, IMPACT. The label is the existing
-`.m.red` mono token (`.m.light` inside the dark Homebase band), so the rows inherit the design
-system rather than introducing new type.
+> **August 2026, second restructure.** The case studies used to be three `<details class="cs-fold">`
+> blocks, each holding six labelled `.row` pairs (PROBLEM, WHAT IT ACTUALLY WAS, BUILD, PROOF,
+> WHAT BROKE, IMPACT). **All of that is gone.** Duaa's objection was simple and correct: "you have
+> to do expand or people are not noticing it", and nobody reading a portfolio knows there is
+> anything behind a closed fold. Do not reintroduce the folds, and do not go looking for `.cs-fold`
+> or the six-row schema. The reframes those rows carried now live in the `.cw-body` prose.
 
-**Do not merge WHAT IT ACTUALLY WAS back into PROBLEM.** It is the load-bearing row. PROBLEM
-states the problem as it was handed over; the reframe row states what it turned out to be once
-the evidence was in, and the build then follows from the restatement. Without it the case studies
-read as somebody executing against a brief that arrived already correct, which is precisely the
-failure mode a forward-deployed hire is screened against. The three reframes are: the licensed
-platform could not be operated by the account owner so buying more tooling would not have helped;
-a catalog fixes the messaging but not a listing and an accounting that are free to disagree; and
-the call-context variation was never the useful part, the inconsistency was, which is a template
-problem and not a model problem.
+`#cw` shows **one slide at a time** with a transport bar at the bottom: PREV, three numbers, an
+"Up next" label, and NEXT. `script.js` finds it by `id`, adds `.is-carousel`, and builds the
+transport, so **with JS off all three slides stack and there is no transport.** That is the honest
+fallback. Do not invert it by hiding slides in CSS by default.
 
-**WHAT BROKE is the other row that must survive a tidy-up.** It is where the reflection lives, and
-it is the only part of a case study that cannot be written by somebody who was not there.
+**All three slides share one shape**, and the sharing is what stops NEXT from feeling like a
+different page each time:
 
-Each project's original one-line summary paragraph **stays above** the fold. Duaa asked for
-these to be additions, not replacements. An earlier pass folded the summaries into BUILD and
-had to restore them; BUILD now carries mechanism the summary does not state.
+| | Row 1, left | Row 1, right | Row 2, full width |
+| --- | --- | --- | --- |
+| 01 Tracker | narrative | the dedup table `#dupt` | the interactive dashboard |
+| 02 Homebase | narrative | the context generator `#hb-out` | the Homebase screenshot |
+| 03 Move-out | narrative | the catalog screenshot | none |
 
-**The whole `.cs` block is collapsed inside a `<details class="cs-fold">`, closed by
-default.** Expanded inline, the rows made every project block roughly twice as tall and
-broke the scannable layout, which Duaa flagged. A modal was considered and rejected: it needs
-JS, a focus trap and an escape hatch, and it reads badly on mobile. Native `<details>` gets
-keyboard support and no-JS behaviour for free and reuses the `#faq` accordion pattern.
+**Which piece goes where is decided by its shape, not its type.** The dedup table and the
+generator are built for a narrow column; the dashboard and the screenshots are wide. Slide 3 has
+no row 2 because it has no interactive payload, and Duaa asked for it to stay simple: "its only a
+personal project ... the picture of the site thats it keep this case study simple pls." **Do not
+add a demo to slide 3 to make it match.**
 
-The summary label advertises the **interactive payload only** ("RUN THE DEDUP", "TRY THE
-GENERATOR"), because otherwise the two demos are invisible behind a closed fold. It deliberately
-no longer lists the row names: that list went stale the moment rows were added, and six names do
-not fit. **Keep these labels to one line**; at 12px mono in the Homebase column, anything longer
-than about 52 characters wraps and pushes the `+` off centre. All three bars measure 50px tall.
+This is done with `display: contents` on `.cw-main`, `.cw-demo` and `.cw-demo-grid`, so the slide
+itself becomes the grid. **No markup was moved to achieve it**, which is why every `id`, the
+source order and the no-JS stacking all still work.
 
-The rows cascade in on open via a `cs-in` keyframe animation, staggered 65ms by
-`script.js`. This is an **animation, not a transition out of a hidden base state**, and that
-distinction is load-bearing: the rows' resting style is fully visible and the hidden frame
-exists only inside the keyframes, so a stalled animation or a dead script cannot strand the
-content invisible. Do not "simplify" this back to `opacity: 0` plus a transition. An earlier
-version used `IntersectionObserver`, which cannot work here at all, because a closed
-`<details>` is `display: none` and its rows never intersect.
+**There are no metrics columns.** Slide 1 used to carry "1,324 rows ingested, 0 rejected", "29
+duplicates removed", "18 advisors daily, none required to" and "2 days". They measured the
+pipeline's own hygiene rather than anything Duaa did, they led with the smallest number so the
+first impression was a small dataset, and the first three were already stated twice more on the
+same slide. Homebase's four went the same way, but its honest ones (three and a half hours, six
+Firestore collections, **no production usage**) moved into the body copy and must stay there under
+non-negotiable #3. **Do not add metrics columns back.**
+
+### The slides are different heights, and that is animated, not fixed
+
+At 1440px they measure 937, 1038 and 488. At 390px, 1567, 1251 and 890. Three real case studies of
+different lengths cannot be made equal without padding one out with filler.
+
+So `go()` in the carousel IIFE **animates the track between the two heights** instead of letting
+the page snap: measure `.cw-track` before the class swap, swap, measure after, then set the old
+height, force a reflow, and set the new one. `.cw-track` carries
+`transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1)` and `.is-sizing` adds `overflow: hidden`
+so a shrink clips rather than spills.
+
+Three details are load-bearing:
+- **`go(0)` on init must not animate.** The flag is the second argument; only the three transport
+  handlers and the arrow keys pass `true`.
+- **The inline height is always released**, on `transitionend` and again on a 500ms timer, because
+  `transitionend` does not fire for an interrupted transition or a backgrounded tab, and a track
+  stuck at a fixed height clips the next slide.
+- **A resize while `.is-sizing` is set clears it**, or the track strands at a stale pixel value.
+
+**Pinning the track to the tallest slide was considered and rejected.** It would leave roughly
+550px of dead cream under slide 3 at desktop and 789px at 360px. The rollout stepper reached the
+same conclusion for the same reason.
 
 Two interactive pieces, both zero-dependency:
 
@@ -243,9 +263,31 @@ styles, not by eye. An earlier pass guessed and every value was slightly wrong.
 | Label font | IBM Plex Mono 500, 12px, `0.08em`, uppercase |
 | **Body font** | **Inter** 400, 18px/1.45 |
 | Band | `max-width: 1200px`, 40px gutters |
+| `--sec` | `clamp(56px, 5vw, 72px)`, the space above and below **every** top-level section |
+| `--sec-half` | `calc(var(--sec) / 2)`, the step *inside* a section |
+| `--measure` | `62ch`, the one reading measure, about 70 characters a line |
+| `--r` | `4px`, the one editorial corner radius |
 
 Three families, not two. Setting body copy in Bricolage makes every paragraph read too
 heavy; that was a real bug.
+
+**Use the four tokens. Never write a raw `padding-block` on a section again.** The page once
+carried nine distinct section top paddings and nine bottom ones, because several `<section>`s wore
+an inline `padding-block: 60px` on top of a component that already had its own `clamp()`. The
+paddings stacked, and the worst adjacency measured 130 + 130 against 60 elsewhere. Duaa spotted the
+result as "awkward space". Apply `.sec`, or `.sec-t` / `.sec-b` where one section supplies the top
+of a pair and the next supplies the bottom. A boundary is then always `2 x --sec` rather than the
+sum of two unrelated values.
+
+Same story for the other three. `.lead` carried five different max-widths (560px, 640px twice,
+68ch, 800px) and the FAQ answers, the caveat list and the timeline bodies ran at 85 to 123
+characters a line. There were eight border-radius values. **The 3px, 5px and 8px radii still in the
+file belong to the dashboard mockup**, which is imitating a real web app, and are correct there.
+
+**The FAQ cards must not be `#FFFFFF`.** Pure white was a fifth surface on a four-colour page and
+read noticeably cooler than everything around it. They are hairline cards on the page's own ground,
+matching `.cs-fold` and `.hw-row`, with a 2.5% accent wash marking the open one. Their divider was
+`#f1f5f9`, a slate near-white borrowed from the mockup's palette, and is now `var(--rule)`.
 
 **All three pages must share one band width.** They once had 1200px, 1240px and 760px,
 so the header appeared to jump between pages. The FAQ holds its reading measure on the

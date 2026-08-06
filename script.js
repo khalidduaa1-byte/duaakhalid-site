@@ -676,23 +676,56 @@ document.addEventListener('DOMContentLoaded', () => {
     return b;
   }
 
-  var prev = mk('cw-btn', '&larr; PREV', 'Previous case study', function () { go(i - 1); });
+  var prev = mk('cw-btn', '&larr; PREV', 'Previous case study', function () { go(i - 1, true); });
   var nums = document.createElement('div');
   nums.className = 'cw-nums';
   var numEls = slides.map(function (s, n) {
     var b = mk('cw-num', (n + 1 < 10 ? '0' : '') + (n + 1),
-               'Case study ' + (n + 1) + ', ' + titleOf(s), function () { go(n); });
+               'Case study ' + (n + 1) + ', ' + titleOf(s), function () { go(n, true); });
     nums.appendChild(b);
     return b;
   });
   var upnext = document.createElement('span');
   upnext.className = 'cw-upnext';
-  var next = mk('cw-btn cw-next', 'NEXT CASE STUDY &rarr;', 'Next case study', function () { go(i + 1); });
+  var next = mk('cw-btn cw-next', 'NEXT CASE STUDY &rarr;', 'Next case study', function () { go(i + 1, true); });
 
   bar.appendChild(prev); bar.appendChild(nums); bar.appendChild(upnext); bar.appendChild(next);
   cw.appendChild(bar);
 
-  function go(n) {
+  /* The three case studies are genuinely different lengths, and no amount of
+     layout work makes them equal without padding one out with filler. So the
+     height change is animated rather than eliminated: the track glides between
+     the two heights instead of the page snapping and shoving everything below
+     it. Same treatment as the rollout stepper, and for the same reason.
+
+     Pinning the track to the tallest slide was considered and rejected. It is
+     what the stepper does NOT do either, and CLAUDE.md records why: four of the
+     seven steps ended up sitting above a hole. Here it would cost roughly 550px
+     of dead cream under the shortest slide at desktop and 789px at 360px.
+
+     Everything below is an enhancement on top of a working carousel. If it
+     throws, the class swap has already happened and the reader still gets the
+     slide. */
+  var track = cw.querySelector('.cw-track');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var settleTimer = null;
+
+  function clearSizing() {
+    if (settleTimer) { clearTimeout(settleTimer); settleTimer = null; }
+    track.style.height = '';
+    track.classList.remove('is-sizing');
+  }
+
+  function go(n, animate) {
+    // Measure the outgoing height before the swap, or there is nothing to
+    // animate from. A rapid second click lands mid-transition, so drop any
+    // inline height first and read the live value.
+    var from = 0;
+    if (animate && track) {
+      if (settleTimer) clearSizing();
+      from = track.getBoundingClientRect().height;
+    }
+
     i = (n + slides.length) % slides.length;
     slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
     numEls.forEach(function (b, k) {
@@ -700,12 +733,40 @@ document.addEventListener('DOMContentLoaded', () => {
       b.setAttribute('aria-current', k === i ? 'true' : 'false');
     });
     upnext.innerHTML = 'Up next &nbsp;<b>' + titleOf(slides[(i + 1) % slides.length]) + '</b>';
+
+    if (!from || reduce.matches) return;
+
+    // Natural height of the slide that just became current.
+    var to = track.getBoundingClientRect().height;
+    if (Math.abs(to - from) <= 4) return;
+
+    track.classList.add('is-sizing');   // overflow: hidden, so a shrink clips
+    track.style.height = from + 'px';
+    void track.offsetHeight;            // flush, or the start value never lands
+    track.style.height = to + 'px';
+
+    track.addEventListener('transitionend', function h(e) {
+      if (e.target !== track || e.propertyName !== 'height') return;
+      track.removeEventListener('transitionend', h);
+      clearSizing();
+    });
+    // transitionend does not fire if the transition is interrupted or the tab
+    // is backgrounded, and a track stuck at a fixed height would clip the next
+    // slide. Always release it.
+    settleTimer = setTimeout(clearSizing, 500);
   }
+
+  // A resize while an inline height is set would strand the track at a stale
+  // value. The resting state carries no inline height, so this only fires
+  // mid-transition.
+  window.addEventListener('resize', function () {
+    if (track.classList.contains('is-sizing')) clearSizing();
+  });
 
   // Arrow keys move between case studies while focus is inside the transport.
   bar.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, true); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1, true); }
   });
 
   go(0);
