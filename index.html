@@ -626,7 +626,7 @@
             </div>
             <div class="row">
               <p class="m red">WHAT BROKE</p>
-              <p>A dresser went live with a discount badge on it that was not real. I had it recorded at AED 1,100 when it actually cost 499, because I had trusted a store catalog page instead of the receipt. That is the whole reason the generator now prices against what was paid. There is also a bug on the catalog right now: it renders 0 items available from a hardcoded placeholder that the JavaScript overwrites on a normal load. It should say 11. I would rather tell you than have you find it.</p>
+              <p>A dresser went live with a discount badge on it that was not real. I had it recorded at AED 1,100 when it actually cost 499, because I had trusted a store catalog page instead of the receipt. That is the whole reason the generator now prices against what was paid. The catalog also carried a counter that could read 0 items available instead of the real figure. I listed it on this site as an open defect before I fixed it, which I would rather do than have you find it. It is fixed now, and it reads 11.</p>
             </div>
             <div class="row">
               <p class="m red">IMPACT</p>
@@ -1131,7 +1131,8 @@
             <span class="toggle-icon">+</span>
           </summary>
           <div class="faq-answer">
-            <p>Yes. The move-out catalog renders "0 items available" from a hardcoded placeholder that the JavaScript overwrites on a normal load. It should read 11. It is not sold out.</p>
+            <p><strong>Not right now, and the last one is worth showing rather than deleting.</strong> The move-out catalog used to be able to show "0 items available" instead of the real count. I listed it here as an open defect while it was open. It is fixed, and the counter reads 11.</p>
+            <p style="margin-top:10px;">I am leaving the entry up rather than quietly removing it, because a list that only ever contains open problems tells you less than one that shows what happened to them. If something else breaks it goes here first, and you will be able to see how long it sat.</p>
             <p style="margin-top:10px;">It lives in a separate repository from this site. I would rather list it here than have you find it and wonder what else is unchecked.</p>
           </div>
         </details>

@@ -276,9 +276,14 @@ git add -A && git commit -m "..." && git push
   unmeasured. Left blank deliberately. **Do not estimate it.**
 - **Homebase evaluation specifics**: session count and the failure modes the log review
   surfaced are not recorded in the repo, so no numbers are claimed.
-- **A live defect on moveoutsale.vercel.app**: renders "0 items available" from a
-  hardcoded placeholder that JS overwrites on a normal load. Should read 11. Still present
-  as of 2026-07-30. Separate repo, so it is disclosed as FAQ item 10 rather than fixed here.
+- ~~**A live defect on moveoutsale.vercel.app**~~ **FIXED, confirmed 2026-08-06.** The
+  availability counter could show "0 items available" instead of the real count. Verified against
+  the served page: `<b id="navail">0</b>` is a pre-script placeholder and the inline script sets
+  it from the data with `DATA.filter(d=>!d.sold).length`. The embedded data holds 32 rows, 21
+  sold, 11 unsold, so a visitor sees 11. **The site keeps the FAQ entry and marks it fixed rather
+  than deleting it.** A limitations register that only ever lists open problems says less than one
+  that shows what happened to them, and the disclose-then-fix cycle is the point. Do not quietly
+  remove resolved entries.
 - ~~**`Sales_management` attainment bug**~~ **RETRACTED 2026-08-06. The note was wrong.** It
   claimed that for `team_total` cities an individual's sales were divided by the team target,
   producing a false attainment that fed commission tiers. Checked against the repo and against a

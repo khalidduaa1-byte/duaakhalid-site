@@ -123,7 +123,7 @@ study. Every item here is from Duaa directly.
     - The sheet says 21 of 32: A COUNTIF counts rows, not objects. One row is a synthetic Dining Set Bundle whose table and chairs are also listed individually. The honest figure is 20 of 31.
     - What 78.6% measures: Recovery against what was paid for the items sold, not against total apartment spend.
     - Where the dates come from: Git history, which records when an item was marked sold rather than when money changed hands. The Excel has a Sold Date column the script never writes, so per item days to sell is not in the tracker.
-    - A live defect: The site renders 0 items available from a hardcoded placeholder that the JS overwrites on a normal load. It should read 11. Not sold out.
+    - A defect, disclosed and then fixed: the catalog's availability counter could show 0 items available instead of the real count. **Fixed, confirmed 2026-08-06.** The served page carries `<b id="navail">0</b>` as a pre-script placeholder and the inline script sets it from the data: `document.getElementById('navail').textContent = DATA.filter(d=>!d.sold).length`. The embedded data holds 32 rows, 21 sold, 11 unsold, so a visitor sees 11. That count also independently confirms the "sheet says 21 of 32" caveat above, from the live data. The site keeps the entry and marks it fixed rather than deleting it, because the disclosure-then-fix cycle is worth more than a clean list.
 
 ### Homebase
 - Context: Co-founded, two person team
