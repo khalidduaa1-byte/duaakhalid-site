@@ -208,6 +208,22 @@
       .creds .since { margin-left: 0; flex-basis: 100%; }
     }
 
+    /* The dashboard is genuinely interactive but nothing said so. Its only hint was
+       8px text inside a zoomed window, which nobody reads. This cue sits at normal
+       size above the widget, so the affordance is read before the thing it describes.
+       .shot is a centring flex row, so this one becomes a column to stack them. */
+    .proj .shot.fit { flex-direction: column; gap: 18px; }
+    .shot-cue {
+      font: 500 11px/1.6 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a3a3a3;
+      text-align: center;
+      max-width: 46ch;
+      margin: 0;
+    }
+    .shot-cue b { color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+
     /* The "now" note lives in the footer as a signature line rather than as its own
        band, so it reads as a human sign-off and not as a section demanding attention. */
     .footnow {
@@ -524,6 +540,7 @@
           </div>
         </div>
         <div class="shot fit">
+          <p class="shot-cue"><b>Try it</b> &middot; pick a city, type a target, and the card recalculates. Demo data, real arithmetic.</p>
           <!-- Pixel-accurate vector representation of the Sales Management Dashboard -->
           <div class="dashboard-window">
             <div class="db-topbar">
