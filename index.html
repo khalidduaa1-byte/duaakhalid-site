@@ -628,6 +628,11 @@
       gap: clamp(28px, 4vw, 56px);
       align-items: start;
     }
+    /* The metrics column is gone from slides 1 and 2. Rather than leave half the
+       grid empty, a .cw-left with no sibling spans the row and holds a reading
+       measure of its own. Self-healing: add or remove a right-hand column and the
+       layout follows, no extra class to remember. */
+    .cw-main > .cw-left:only-child { grid-column: 1 / -1; max-width: 74ch; }
     .cw-org { font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; margin-top: 10px; }
     .cw-title { font: 800 clamp(26px, 3vw, 38px)/1.08 var(--display); letter-spacing: -.02em; margin-top: 6px; }
     .cw-body { font: 400 16.5px/1.6 var(--body); color: #2e2d2a; margin-top: 16px; max-width: 62ch; }
@@ -970,14 +975,6 @@
             <p class="m tags">PWA &middot; PYTHON INGEST &middot; DATA VALIDATION &middot; FIELD ROLLOUT</p>
             <div class="btnrow"><a class="btn" href="https://sales-management-phi-blue.vercel.app" target="_blank" rel="noopener">VIEW DASHBOARD EVIDENCE &rarr;</a></div>
           </div>
-          <div class="cw-right">
-            <dl class="cw-metrics">
-            <div class="cw-met"><dt>1,324</dt><dd>rows ingested, 0 rejected</dd></div>
-            <div class="cw-met"><dt>29</dt><dd>duplicates removed</dd></div>
-            <div class="cw-met"><dt>18</dt><dd>advisors daily, none required to</dd></div>
-            <div class="cw-met"><dt>2 days</dt><dd>decision to a running site</dd></div>
-            </dl>
-          </div>
         </div>
         <div class="cw-demo">
           <div class="cw-demo-grid">
@@ -1148,17 +1145,9 @@
             <p class="m light">02 / AI PRODUCT &middot; HACKATHON 2026</p>
             <p class="cw-org">HOMEBASE &middot; CO-FOUNDED, TWO PERSON TEAM</p>
             <h3 class="cw-title">Homebase</h3>
-            <p class="cw-body">The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem, which is why the default path is a plain string builder and the model only runs behind a flag.</p>
+            <p class="cw-body">The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem, which is why the default path is a plain string builder and the model only runs behind a flag. It is a hackathon build, about three and a half hours of it, over six Firestore collections. No production usage, so there is no impact number here and I am not going to invent one.</p>
             <p class="m tags">VOICE AGENT &middot; DETERMINISTIC TEMPLATE &middot; FIRESTORE</p>
             <div class="btnrow"><a class="btn light-btn" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener">VIEW CONCEPT PAGE &rarr;</a></div>
-          </div>
-          <div class="cw-right">
-            <dl class="cw-metrics">
-            <div class="cw-met"><dt>8</dt><dd>fixed fields, every call</dd></div>
-            <div class="cw-met"><dt>6</dt><dd>Firestore collections</dd></div>
-            <div class="cw-met"><dt>3.5 hrs</dt><dd>what actually got built</dd></div>
-            <div class="cw-met"><dt>0</dt><dd>production usage, so no impact claim</dd></div>
-            </dl>
           </div>
         </div>
         <div class="cw-demo">
