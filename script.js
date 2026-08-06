@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   floatingDock.innerHTML = `
     <div class="dock-content">
       <span class="dock-dot"></span>
-      <span class="dock-text">DUBAI &rarr; NEW YORK &middot; Open to AI &amp; Product Roles</span>
+      <span class="dock-text">NEW YORK &middot; Open to forward-deployed AI roles</span>
       <a href="mailto:dk947@cornell.edu" class="dock-btn">GET IN TOUCH</a>
     </div>
   `;
