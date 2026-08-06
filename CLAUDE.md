@@ -117,24 +117,39 @@ below 900px.
 
 ## The case-study bodies
 
-Each project block carries a `.cs` block of four `.row` pairs: PROBLEM, BUILD, PROOF,
-IMPACT. The label is the existing `.m.red` mono token (`.m.light` inside the dark Homebase
-band), so the rows inherit the design system rather than introducing new type.
+Each project block carries a `.cs` block of six `.row` pairs, in this order: PROBLEM,
+**WHAT IT ACTUALLY WAS**, BUILD, PROOF, **WHAT BROKE**, IMPACT. The label is the existing
+`.m.red` mono token (`.m.light` inside the dark Homebase band), so the rows inherit the design
+system rather than introducing new type.
+
+**Do not merge WHAT IT ACTUALLY WAS back into PROBLEM.** It is the load-bearing row. PROBLEM
+states the problem as it was handed over; the reframe row states what it turned out to be once
+the evidence was in, and the build then follows from the restatement. Without it the case studies
+read as somebody executing against a brief that arrived already correct, which is precisely the
+failure mode a forward-deployed hire is screened against. The three reframes are: the licensed
+platform could not be operated by the account owner so buying more tooling would not have helped;
+a catalog fixes the messaging but not a listing and an accounting that are free to disagree; and
+the call-context variation was never the useful part, the inconsistency was, which is a template
+problem and not a model problem.
+
+**WHAT BROKE is the other row that must survive a tidy-up.** It is where the reflection lives, and
+it is the only part of a case study that cannot be written by somebody who was not there.
 
 Each project's original one-line summary paragraph **stays above** the fold. Duaa asked for
 these to be additions, not replacements. An earlier pass folded the summaries into BUILD and
 had to restore them; BUILD now carries mechanism the summary does not state.
 
 **The whole `.cs` block is collapsed inside a `<details class="cs-fold">`, closed by
-default.** Expanded inline, the four rows made every project block roughly twice as tall and
+default.** Expanded inline, the rows made every project block roughly twice as tall and
 broke the scannable layout, which Duaa flagged. A modal was considered and rejected: it needs
 JS, a focus trap and an escape hatch, and it reads badly on mobile. Native `<details>` gets
-keyboard support and no-JS behaviour for free and reuses the `/faq` pattern.
+keyboard support and no-JS behaviour for free and reuses the `#faq` accordion pattern.
 
-The summary label advertises what is inside, including the interactive bits ("RUN THE DEDUP",
-"TRY IT"), because otherwise the two demos are invisible behind a closed fold. **Keep these
-labels to one line**; at 12px mono in the Homebase column, anything longer than about 52
-characters wraps and pushes the `+` off centre. All three bars should measure 50px tall.
+The summary label advertises the **interactive payload only** ("RUN THE DEDUP", "TRY THE
+GENERATOR"), because otherwise the two demos are invisible behind a closed fold. It deliberately
+no longer lists the row names: that list went stale the moment rows were added, and six names do
+not fit. **Keep these labels to one line**; at 12px mono in the Homebase column, anything longer
+than about 52 characters wraps and pushes the `+` off centre. All three bars measure 50px tall.
 
 The rows cascade in on open via a `cs-in` keyframe animation, staggered 65ms by
 `script.js`. This is an **animation, not a transition out of a hidden base state**, and that

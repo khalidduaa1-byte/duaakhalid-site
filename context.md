@@ -60,6 +60,21 @@ study. Every item here is from Duaa directly.
   emails, not everyone knows how to register somewhere."
 - **She ran WhatsApp and the app in parallel for a month** rather than force the change, then
   reconciled the two channels so nothing double-counted.
+- **Where the 29 duplicates actually came from. Confirmed by Duaa 2026-08-06, previously open.**
+  Not the export's layout drift. Staggered registration. She backfilled everything up to launch,
+  then advisors came online on different dates because of the signup wall. While an advisor was
+  locked out she entered that advisor's sales herself. Once they registered they began logging
+  their own, **with no visibility into what was already in the system**, so they re-entered days
+  she had already covered and sometimes skipped days she then had to add. Every advisor had a
+  different start date, so the overlap had to be tracked person by person. In her words: "They
+  don't have visibility into my system. They don't know if I see it... I had to manually add that
+  and make sure that, for each of the BAs, I was not duplicating them."
+  The honest framing, which the site now uses: **this was a product gap, not a data hygiene one.**
+  Duaa gave the mechanism using a hypothetical ("let's say on 1 June"), so describe the mechanism
+  and never invent dates or per-advisor start dates.
+- **The export's layout drift is a separate, still-true fact.** The 38, 38, 40 and 37 column
+  counts across four consecutive monthly sheets are verified and remain publishable. They are
+  structure, not commercial data, and they are **not** the cause of the 29 duplicates.
 - **January to March was backfilled by hand.** She launched in April and loaded the earlier months
   into Supabase by writing SQL herself. So daily self-logging by advisors describes April onward,
   and the 1,324-row figure covers a window whose first three months she entered from existing
@@ -176,20 +191,20 @@ the unknown. Update or remove this once it stops being true.
 Conflicts between this file, the live site, and the 2026-08-06 interview. Each blocks only the
 specific claim it touches.
 
-1. **Origin of the 29 duplicates.** This file attributes them to the supervisor's export and its
-   month-to-month layout drift. The interview attributes them to running WhatsApp and the app in
-   parallel. Both may be true. The site currently describes reconciliation between two input
-   channels without asserting which produced the 29.
-2. **Team size, 55 vs 30 plus.** Interview says 55 advisors under her at Dolce & Gabbana. This
+**Resolved 2026-08-06:** the origin of the 29 duplicates. It was staggered registration, not the
+export's layout drift. See "How it came to exist" above. The site has been corrected in three
+places: the PROOF caption, the rollout log, and the FAQ answer on the dedup key.
+
+1. **Team size, 55 vs 30 plus.** Interview says 55 advisors under her at Dolce & Gabbana. This
    file and the site say a "30 plus person beauty advisor team" for the workshops. These may
    count different things. **No headcount for the managed team appears on the site.**
-3. **Egypt team, 19 vs 18 vs about 20.** Interview says 19. The January to April export holds 18,
+2. **Egypt team, 19 vs 18 vs about 20.** Interview says 19. The January to April export holds 18,
    roughly 20 onboarded. The site uses **18** throughout. 19 is not used anywhere.
-4. **The 45 minutes to 5 minutes claim.** This file, `faq.html` Q1 and the résumés attach it to
+3. **The 45 minutes to 5 minutes claim.** This file, the `#faq` section's first answer, and the résumés attach it to
    the Givenchy and Kenzo sell-in ordering tool. In the interview Duaa described something
    different, automating sell-out report consolidation from retailer data. The claim is live on
    the site and has been left untouched, and **no new copy was built on top of it.**
-5. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
+4. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
    for. This file documents a dresser at 1,100 that cost 499 and a dining table at 1,499 that was
    2,100 with chairs. The site uses the dresser. The sofa is not published.
 

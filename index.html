@@ -404,7 +404,11 @@
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
-              <p>Egypt was my account and it was growing about 6x over 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel. We already licensed a field sales platform for exactly this, and it worked for the big markets. It did not work for mine. Loading a monthly target meant emailing their IT team and waiting. The dashboard did not show me what I needed. And the per seat cost was impossible to justify for a market that size. So I did not go and ask for the budget. I built the replacement.</p>
+              <p>Egypt was my account and it was growing about 6x over 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel every evening. That does not survive an account growing at that rate.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT IT ACTUALLY WAS</p>
+              <p>The obvious answer was to put the market on the field sales platform we already licensed. It would not have helped. Loading a monthly target into it meant emailing the vendor's IT team and waiting, so the person responsible for the numbers could not change her own targets. The dashboard showed what the vendor had decided a dashboard shows. And the per seat cost could not be justified at that market size anyway. We did not have a missing tool. We had a tool that nobody on my side could operate, and buying more of it would not have fixed that. So I did not go and ask for the budget.</p>
             </div>
             <div class="row">
               <p class="m red">BUILD</p>
@@ -413,7 +417,7 @@
             <div class="row">
               <p class="m red">PROOF</p>
               <div>
-                <p>For a month the app and WhatsApp both ran, because I was not going to switch everyone over on faith. That meant the same day's sales could arrive twice, from two directions. The dedup key is what decides whether two rows are one event or two. Here are two that look like two days of work and are actually one. The highlighted columns are the key. Run it.</p>
+                <p>I had backfilled everything up to launch, and then advisors came online on different dates because of the signup problem. While somebody was still locked out I was entering their sales for them. When they got in they started logging their own, and they could not see what was already in there, so they re-entered days I had already covered. The dedup key is what decides whether two rows are one event or two. Here are two that look like two days of work and are actually one. The highlighted columns are the key. Run it.</p>
 
                 <div class="dupt-wrap">
                   <table class="dupt" id="dupt">
@@ -606,7 +610,11 @@
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
-              <p>Selling 31 pieces of furniture meant re-answering the same questions item by item over WhatsApp, and pricing everything off store catalog pages that turned out to be wrong by more than double. One dresser was recorded at AED 1,100 when it had actually cost 499, which put a phantom discount badge on a live page.</p>
+              <p>Thirty one pieces of furniture to sell before I left the country, and every buyer asked the same three questions about size, condition and whether the price moved. One thread each, the same answers retyped.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT IT ACTUALLY WAS</p>
+              <p>A catalog fixes the messaging. It does nothing about the part that was actually costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. A dresser I had recorded at AED 1,100 had cost 499, so the site was advertising a saving that did not exist. The real problem was that the listing and the accounting were two separate documents, free to disagree with each other.</p>
             </div>
             <div class="row">
               <p class="m red">BUILD</p>
@@ -658,6 +666,10 @@
                 <div class="row">
                   <p class="m light">PROBLEM</p>
                   <p>Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.</p>
+                </div>
+                <div class="row">
+                  <p class="m light">WHAT IT ACTUALLY WAS</p>
+                  <p>The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was the entire problem, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem. It is why the default path is a plain string builder and the model only runs behind a flag.</p>
                 </div>
                 <div class="row">
                   <p class="m light">BUILD</p>
@@ -898,7 +910,7 @@
         </div>
         <div class="row">
           <p class="m red">THE MONTH AFTER</p>
-          <p>WhatsApp and the app running side by side. Every day I reconciled the two so nothing was counted twice, which is where the dedup key came from. People crossed over as they got themselves set up, not because I set a date and made them.</p>
+          <p>WhatsApp and the app running side by side while people got themselves registered, which they did on different dates. So for every advisor there was a window where I was entering their sales and they were also starting to enter their own, with no way for them to see what I had already put in. That overlap is where the dedup key came from. It was never a data cleanliness problem. They could not see what the system already knew about them.</p>
         </div>
         <div class="row">
           <p class="m red">JUNE 2026</p>
@@ -979,7 +991,9 @@
           </summary>
           <div class="faq-answer">
             <p>The dedup key defines what makes two rows the same event rather than two events. Here it was <code>advisor + date + store + shift</code>.</p>
-            <p style="margin-top:10px;">Duplicate rows double-count sales and inflate Days Worked, distorting every daily KPI. Settling this key upfront ensured that across 1,324 ingested rows, 29 duplicates were safely removed and zero rows were rejected.</p>
+            <p style="margin-top:10px;"><strong>Where the duplicates came from matters more than the key.</strong> I had loaded everything up to launch, and then advisors registered on different dates because of the signup problem. While an advisor was locked out I entered their sales myself. Once they got in they started logging their own, with no visibility into what was already there, so they re-entered days I had covered and occasionally skipped days I then had to add. Every advisor had a different start date, so I was tracking that overlap person by person.</p>
+            <p style="margin-top:10px;">Duplicate rows double-count sales and inflate Days Worked, distorting every daily KPI. Settling this key upfront meant that across 1,324 ingested rows, 29 duplicates were removed and zero rows were rejected.</p>
+            <p style="margin-top:10px;">The honest read is that this was a product gap, not a data hygiene one. If the advisors could have seen what the system already held for them, most of those 29 rows would never have been typed.</p>
           </div>
         </details>
 
