@@ -314,3 +314,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 })();
+
+/* ------------------------------------------------------------------
+   Scroll-spy for the single-page nav.
+
+   The site is now one page with anchor links, so the header needs to
+   say where you are. Marks the deepest section whose anchor has passed
+   under the sticky header. Purely additive: with JS off you simply get
+   no highlight, and the anchor links still work.
+------------------------------------------------------------------ */
+(function () {
+  var links = document.querySelectorAll('.sitehead nav a[href^="#"]');
+  if (!links.length) return;
+
+  var targets = [];
+  Array.prototype.forEach.call(links, function (link) {
+    var el = document.getElementById(link.getAttribute('href').slice(1));
+    if (el) targets.push({ link: link, el: el });
+  });
+  if (!targets.length) return;
+
+  var ticking = false;
+
+  function sync() {
+    ticking = false;
+    var current = null;
+    targets.forEach(function (t) {
+      // 100px allows for the sticky header plus a little breathing room.
+      if (t.el.getBoundingClientRect().top <= 100) current = t;
+    });
+    targets.forEach(function (t) {
+      t.link.classList.toggle('here', t === current);
+    });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(sync);
+  }, { passive: true });
+
+  sync();
+})();

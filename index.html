@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Duaa Khalid, AI Product &amp; GTM</title>
-  <meta name="description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta name="description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
   
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta property="og:description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta property="og:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
   <meta property="og:url" content="https://www.duaakhalid.com/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta name="twitter:description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta name="twitter:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F03419'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23F3F1EC' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
@@ -24,6 +24,170 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
   
   <link rel="stylesheet" href="styles.css">
+  <style>
+/* About Specific Layout Styles */
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding-block: clamp(48px, 6vw, 72px);
+      align-items: start;
+    }
+    .portrait-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .portrait-img-wrapper {
+      background: #000000;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.15);
+    }
+    .portrait-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .portrait-caption {
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f5d58;
+    }
+
+    .about-txt-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .rely-card {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .rely-card .m { color: #ffffff; opacity: 0.9; }
+    .rely-card strong {
+      font: 700 clamp(20px, 2.2vw, 26px)/1.2 var(--display);
+      letter-spacing: -0.02em;
+    }
+
+    /* Capabilities 3-Column Grid */
+    .cap-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 0;
+      margin-top: 36px;
+      border: 1px solid var(--rule-dark);
+    }
+    .cap-col {
+      padding: 32px;
+      border-right: 1px solid var(--rule-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 400 16px var(--body);
+      color: var(--on-dark);
+    }
+    .cap-col-red {
+      background: var(--accent);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col-red ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 600 16px var(--body);
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .about-hero-grid, .cap-3col { grid-template-columns: 1fr; }
+      .cap-col { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+    }
+
+.faq-container { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .faq-item {
+      border: 1px solid var(--rule);
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item:hover { border-color: var(--ink); }
+    /* Native <details>, so the reveals work with JS disabled and are keyboard
+       operable. The list-style resets remove the default disclosure triangle
+       without losing the summary's built-in button semantics. */
+    .faq-item > summary {
+      padding: 22px 28px;
+      font: 700 18px/1.3 var(--display);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+      background: #ffffff;
+      list-style: none;
+    }
+    .faq-item > summary::-webkit-details-marker { display: none; }
+    .faq-item > summary::marker { content: ''; }
+    .faq-item > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+    .faq-item .toggle-icon {
+      font-family: var(--mono);
+      font-weight: 500;
+      color: var(--accent);
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] > summary .toggle-icon { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 18px 28px 24px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2e2d2a;
+      border-top: 1px solid #f1f5f9;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-item, .faq-item .toggle-icon { transition: none; }
+    }
+    .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: 40px; border-radius: 8px; margin-top: 40px; }
+    .honest-caveats h3 { font: 700 24px var(--display); color: var(--on-dark); }
+    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .honest-caveats li { color: var(--on-dark-muted); font-size: 15px; }
+
+    /* Anchor targets clear the sticky header without a negative-offset hack.
+       The header is ~67px wide-screen but ~99px below 900px, where the six nav
+       items wrap to a second line, so the offset has to follow it. */
+    .anchor { display: block; height: 0; scroll-margin-top: 92px; }
+    @media (max-width: 900px) { .anchor { scroll-margin-top: 124px; } }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    /* Scroll-spy state, set by script.js */
+    .sitehead nav a.here { color: var(--accent); }
+  </style>
 </head>
 <body>
 
@@ -36,9 +200,10 @@
       </a>
       <nav>
           <ul>
-            <li><a class="lnk" href="/" style="color: var(--accent);">WORK</a></li>
-            <li><a class="lnk" href="/about">ABOUT</a></li>
-            <li><a class="lnk" href="/faq">FAQ</a></li>
+            <li><a class="lnk" href="#about">ABOUT</a></li>
+            <li><a class="lnk" href="#work">WORK</a></li>
+            <li><a class="lnk" href="#notes">NOTES</a></li>
+            <li><a class="lnk" href="#faq">FAQ</a></li>
             <li><a class="lnk" href="/resume.pdf" target="_blank" rel="noopener">RESUME</a></li>
             <li><a class="lnk mail" href="mailto:dk947@cornell.edu">EMAIL</a></li>
           </ul>
@@ -47,39 +212,173 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+<!-- Hero Section -->
     <section class="hero-section band pad rule">
       <div class="avail">
         <span class="m red">DUBAI &rarr; NEW YORK &middot; OPEN TO FORWARD-DEPLOYED AI ROLES</span>
       </div>
       
-      <h1>I turn unreliable operational data into decision systems people actually use.</h1>
-      
+      <h1>I get software into companies that are not ready for it.</h1>
+
       <div class="twoup">
-        <p class="lead">Five years across luxury retail and GTM taught me where bad data becomes expensive. I build the validation, product, and rollout layer that catches it before it reaches the people making decisions.</p>
+        <p class="lead">Five years in luxury beauty, an industry that blocks AI on employee laptops and licenses tools its own account owners cannot configure. I built things anyway, without asking for a budget, and the field team used them every day without anyone being told to. That is the job I want next.</p>
         <p class="note">Incoming MEng, Data Science &amp; Decision Analytics &middot; Cornell Tech &middot; August 2026</p>
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section band">
-      <div class="stats">
-        <div class="s">
-          <span class="n">18</span>
-          <span class="m">BEAUTY ADVISORS &middot; DAILY ADOPTION</span>
+    <div id="about" class="anchor"></div>
+<!-- About Hero Section -->
+    <section class="band pad rule">
+      <div class="about-hero-grid">
+        <!-- Left: Portrait Photo (Cropped Black Background) -->
+        <div class="portrait-card">
+          <div class="portrait-img-wrapper">
+            <img src="duaa-portrait.jpg" alt="Duaa Khalid in front of a Dolce and Gabbana sign" width="1200" height="1247">
+          </div>
+          <span class="portrait-caption">DOLCE &amp; GABBANA / 2026</span>
         </div>
-        <div class="s">
-          <span class="n">03</span>
-          <span class="m">EGYPTIAN MARKETS &middot; ONE SYSTEM</span>
-        </div>
-        <div class="s">
-          <span class="n">1,324</span>
-          <span class="m">ROWS INGESTED &middot; ZERO REJECTED</span>
+
+        <!-- Right: Bio & Highlights -->
+        <div class="about-txt-col">
+          <p class="m red">ABOUT / DUAA KHALID</p>
+          <h2>I learned product work on store floors, not in a lab.</h2>
+
+          <p class="lead">I had beauty advisors working under me. You are responsible for their salaries, their commissions, and making sure they are motivated in life. If they get sad, if they get depressed, if they are not motivated enough, their sales performance drastically changes, and it shows up in your monthly sales. Everything I have built since then assumes nobody will be made to open it.</p>
+
+          <p class="lead">Five years in commercial and GTM at LVMH, then Dolce &amp; Gabbana Beauty across MENA. I love the brand, I love fashion and luxury, I love the industry. I was also in my box. Do I really want to sit behind a computer for the next however many years, and is that all I am capable of? No. So in August 2026 I start an MEng in Data Science &amp; Decision Analytics at Cornell Tech. Dubai to New York. It is a risky decision and I know it.</p>
+
+          <!-- Red Highlight Card -->
+          <div class="rely-card">
+            <span class="m">WHENEVER SOMETHING GOES WELL</span>
+            <strong>&ldquo;Okay, we can still double this.&rdquo;</strong>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Selected Work Intro -->
+<!-- How I Work Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="intro" style="padding-block: 0 32px;">
+        <p class="m red">HOW I WORK</p>
+        <h2>I can't work in a company where I don't know what everyone else is doing.</h2>
+      </div>
+
+      <div class="twoup" style="margin-top: 0;">
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <p class="lead">I like to know what each and every one's job is. How their process runs, what lands on their desk, what they are waiting on. Because if I don't understand how other people process things, I am not going to understand why my own work is not getting done. That sounds like nosiness. It is mostly self interest.</p>
+          <p class="lead">You cannot change someone else for you. You can change your own attitude towards each and every person. If I catch myself getting annoyed at somebody, I go and find out where they are coming from and what their work is actually like, and the annoyance usually turns out to be a process I could not see from where I was sitting.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <p class="lead">The wall on the sales tracker rollout was never technical. The app was fine. Advisors could not complete an email signup, because not everyone knows how to access emails and not everyone knows how to register somewhere. So I ran WhatsApp and the app side by side for a month instead of forcing the switch, then reconciled the two so nothing got counted twice.</p>
+          <p class="lead">The same instinct is why I pilot before I launch. Three advisors and their supervisor for about a week, on the real thing, in the real month. Then fix what they told me. Then everybody.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+        <p class="m red">FAIR WARNING</p>
+        <p class="lead" style="max-width: 720px;">One thing I am not going to dress up. I can get too sensitive about the job I have. I feel like it's my thing and I get a bit too sensitive about it. Other people have trained themselves to ignore that, like, this is only a company, it's only a job, it shouldn't bother you. I'm a bit more sensitive when it comes to that.</p>
+      </div>
+    </section>
+
+<!-- Career Path Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="tl">
+        <div>
+          <p class="m red">CAREER PATH</p>
+          <h2 style="margin-top:16px;">Every step started as somebody else's broken system.</h2>
+        </div>
+        <div class="rows">
+          <div class="r">
+            <p class="m red">NEXT / AUG 2026</p>
+            <div>
+              <p class="org">CORNELL TECH</p>
+            </div>
+            <p class="d">MEng in Data Science &amp; Decision Analytics. I built the tracker without asking anyone for budget and it is still running. Now I want to know how to build these things properly. Dubai to New York.</p>
+          </div>
+          <div class="r">
+            <p class="m red">NOW / 2024&ndash;2026</p>
+            <div>
+              <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
+            </div>
+            <p class="d">Thirteen markets, and no way to see an account going wrong until it already had. I built the health monitoring layer that benchmarks the accounts and flags the ones at risk, and it is now the first thing the markets look at. Egypt was my account, roughly 6x over about eighteen months. The advisors were sending me their daily sales on WhatsApp and I was retyping them into Excel, so I built the tracker instead. Alongside that I wrote and ran the sales enablement workshops for the advisor team.</p>
+          </div>
+          <div class="r">
+            <p class="m">PREVIOUSLY / 2021&ndash;2024</p>
+            <div>
+              <p class="org">LVMH &middot; MENA</p>
+            </div>
+            <p class="d">I started out tracking out of stocks and aged inventory by hand across the MENA accounts. Then I became internal product owner for the sell-in tool the account managers used every day. I wrote the requirements and ran the roadmap, then sat in feedback loops with those account managers for two years. It was the first time I was the single point of contact across retailers, marketing, demand planning and supply chain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Capabilities Dark Section -->
+    <section class="dark">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">CAPABILITIES</p>
+            <h2 style="margin-top:16px;">I would not have built any of this without AI.</h2>
+            <p class="lead" style="margin-top: 18px; max-width: 640px;">Vibe coding is very easy right now. I built it, it is still running. But am I going to 100% trust AI? That is not how it works. I need to understand how the product works first, what the industry actually needs, what is required. It is not going to generate a product for me. You need the knowledge and you need your own input on things, or else it is not going to work.</p>
+          </div>
+
+          <div class="cap-3col">
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">BUILD</p>
+              <ul>
+                <li>Python</li>
+                <li>SQL, including backfilling three months by hand</li>
+                <li>Supabase, learned on the tracker</li>
+                <li>Firestore</li>
+                <li>Sites people add to a phone home screen</li>
+              </ul>
+            </div>
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">OPERATE</p>
+              <ul>
+                <li>Field rollout and training</li>
+                <li>Key account management</li>
+                <li>GTM across MENA</li>
+                <li>Pilot first, then launch</li>
+                <li>Getting a team off WhatsApp</li>
+              </ul>
+            </div>
+            <div class="cap-col-red">
+              <p class="m light">MODEL</p>
+              <ul>
+                <li>Deciding what counts as a valid row</li>
+                <li>Dedup keys and validation rules</li>
+                <li>Commission and target logic</li>
+                <li>Account health benchmarking</li>
+                <li>Excel, properly</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="work" class="anchor"></div>
+<!-- Stats Section -->
+    <section class="stats-section band">
+      <div class="stats">
+        <div class="s">
+          <span class="n">6x</span>
+          <span class="m">THE EGYPT ACCOUNT &middot; 18 MONTHS</span>
+        </div>
+        <div class="s">
+          <span class="n">18</span>
+          <span class="m">ADVISORS DAILY &middot; NOBODY MADE THEM</span>
+        </div>
+        <div class="s">
+          <span class="n">02</span>
+          <span class="m">DAYS TO A RUNNING BUILD</span>
+        </div>
+      </div>
+    </section>
+
+<!-- Selected Work Intro -->
     <div id="work" class="band pad">
       <div class="intro">
         <p class="m red">SELECTED WORK / 2024&ndash;2026</p>
@@ -95,26 +394,26 @@
         <div class="txt">
           <p class="m red">01 / FIELD DATA SYSTEM</p>
           <h2>Beauty Advisor Sales Tracker</h2>
-          <p>A PWA and ingest pipeline that de-duplicates a supervisor export before any KPI is calculated. It then gives 18 advisors a tool simple enough to use every day.</p>
+          <p>We already licensed a platform for this. It did not fit my market, so I built the replacement in two days and got 18 advisors onto it without anyone being told to.</p>
 
           <details class="cs-fold">
             <summary>
-              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; RUN THE DEDUP</span>
+              <span class="m">READ THE CASE STUDY &middot; RUN THE DEDUP</span>
               <span class="fold-ic">+</span>
             </summary>
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
-              <p>Advisor performance arrived as a supervisor's Daxium Excel export whose layout changed month to month, with duplicate rows on the same advisor, date, store and shift. Duplicates double count sales and inflate Days Worked, so no daily KPI could be trusted and productivity could not be compared across cities until month end.</p>
+              <p>Egypt was my account and it was growing about 6x over 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel. We already licensed a field sales platform for exactly this, and it worked for the big markets. It did not work for mine. Loading a monthly target meant emailing their IT team and waiting. The dashboard did not show me what I needed. And the per seat cost was impossible to justify for a market that size. So I did not go and ask for the budget. I built the replacement.</p>
             </div>
             <div class="row">
               <p class="m red">BUILD</p>
-              <p>The dedup key is advisor plus date plus store plus shift, applied before any KPI is calculated rather than corrected afterwards. 18 advisors across 3 Egyptian markets, Cairo, Sharm and Hurghada, log their own sales daily.</p>
+              <p>Two days from deciding to a running site, with Supabase behind it, which I learned on this project. The advisors are on their phones all day, so instead of shipping a native app I had them add the site to their home screen from the browser. Then I gave it to three advisors and the sales supervisor for a week before anyone else saw it. The supervisor got the dashboard with commissions and targets calculating themselves, which was the part she had been doing by hand. I took their feedback, fixed what they hated, and only then launched it to everyone. January to March I loaded myself by writing SQL against Supabase, because the app only went live in April.</p>
             </div>
             <div class="row">
               <p class="m red">PROOF</p>
               <div>
-                <p>Two rows that look like two days of work and are actually one. The highlighted columns are the dedup key. Run it and watch the KPIs correct themselves.</p>
+                <p>For a month the app and WhatsApp both ran, because I was not going to switch everyone over on faith. That meant the same day's sales could arrive twice, from two directions. The dedup key is what decides whether two rows are one event or two. Here are two that look like two days of work and are actually one. The highlighted columns are the key. Run it.</p>
 
                 <div class="dupt-wrap">
                   <table class="dupt" id="dupt">
@@ -162,8 +461,12 @@
               </div>
             </div>
             <div class="row">
+              <p class="m red">WHAT BROKE</p>
+              <p>The signup. Not the app, the signup. I had built the thing and tested it and it worked, and then advisors could not get in, because not everyone has an email they can actually access and not everyone has ever registered for anything. That is the part I did not see coming, and it had nothing to do with the product. So I kept WhatsApp running next to it for a month instead of forcing the change, and reconciled the two by hand until people were in.</p>
+            </div>
+            <div class="row">
               <p class="m red">IMPACT</p>
-              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. Presented to global beauty leadership.</p>
+              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. I showed it to global beauty leadership about a month after it went out.</p>
             </div>
           </div>
           </details>
@@ -297,7 +600,7 @@
 
           <details class="cs-fold">
             <summary>
-              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT</span>
+              <span class="m">READ THE CASE STUDY</span>
               <span class="fold-ic">+</span>
             </summary>
           <div class="cs">
@@ -312,6 +615,10 @@
             <div class="row">
               <p class="m red">PROOF</p>
               <p>The live catalog, generated from the same item list that feeds the profit tracker.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT BROKE</p>
+              <p>A dresser went live with a discount badge on it that was not real. I had it recorded at AED 1,100 when it actually cost 499, because I had trusted a store catalog page instead of the receipt. That is the whole reason the generator now prices against what was paid. There is also a bug on the catalog right now: it renders 0 items available from a hardcoded placeholder that the JavaScript overwrites on a normal load. It should say 11. I would rather tell you than have you find it.</p>
             </div>
             <div class="row">
               <p class="m red">IMPACT</p>
@@ -344,7 +651,7 @@
 
               <details class="cs-fold" style="margin-top:20px">
                 <summary>
-                  <span class="m light">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; TRY IT</span>
+                  <span class="m light">READ THE CASE STUDY &middot; TRY THE GENERATOR</span>
                   <span class="fold-ic">+</span>
                 </summary>
               <div class="cs">
@@ -382,6 +689,10 @@
                   </div>
                 </div>
                 <div class="row">
+                  <p class="m light">WHAT BROKE</p>
+                  <p>Most of it, in the sense that most of it never shipped. What exists after roughly three and a half hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification and not a product, and I am not going to call it one. The concept page also advertises tenant satisfaction and response time figures for a build with no production usage. Those are not mine, they are not repeated here, and the screenshot above is cropped above them on purpose.</p>
+                </div>
+                <div class="row">
                   <p class="m light">IMPACT</p>
                   <p>Hackathon build, co-founded, no production usage, so there is no impact number to claim and I am not inventing one. The decision worth showing instead: the voice agent's system prompt stays static while per-call variation is injected as a structured block, so the prompt is not rewritten on every call. The default path is a plain template, with the model only behind a flag, because a string template was sufficient.</p>
                 </div>
@@ -414,85 +725,443 @@
       </div>
     </section>
 
-    <!-- Timeline / Through-Line -->
-    <section class="band pad">
-      <div class="tl">
-        <div>
-          <p class="m red">THE THROUGH-LINE</p>
-          <h2 style="margin-top:16px;max-width:28ch">From monitoring stock by hand to designing the systems that explain what changed, and what to do next.</h2>
-        </div>
-        <div class="rows">
-          <div class="r">
-            <p class="m">2021&ndash;2023</p>
-            <div>
-              <p class="org">LVMH &middot; MENA</p>
-              <p class="role">Supply Chain &amp; Operations</p>
-            </div>
-            <p class="d">Turned fragmented stock and order workflows into commercial decision support.</p>
-          </div>
-          <div class="r">
-            <p class="m">2024&ndash;2026</p>
-            <div>
-              <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
-              <p class="role">Key Account Infrastructure</p>
-            </div>
-            <p class="d">Built account health monitoring and field-data infrastructure across the region.</p>
-          </div>
-          <div class="r">
-            <p class="m">AUG 2026</p>
-            <div>
-              <p class="org">CORNELL TECH</p>
-              <p class="role">MEng, Data Science &amp; Decision Analytics</p>
-            </div>
-            <p class="d">Building the next generation properly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Capabilities Section -->
+<!-- Capabilities Section -->
     <section class="band pad">
       <div class="caps">
         <div>
           <p class="m red">CAPABILITIES</p>
-          <h2 style="margin-top:16px;max-width:28ch">The work is deciding what counts as a valid row, then getting a field team to work the new way.</h2>
+          <h2 style="margin-top:16px;max-width:28ch">What I am actually good at, and where I stop.</h2>
         </div>
         <div class="capgrid">
           <div>
-            <p class="m red">DATA VALIDATION</p>
-            <p>Defining the dedup key: what makes two rows the same event rather than two events, sitting underneath every number shown.</p>
+            <p class="m red">GETTING PEOPLE TO USE IT</p>
+            <p>This is the one I would defend hardest. Eighteen people in three cities opened a tool every day that nobody had told them to open. Building it took two days. That took months, and most of it was not product work.</p>
           </div>
           <div>
-            <p class="m red">INGEST PIPELINES</p>
-            <p>Taking volatile month-to-month exports and turning them into reliable schemas before any KPI is calculated.</p>
+            <p class="m red">DECIDING WHAT COUNTS AS ONE EVENT</p>
+            <p>Advisor, date, store, shift. The dedup key is a judgement call, not a technical detail. Get it wrong and every number underneath is wrong in a way that still looks completely plausible.</p>
           </div>
           <div>
-            <p class="m red">DECISION SUPPORT</p>
-            <p>Building commercial tools that turn 45-minute manual workflows into 5-minute automated actions with feedback loops.</p>
+            <p class="m red">BUILDING IT, WITH AI, AND SAYING SO</p>
+            <p>I would not have shipped any of this without AI, and I am not going to pretend otherwise. I also would not hand it the decision about what to build. It cannot tell you what someone needs at the end of a shift in Cairo. You have to know that part yourself, and then the tooling gets fast.</p>
           </div>
           <div>
-            <p class="m red">ACCOUNT HEALTH</p>
-            <p>Benchmarking accounts across multi-market portfolios so risk surfaces automatically before revenue drops.</p>
+            <p class="m red">THE COMMERCIAL SIDE</p>
+            <p>Five years owning accounts, targets, commissions, and the people carrying them. The commercial consequence is where I start, not something I check at the end.</p>
           </div>
           <div>
-            <p class="m red">FIELD ROLLOUT</p>
-            <p>Onboarding non-technical commercial teams into sustained daily adoption through structured enablement.</p>
+            <p class="m red">ROLLOUT, WHICH IS TRAINING</p>
+            <p>It is never a link you send. It is sitting with people until they are in.</p>
           </div>
           <div>
-            <p class="m red">AI EVALUATION</p>
-            <p>Structuring deterministic prompt templates and inspecting output logs to guarantee reliable execution.</p>
+            <p class="m red">WHERE I STOP</p>
+            <p>No model in production. No engineers managed. The biggest thing here has eighteen users. <a href="#faq">The full list is further down</a>.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
+    <div id="notes" class="anchor"></div>
+<!-- Hero -->
+    <section class="band pad rule">
+      <div class="hero-section" style="padding-block: 60px 40px;">
+        <p class="m red">FIELD NOTES</p>
+        <h2>Notes from inside a company that would not buy the software.</h2>
+        <p class="lead" style="max-width: 720px; margin-top: 10px;">
+          Five years in luxury beauty. It is an industry that blocks AI on employee laptops, licenses tools its own account owners cannot configure, and cannot justify a per seat cost for its smallest markets. I built things anyway. These are the walls I actually hit, what would have got a vendor past them, and the log of what happened when I stopped waiting.
+        </p>
+      </div>
+    </section>
+
+<!-- The walls -->
+    <section class="band pad" style="padding-block: 56px;">
+      <div class="intro" style="padding-block: 0 28px;">
+        <p class="m red">01 / THE WALLS</p>
+        <h2>Five reasons the software did not get in.</h2>
+        <p class="lead" style="max-width: 660px; margin-top: 10px;">Every one of these stopped something real. The second row of each is the part I would want to read if I were selling into a company like the one I just left.</p>
+      </div>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">01 &middot; THE LAPTOP SAYS NO</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>AI tools are blocked at the device level. There are real privacy and security reasons for that and I am not going to pretend there are not. The effect is still that somebody who can see exactly what needs building cannot build it on the machine she was given. So the work moves to personal hardware and personal time, which means the company gets the output and avoids none of the risk it thought it was managing.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Nothing that starts by asking IT to unblock a domain. What gets through is a deployment that never needs install rights, or a pilot scoped so tightly that security is reviewing one workflow instead of a whole category of tool. Sell to the person whose numbers are wrong. Not to the person whose job is to say no.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">02 &middot; THE LICENSED TOOL WAS THE CEILING</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>We already paid for a field sales platform. Loading a monthly target into it meant writing an email to the vendor's IT team and waiting for somebody there to do it. So the person who owned the account, whose targets they were, could not change her own targets. And the dashboard showed what the vendor had decided a dashboard should show, which was not what I needed to see.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Let the account owner configure the thing without raising a ticket. Every hour of vendor side turnaround on a routine change is an hour of somebody quietly rebuilding you in Excel. That is not a feature request. That is how you lose an account, and it is how you lost mine.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">03 &middot; PER SEAT PRICING KILLS THE MARKETS THAT NEED IT</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>The platform made sense across the large markets. Mine had a fraction of that headcount and a much lower cost base, so the per seat maths could not be justified for it. Which means the smallest markets, the ones with the least support and the most manual work, get the worst tooling. The place that needed it most was the place that could least afford it.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Price the small deployments like you actually want them. A market that size is not a rounding error, it is the pilot that proves the rollout, and it is where the person who would have championed you internally is currently doing the whole thing by hand at midnight.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">04 &middot; THE USER COULD NOT SIGN UP</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>This is the one I got wrong myself, so it is the one I trust most. I built the tool, tested it, and it worked fine. Then the advisors could not get in. Registering needed an email address, and not everyone has an email account they can actually get into, and plenty of people have never signed up for anything online in their life. Nothing was broken. I had just never thought to check whether the people I built it for could reach the login screen.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Count the first screen as part of the product. If onboarding assumes an email, an app store account, an SSO identity or a password manager, you have already cut out a chunk of the field team you are being paid to reach. And do not force the cutover. I kept WhatsApp running alongside for a month and reconciled the two by hand, which was tedious, and which is also the only reason people came across at all.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">05 &middot; THE ASK IS THE BARRIER</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>I never went to management for the budget. Not because they would have said no, but because the ask was more expensive than the build. Making the case for tool spend on a small market means a business case, a procurement conversation, a security review and months of waiting. Two days of building was cheaper than two weeks of asking, so I built.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Understand that your competition is not the other vendor. It is somebody with a free afternoon and an AI coding tool working out that it is faster to build it than to ask you for it. That person now exists inside every enterprise, including the ones that block AI on the laptops. Scope and price for her, because she is the one who already knows what the product should do.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+<!-- The rollout log -->
+    <section class="band pad rule" style="padding-block: 56px;">
+      <div class="intro" style="padding-block: 0 28px;">
+        <p class="m red">02 / THE ROLLOUT LOG</p>
+        <h2>What shipping it actually looked like.</h2>
+        <p class="lead" style="max-width: 660px; margin-top: 10px;">Not the outcome, the sequence. Most of the interesting decisions here are not technical ones.</p>
+      </div>
+
+      <div class="cs">
+        <div class="row">
+          <p class="m red">DAY 0</p>
+          <p>Decided not to ask. The licensed platform was not going to fit this market and the budget conversation would have taken longer than building the replacement.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAY 2</p>
+          <p>A running site, with Supabase behind it, which I had never used before this. The advisors live on their phones, so rather than ship a native app I had them add the site to their home screen from the browser. That decision saved weeks and it is the least clever thing on this page.</p>
+        </div>
+        <div class="row">
+          <p class="m red">WEEK 1</p>
+          <p>Three advisors and the sales supervisor. Nobody else. The supervisor got the dashboard, with commissions and targets calculating themselves instead of being worked out by hand, because that was the job she was actually doing. I collected everything they hated for a week and fixed it before anyone else saw the thing.</p>
+        </div>
+        <div class="row">
+          <p class="m red">APRIL</p>
+          <p>Launched to everyone. Then went back and loaded January to March myself, writing SQL against Supabase from the records that already existed, so the history was there from the first day people opened it.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAYS LATER</p>
+          <p>The signup wall. People could not register. Nothing whatsoever to do with the app.</p>
+        </div>
+        <div class="row">
+          <p class="m red">THE MONTH AFTER</p>
+          <p>WhatsApp and the app running side by side. Every day I reconciled the two so nothing was counted twice, which is where the dedup key came from. People crossed over as they got themselves set up, not because I set a date and made them.</p>
+        </div>
+        <div class="row">
+          <p class="m red">JUNE 2026</p>
+          <p>Presented to global beauty leadership. One full run across January to April: 1,324 rows in, 0 rejected, 29 duplicates removed. Still nobody required to use it.</p>
+        </div>
+      </div>
+    </section>
+
+<!-- Point of view -->
+    <section class="dark" id="pov">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">03 / WHAT I THINK</p>
+            <h2 style="margin-top:16px;max-width:22ch">They do not work for the brand. They work for you.</h2>
+          </div>
+
+          <div class="cs" style="max-width: 720px">
+            <p>I had a team of beauty advisors under me and I was responsible for their salaries, their commissions, and whether they were motivated enough to get through a shift. That last one is not a soft thing. If somebody on that floor is having a bad month their sales change, and that changes my numbers. You feel it inside a week.</p>
+            <p>It took me a while to understand what was actually going on. They were not working for the brand. Everybody loves the brand, that is why they applied. But nobody stays late for a logo. They work for the person in front of them, and if they do not like that person they will do exactly what the job description says and not one thing more. No matter how much they love the brand, they will not be able to work.</p>
+            <p>Which is why I do not think adoption is a product problem.</p>
+            <p>When I put the tracker in front of eighteen people, nobody had told them to use it. No mandate, no deadline, no manager checking. They used it because I had spent two years building the kind of relationship where if I said this will make your life easier, they believed me enough to try it once. The product then had to be good enough not to waste that. But the product is not what got them to open it the first time.</p>
+            <p>That is the part I think transfers. Forward deployed work means shipping to people who do not report to you, inside a company that is not yours, who already have a full job. You cannot mandate them. You can only be the person whose thing is worth trying. Every decision on that rollout came out of this: the home screen instead of the app store, the month of WhatsApp running alongside, refusing to set a cutover date. None of that is clever engineering. It is just what it costs to not burn the goodwill I already had.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="faq" class="anchor"></div>
+<!-- FAQ Hero -->
+    <section class="band pad rule">
+      <div class="hero-section" style="padding-block: 60px 40px;">
+        <p class="m red">QUESTIONS &amp; CAVEATS</p>
+        <h2>Your questions answered directly.</h2>
+        <p class="lead" style="max-width: 800px; margin-top: 10px;">
+          Written by me. These are the questions that actually come up when someone reads the site, including the uncomfortable ones about how small the numbers are and what the AI work actually is.
+        </p>
+      </div>
+    </section>
+
+<!-- FAQ Interactive Accordion Section -->
+    <section class="band pad" style="padding-block: 60px;">
+      <div class="faq-container">
+        
+        <!-- Q1 -->
+        <details class="faq-item" open>
+          <summary>
+            <span>01. What did you actually build across these projects?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Beauty Advisor Sales Tracker:</strong> A PWA for Dolce &amp; Gabbana Beauty in travel retail MEA where 18 advisors log daily sales, backed by an ingest pipeline that de-duplicates exports before KPIs are calculated.</p>
+            <p style="margin-top:10px;"><strong>LVMH Sell-in Tool:</strong> Internal product owner for Givenchy &amp; Kenzo sell-in decision support tool, cutting ordering time from 45 mins to 5 mins across 30+ locations.</p>
+            <p style="margin-top:10px;"><strong>Dolce &amp; Gabbana Account Health:</strong> Benchmarking layer tracking a 13-market portfolio that flags at-risk accounts early.</p>
+            <p style="margin-top:10px;"><strong>Move-Out Sale Site:</strong> A Python generator producing a buyer-facing catalog and internal profit tracker from a single source list.</p>
+          </div>
+        </details>
+
+        <!-- Q2 -->
+        <details class="faq-item">
+          <summary>
+            <span>02. Why did you build this instead of using the tool you already had?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Egypt was my account and it was growing, roughly 6x over about 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel by hand.</p>
+            <p style="margin-top:10px;">We already licensed a field-sales platform. It worked for the large markets. It did not work for mine. Loading a monthly target meant emailing the vendor's IT team and waiting for someone there to do it. The dashboard did not show me what I needed to see. And the per-seat cost could not be justified for a market that size.</p>
+            <p style="margin-top:10px;">So I did not escalate for budget. I built the replacement. Two days from the decision to a running site, with Supabase behind it, which I learned on this project.</p>
+            <p style="margin-top:10px;"><strong>That was a judgement call, not a mandate.</strong> Nobody assigned it, nobody was waiting for it and there was no brief. It was me deciding, as the person who owned the account, that the licensed tool was the wrong fit and that I would rather build than keep waiting on it. Worth saying plainly, because being handed a project is a different thing.</p>
+          </div>
+        </details>
+
+        <!-- Q3 -->
+        <details class="faq-item">
+          <summary>
+            <span>03. What is the dedup key and why does it matter?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>The dedup key defines what makes two rows the same event rather than two events. Here it was <code>advisor + date + store + shift</code>.</p>
+            <p style="margin-top:10px;">Duplicate rows double-count sales and inflate Days Worked, distorting every daily KPI. Settling this key upfront ensured that across 1,324 ingested rows, 29 duplicates were safely removed and zero rows were rejected.</p>
+          </div>
+        </details>
+
+        <!-- Q4 -->
+        <details class="faq-item">
+          <summary>
+            <span>04. What went wrong in the rollout?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>The signup screen, and I did not see it coming.</strong></p>
+            <p style="margin-top:10px;">The build was not the hard part. The advisors work off their phones, so rather than ship a native app I had them add the site to their home screen from the browser. I piloted with 3 advisors and the sales supervisor for about a week, took their feedback, improved the app, then launched to everyone.</p>
+            <p style="margin-top:10px;">Then people could not get in. Registering needed an email address. Not everyone had an email account they could actually get into, and not everyone had signed up for something online before. It was not that the app was faulty. It was more like, not everyone knows how to access emails, not everyone knows how to register somewhere.</p>
+            <p style="margin-top:10px;">I did not force the change. I kept WhatsApp running alongside the app for a month, so anyone who could not get through registration yet could still send their numbers the way they always had, and then I reconciled the two channels so nothing was counted twice. People moved across as they got set up, not because a cutoff date made them.</p>
+            <p style="margin-top:10px;">Nothing was broken. I had just never thought to check whether the people I built it for could reach the login screen.</p>
+          </div>
+        </details>
+
+        <!-- Q5 -->
+        <details class="faq-item">
+          <summary>
+            <span>05. Isn't 18 beauty advisors a small number?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, 18 is a small number and I am not going to dress it up. What matters is that <strong>nobody was required to use it</strong>.</p>
+            <p style="margin-top:10px;">The tracker was optional. All 18 advisors across Cairo, Sharm, and Hurghada logged into it daily because it solved a real friction point. Mandated tools show compliance; optional tools that teams open daily show real product adoption.</p>
+            <p style="margin-top:10px;"><strong>18 live, about 20 onboarded.</strong> The January to April export holds 18 advisors. Onboarding and training covered roughly 20 field users, a figure that includes people who moved off the team inside the window. Both numbers are real and they count different things.</p>
+          </div>
+        </details>
+
+        <!-- Q6 -->
+        <details class="faq-item">
+          <summary>
+            <span>06. Was the tracker running from January, or did you backfill?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>I backfilled.</strong> The app went live in April. January, February and March were loaded in afterwards, by me, writing SQL against Supabase by hand from the records that already existed.</p>
+            <p style="margin-top:10px;">So two real things on this site are counting different things. The 1,324 rows cover January to April, and the first three months of that window are records I entered, not advisors logging themselves. Daily self-logging by the advisors describes April onward.</p>
+            <p style="margin-top:10px;">Both are true. I would rather split them out than let one number quietly carry the other.</p>
+          </div>
+        </details>
+
+        <!-- Q7 -->
+        <details class="faq-item">
+          <summary>
+            <span>07. How much AI is actually in these projects?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Less than the word usually implies, and I would rather say so directly than let it slide.</p>
+            <p style="margin-top:10px;">The Sales Tracker and Move-Out generator contain no ML/AI models. Homebase contains an opt-in model path behind a feature flag (<code>USE_LLM_SCOPE=true</code>), while its default path is a deterministic template builder.</p>
+            <p style="margin-top:10px;">The real AI work was evaluation: running structured usability sessions and analyzing voice agent call output logs to catch failure modes before production. The session count is not recorded in the repo, so I do not claim a number.</p>
+          </div>
+        </details>
+
+        <!-- Q8 -->
+        <details class="faq-item">
+          <summary>
+            <span>08. How much of this did AI write?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>A lot of it, and I would rather say that than have you assume otherwise.</strong> I built with AI. I would not have been able to do it without AI. The tracker is still running.</p>
+            <p style="margin-top:10px;">What I will not claim is that AI did the thinking. Vibe coding is very easy right now and it is not going to generate a product for you. I had to understand how the product needed to work first: what makes two rows the same event, what a supervisor actually needs on a dashboard, what a field team on phones can and cannot do. You need the knowledge and your own input, or it does not work.</p>
+            <p style="margin-top:10px;">And no, I am not going to trust it 100%. That is not how it works. I check what it hands me, because I am the one who has to answer for what the numbers say.</p>
+          </div>
+        </details>
+
+        <!-- Q9 -->
+        <details class="faq-item">
+          <summary>
+            <span>09. Were 29 rows rejected by the pipeline?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Removed, not rejected.</strong> The 29 were valid rows that collapsed as duplicates against the key. Nothing failed validation and nothing was thrown away as bad data: 1,324 rows in, 0 rejected.</p>
+            <p style="margin-top:10px;">The distinction matters because "rejected" would imply the export was malformed. It was not. It was duplicated, which is a quieter problem and a more dangerous one, because every row looks individually plausible.</p>
+          </div>
+        </details>
+
+        <!-- Q10 -->
+        <details class="faq-item">
+          <summary>
+            <span>10. Why do you say 3 markets instead of 3 stores?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Markets, not doors.</strong> The data holds 3 distinct store values at city level, Cairo, Sharm and Hurghada, so coverage is stated at market level. I do not claim a door count, because the export does not support one.</p>
+          </div>
+        </details>
+
+        <!-- Q11 -->
+        <details class="faq-item">
+          <summary>
+            <span>11. Did it make month-end reporting faster?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, and I cannot prove by how much, so I am not going to put a figure on it.</p>
+            <p style="margin-top:10px;"><strong>No cycle time measured.</strong> Before the tracker, month-end totals arrived weeks late. After it, daily numbers were available. But no before-and-after turnaround was ever logged, so any specific improvement I quoted would be an estimate dressed as a measurement.</p>
+          </div>
+        </details>
+
+        <!-- Q12 -->
+        <details class="faq-item">
+          <summary>
+            <span>12. The move-out sheet says 21 of 32. Your site says 20 of 31.</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>The sheet is counting rows, not objects. A <code>COUNTIF</code> includes one synthetic Dining Set Bundle row whose table and chairs are also listed individually, so the bundle is counted twice.</p>
+            <p style="margin-top:10px;"><strong>The honest figure is 20 of 31.</strong> That is the number on the site. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate, measured against what was paid for the items sold and not against total apartment spend.</p>
+          </div>
+        </details>
+
+        <!-- Q13 -->
+        <details class="faq-item">
+          <summary>
+            <span>13. What have you not done?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>I have not shipped a machine learning model to production. I have not worked at engineering scale: the largest user base here is 18 people, and the largest data volume is a few thousand rows. I have not run a team of engineers.</p>
+            <p style="margin-top:10px;">Homebase's RERA compliance layer is specified in the README and explicitly listed as out of scope there, so it is a spec and not a product. I have not built it.</p>
+            <p style="margin-top:10px;">What I have done is take a broken operational input, decide what a valid record is, and get a field team in another country to work the new way without being told to. That is the part I would defend.</p>
+          </div>
+        </details>
+
+        <!-- Q14 -->
+        <details class="faq-item">
+          <summary>
+            <span>14. Is anything on your own sites broken right now?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. The move-out catalog renders "0 items available" from a hardcoded placeholder that the JavaScript overwrites on a normal load. It should read 11. It is not sold out.</p>
+            <p style="margin-top:10px;">It lives in a separate repository from this site. I would rather list it here than have you find it and wonder what else is unchecked.</p>
+          </div>
+        </details>
+
+      </div>
+
+      <!-- Honest Caveats Box -->
+      <div class="honest-caveats">
+        <h3>The Honest List &amp; Caveats</h3>
+        <ul>
+          <li><strong>No production model shipped:</strong> Homebase's model path is opt-in behind a flag; primary architecture is deterministic rules &amp; validation.</li>
+          <li><strong>Scope limits:</strong> The sales tracker covers 3 Egyptian markets (Cairo, Sharm, Hurghada) and 18 advisors in travel retail.</li>
+          <li><strong>Build vs buy was my call:</strong> We already licensed a field-sales platform. I judged it the wrong fit for this market and built the replacement instead of escalating for budget. Nobody assigned it.</li>
+          <li><strong>The rollout blocked on signup, not software:</strong> Advisors could not complete an email registration. WhatsApp ran in parallel for a month while people got set up, then the two channels were reconciled. I did not anticipate it.</li>
+          <li><strong>Built with AI:</strong> I used AI to build. The problem framing, the dedup key and the rollout were mine, and I do not claim to have written the code unaided.</li>
+          <li><strong>No cycle time measured:</strong> Month-end turnaround improved, but without an explicit log in the repo, no cycle time claim is made.</li>
+          <li><strong>Removed, not rejected:</strong> The 29 duplicates were valid rows that collapsed against the key. 1,324 in, 0 rejected.</li>
+          <li><strong>January to March was backfilled:</strong> The app launched in April. The first three months of the 1,324-row window were loaded by hand in SQL from existing records, not logged daily by advisors.</li>
+          <li><strong>Markets, not doors:</strong> Coverage is stated at city level because that is what the export supports. No store count is claimed.</li>
+          <li><strong>18 live, about 20 onboarded:</strong> Two real figures counting different things, not a rounding of one number.</li>
+          <li><strong>Two snapshots, one number:</strong> The Jan to Apr Excel splits the 18 advisors 12 Cairo / 3 Sharm / 3 Hurghada; the live database through 3 June splits 11 / 3 / 4. Same advisors, different snapshots. The site cites the Excel.</li>
+          <li><strong>The honest move-out figure is 20 of 31:</strong> The sheet's 21 of 32 double-counts a synthetic bundle row.</li>
+          <li><strong>The dashboard on the home page is demo data:</strong> Recreated in HTML with invented figures. No real advisor performance is published anywhere on this site.</li>
+          <li><strong>Homebase's compliance layer is spec, not product:</strong> Listed as out of scope in the same README that describes it.</li>
+          <li><strong>Degree status:</strong> Cornell Tech MEng in Data Science &amp; Decision Analytics starts in August 2026.</li>
+        </ul>
+      </div>
+    </section>
+
+<!-- Now -->
+    <section class="band pad rule">
+      <div class="intro" style="padding-block:40px">
+        <p class="m red">NOW &middot; AUGUST 2026</p>
+        <p class="lead" style="max-width:660px">Packing up a life in Dubai. My nephew was born a couple of months ago, so a lot of August is going on the floor with him before I leave. Everything I have saved is going into this move. I am not reading anything for fun right now, only PM books. Nervous about the unknown, which I think everybody is.</p>
+      </div>
+    </section>
+
+<!-- CTA Section -->
     <section class="cta">
       <div class="band pad">
         <div class="inner">
           <div>
             <p class="m light">WHAT'S NEXT</p>
-            <h2 style="margin-top:20px">Building a forward-deployed or AI product team? Let’s talk.</h2>
+            <h2 style="margin-top:20px">Building a forward-deployed or AI product team? Let's talk.</h2>
           </div>
           <div class="btnrow">
             <a class="btn light-btn" href="mailto:dk947@cornell.edu">DK947@CORNELL.EDU</a>
@@ -505,8 +1174,8 @@
         </div>
       </div>
     </section>
-  </main>
 
+  </main>
   <footer class="sitefoot">
     <div class="band in">
       <div class="row1">

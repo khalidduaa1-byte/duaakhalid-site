@@ -8,11 +8,19 @@ copy change**.
 Last synced to the live site: 2026-07-30.
 
 ## Positioning
-- Headline: I turn unreliable operational data into decision systems people actually use.
-- Lead: Five years across luxury retail and GTM taught me where bad data becomes expensive. I build the validation, product, and rollout layer that catches it before it reaches the people making decisions.
+- Headline: I come from an industry that blocks AI on employee laptops.
+- Lead: Five years in luxury beauty, running accounts across MENA. I built the tools anyway, without asking for the budget, and the field team used them daily without anyone being told to. I want that to be the job now, not the workaround.
 - Role descriptor: AI Product + GTM. This names the roles she is targeting, not a claim that her projects contain models.
 - Status: Incoming MEng, Data Science & Decision Analytics, Cornell Tech, August 2026. Dubai to New York.
-- In her own words: Most of my work starts inside someone else's spreadsheet. A supervisor's export, a catalog price, a phone call assembled from memory. The model is rarely the interesting part. Deciding what counts as a valid row is, and so is getting a field team in another country to work the new way.
+- Target roles, in her words: forward-deployed AI, enterprise side. The site is written for hiring managers.
+- The AI-blocking claim is stated at **industry level only**. Never attribute it to Dolce & Gabbana or any named employer. Decided with Duaa on 2026-08-06.
+- In her own words: Most of my work starts inside someone else's spreadsheet. A supervisor's export, a catalog price, a phone call assembled from memory. Deciding what counts as a valid row is the interesting part, and so is getting a field team in another country to work the new way.
+- **Retired phrasing, do not reuse:** "The model is rarely the interesting part." Duaa explicitly rejected this wording on 2026-08-06.
+
+## Stat row on the home page
+- 6x, the Egypt account over roughly 18 months. Growth multiple only. **Absolute revenue figures are never published.** Source: Duaa, 2026-08-06, who authorised the multiple and declined the absolutes.
+- 18, advisors logging daily, nobody required to. Verified against the January to April export.
+- 2 days, from the decision to build to a running site. Source: Duaa, 2026-08-06.
 
 ## Career track (each step: the system that was broken, then what she did)
 - Oct 2021 LVMH Fragrance Brands || Out of stocks and aged inventory tracked by hand across MENA accounts. || Monitored stock and logistics flows and aligned replenishment to the promotional calendar.
@@ -26,7 +34,39 @@ Last synced to the live site: 2026-07-30.
 ### Beauty Advisor Sales Tracker
 - Context: Dolce & Gabbana Beauty, Travel Retail MEA
 - What it is: A PWA where 18 beauty advisors log daily sales, behind an ingest pipeline that de-duplicates the supervisor export before any KPI is calculated.
-- Problem: Egypt beauty advisor performance reached me as a supervisor’s Daxium Excel export, with layouts that changed month to month and duplicate rows on the same advisor, date, store and shift. Duplicates double count sales and inflate Days Worked, so no daily KPI could be trusted, and advisor productivity could not be compared across cities until month end totals arrived weeks late.
+
+#### How it came to exist. Source: Duaa, interview 2026-08-06.
+This is the origin story the site did not previously tell, and it is now the spine of the case
+study. Every item here is from Duaa directly.
+
+- **Egypt was her account and it was growing.** Roughly 6x over about 18 months. Publish the
+  multiple, never the absolute figures.
+- **The manual state:** advisors sent daily sales over WhatsApp and she retyped them into Excel.
+- **Build vs buy.** The company already licensed a field-sales platform. It worked for the large
+  markets and not for hers. Loading a monthly target meant emailing the vendor's IT team and
+  waiting. The dashboard did not show what she needed. The per-seat cost could not be justified
+  for a market that size. **She did not escalate for budget. She built the replacement.**
+- **Never name the vendor and never publish its contract value.** Say "the field-sales platform
+  we already licensed". Decided with Duaa on 2026-08-06.
+- **Two days** from decision to a running site. Supabase behind it. She learned Supabase on this
+  project.
+- **No native app.** The advisors were on phones, so she had them add the site to the home screen
+  from the browser instead of shipping through an app store.
+- **Staged pilot:** 3 advisors plus the sales supervisor for about a week. The supervisor got the
+  dashboard with automatic commission and target calculation. Feedback gathered, app improved,
+  then launched to everyone.
+- **The rollout wall was not technical.** Advisors could not complete an email signup. In her
+  words: "It was not that the app was faulty. It was more like, not everyone knows how to access
+  emails, not everyone knows how to register somewhere."
+- **She ran WhatsApp and the app in parallel for a month** rather than force the change, then
+  reconciled the two channels so nothing double-counted.
+- **January to March was backfilled by hand.** She launched in April and loaded the earlier months
+  into Supabase by writing SQL herself. So daily self-logging by advisors describes April onward,
+  and the 1,324-row figure covers a window whose first three months she entered from existing
+  records. Both facts are real and they count different things.
+- Presented to management about a month after full launch.
+
+- Problem: Egypt beauty advisor performance reached me as a supervisor's Excel export, with layouts that changed month to month and duplicate rows on the same advisor, date, store and shift. Duplicates double count sales and inflate Days Worked, so no daily KPI could be trusted, and advisor productivity could not be compared across cities until month end totals arrived weeks late.
 - Her role: Framed the problem, defined the dedup key, built the ingest pipeline and the app, and ran the rollout across 3 markets.
 - Outcome: 1,324 rows ingested, 0 rejected and 29 duplicates removed in one full run across January to April. Live with 18 advisors and presented to global beauty leadership.
 - Link (Live app): https://sales-management-phi-blue.vercel.app
@@ -90,6 +130,68 @@ Last synced to the live site: 2026-07-30.
     - Team split: Two person team, with a professional engineer as the other founder. The UAE rental regulation model is the part that was distinctly mine.
     - Unsourced README stats: The README cites 70% of manager time spent on compliance and 40% of tenant disputes arising from move out terms, with no source. Neither figure is repeated here until it is sourced.
     - Scope of what shipped: No auth, test mode Firestore rules, seed data. Not production hardened.
+
+## Field notes page (`/notes`)
+
+Added 2026-08-06. Three sections, all sourced from the interview of the same date. The page is
+the site's main differentiator: it is written from the position of having been the *customer* of
+a failed enterprise rollout, which is the thing a forward-deployed hiring manager cannot get from
+a candidate who has only ever sold in.
+
+### The five walls
+Each is stated as a category of constraint in luxury retail, sourced to her own experience.
+**None of them is attributed to Dolce & Gabbana, LVMH, or any named employer, and the vendor is
+never named.** Both rules were decided with Duaa on 2026-08-06.
+
+1. AI blocked at device level. Real privacy and security reasons. Effect: the work moves to
+   personal hardware and personal time.
+2. The licensed platform was the ceiling. Loading a monthly target meant emailing the vendor's IT
+   team. The account owner could not configure her own targets.
+3. Per-seat pricing could not be justified for the smallest market, which is where the manual
+   work is heaviest. **State no headcount here**, the figure is unresolved.
+4. The user could not sign up. Registration needed an email. Duaa's own miss, and stated as such.
+5. The ask was more expensive than the build, so she never made it.
+
+### The rollout log
+Dated sequence, all from the interview: Day 0 the decision not to ask, Day 2 a running site on
+Supabase, Week 1 a pilot with 3 advisors plus the sales supervisor, April launch plus the manual
+SQL backfill of January to March, the signup wall days later, a month of WhatsApp running
+alongside with daily reconciliation, then June 2026 presented to global beauty leadership.
+The only figures used are the already-verified 1,324 in, 0 rejected, 29 removed.
+
+### Point of view: "They do not work for the brand. They work for you."
+Her argument, from the interview. Field teams do not adopt because a tool exists or because
+leadership endorsed it, they adopt because of the relationship with the person who brought it.
+Evidence is the tracker, which nobody was required to use. Applied to forward-deployed work,
+where you ship to people who do not report to you. **No team headcount is stated**, pending the
+55 vs 30-plus question. The "two years" of relationship refers to her time at Dolce & Gabbana.
+
+## Now note (home page), August 2026
+Source: Duaa, 2026-08-06. Packing up a life in Dubai. Her nephew was born a couple of months
+ago and she is spending August with him and her family before leaving. Everything she has saved
+is going into the move. Reading only PM books at the moment, nothing for pleasure. Nervous about
+the unknown. Update or remove this once it stops being true.
+
+## Open, do not publish until Duaa confirms
+Conflicts between this file, the live site, and the 2026-08-06 interview. Each blocks only the
+specific claim it touches.
+
+1. **Origin of the 29 duplicates.** This file attributes them to the supervisor's export and its
+   month-to-month layout drift. The interview attributes them to running WhatsApp and the app in
+   parallel. Both may be true. The site currently describes reconciliation between two input
+   channels without asserting which produced the 29.
+2. **Team size, 55 vs 30 plus.** Interview says 55 advisors under her at Dolce & Gabbana. This
+   file and the site say a "30 plus person beauty advisor team" for the workshops. These may
+   count different things. **No headcount for the managed team appears on the site.**
+3. **Egypt team, 19 vs 18 vs about 20.** Interview says 19. The January to April export holds 18,
+   roughly 20 onboarded. The site uses **18** throughout. 19 is not used anywhere.
+4. **The 45 minutes to 5 minutes claim.** This file, `faq.html` Q1 and the résumés attach it to
+   the Givenchy and Kenzo sell-in ordering tool. In the interview Duaa described something
+   different, automating sell-out report consolidation from retailer data. The claim is live on
+   the site and has been left untouched, and **no new copy was built on top of it.**
+5. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
+   for. This file documents a dresser at 1,100 that cost 499 and a dining table at 1,499 that was
+   2,100 with chairs. The site uses the dresser. The sofa is not published.
 
 ## Contact
 - Email: dk947@cornell.edu

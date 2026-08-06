@@ -5,15 +5,20 @@ Duaa Khalid's portfolio. Live at https://duaakhalid.com (also `www.` and
 
 ## Architecture
 
-Three hand-written static HTML pages sharing one stylesheet and one script. **No build
-step, no framework, no dependencies.** Edit a file, push, it deploys.
+**One hand-written page.** No build step, no framework, no dependencies. Edit a file, push,
+it deploys.
+
+> **August 2026: the site became a single page.** It used to be three separate pages. Duaa
+> asked for everything on one page with the header links jumping to sections, and for About to
+> come before the case studies. `about.html`, `notes.html` and `faq.html` are now **redirect
+> stubs only**. Do not put content back into them: two copies of the same copy will drift, and
+> keeping the fact sheet honest depends on there being exactly one copy.
 
 | File | Role |
 | --- | --- |
-| `index.html` | Home: hero, stat row, three project blocks each with a PROBLEM / BUILD / PROOF / IMPACT body, through-line, capabilities, CTA |
-| `about.html` | Portrait, bio, how-I-work, career path, capabilities |
-| `faq.html` | Ten hand-written Q&As, native `<details>` accordions, no page-specific JS (it loads the shared `script.js` only for the footer dock) |
-| `styles.css` | Every rule for all three pages |
+| `index.html` | The whole site. Hero, then `#about`, `#work`, `#notes`, `#faq`, now note, CTA |
+| `about.html`, `notes.html`, `faq.html` | Redirect stubs to `/#about`, `/#notes`, `/#faq`. `canonical` + `noindex, follow` + meta refresh + `location.replace`. They exist so older inbound links and any printed résumé URLs still land somewhere |
+| `styles.css` | Every shared rule. Page-specific CSS lives in the `<style>` block in `index.html` |
 | `script.js` | Stat count-up, card tilt, interactive dashboard, dedup toggle, Homebase context generator, case-study scroll reveal |
 | `context.md` | **The verified fact sheet. The only source for factual claims.** |
 | `vercel.json` | `cleanUrls: true` so `/about` and `/faq` work without `.html` |
@@ -48,8 +53,30 @@ undo them while chasing a visual or a quick edit.
    correctly fixing its `href`. Search case-insensitively.
 6. **No em dashes.** Stated preference. Commas or full stops.
 7. **Every outbound link opens in a new tab** (`target="_blank" rel="noopener"`).
-8. **The caveats live on `/faq`, not on the home page.** Attaching them to the stat tiles
-   suffocated the design. They are answered more fully on the FAQ, so nothing is lost.
+8. **The caveats live in the `#faq` section, not up beside the stat tiles.** Attaching them to
+   the tiles suffocated the design. They are answered more fully in the FAQ, so nothing is lost.
+   This still holds now that the FAQ is a section rather than a page.
+9. **Section order is About, then Work, then Notes, then FAQ.** Duaa asked for About first and
+   the case studies second. Do not reorder while tidying.
+10. **Anchor offsets are responsive.** `.anchor` carries `scroll-margin-top: 92px`, and `124px`
+    below 900px where the six nav items wrap and the header grows from ~67px to ~99px. Change
+    the nav item count or the header padding and you must re-measure both, or sections land
+    underneath the sticky header. Verified with a real browser at 1440px and 390px.
+11. **Never name the field-sales vendor, and never publish its contract value.** The build-vs-buy
+   story is the spine of case study 01 and of `/notes`, and it is told as "the field sales
+   platform we already licensed". Naming a vendor her employer contracts with, and publishing
+   what they paid, are both out. Decided 2026-08-06.
+12. **The AI-blocking line is industry level, never employer level.** "I come from an industry
+    that blocks AI on employee laptops" is the hero and it is fine. "My company blocked AI on my
+    laptop" is a public statement about a named current employer's IT policy and is not. Same
+    decision, same date.
+13. **No absolute revenue figures.** The Egypt account growth is published as a multiple only,
+    "roughly 6x over 18 months". Duaa explicitly chose the multiple over the absolutes.
+14. **No AI-twin chatbot, ever.** It needs a stored API key, a serverless function, a rate
+    limiter and a per-visitor bill a stranger can inflate, against a site whose whole property is
+    five static files with no backend and no secrets. It is also commodity now: several SaaS
+    products generate one from an uploaded résumé in minutes. The grounded pre-written answer set
+    is `/faq`, which already exists and costs nothing.
 
 ## The dashboard is demo data
 
@@ -84,7 +111,7 @@ the progress bar and the On Track / Behind Target pill, then persists to `localS
 under `dk.targets.v1`. There is a Reset link. Threshold for On Track is **95%**.
 
 `.dashboard-window` uses `zoom: 1.22` to enlarge it. **Use `zoom`, not
-`transform: scale()`** — scale would move the visual position of the dropdown and input
+`transform: scale()`**. Scale would move the visual position of the dropdown and input
 without moving their hit targets, silently breaking the interaction. Zoom drops to `1`
 below 900px.
 
