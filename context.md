@@ -9,7 +9,16 @@ Last synced to the live site: 2026-07-30.
 
 ## Positioning
 - Headline: I get software into companies that are not ready for it.
-- Lead: Five years in luxury beauty, an industry that blocks AI on employee laptops and licenses tools its own account owners cannot configure. I built what we needed anyway, at no cost, and the field team used it every day without being told to. That is the job I want next.
+- Lead: Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team opened them every day. Nobody made them. All of that in an industry that is still working out what AI is for.
+- **The AI-blocking line is retired entirely, 2026-08-06.** It was previously permitted at
+  industry level ("an industry that blocks AI on employee laptops"). Duaa asked for it removed
+  from the whole site: even framed as an industry observation it reads as a complaint about an
+  employer's IT policy. Replace with neutral framings about where the industry is with AI, such
+  as "still working out what AI is for" or "where AI is still finding its footing". Do not
+  reintroduce any version that describes AI being blocked, restricted or banned.
+- **"Without being told to" is retired**, Duaa found the phrasing awkward. The underlying point,
+  that nobody was required to use the tracker, is load-bearing and stays. Say it as "Nobody made
+  them", "it was never mandated", or "none of whom were required to use it".
 - **Never frame the build as going around management.** "Without asking for a budget" was retired
   on 2026-08-06: Duaa flagged that it reads as reckless and that it is inaccurate. The correct and
   stronger framing is that **building it cost nothing but her own time, so there was no spend to

@@ -66,10 +66,15 @@ undo them while chasing a visual or a quick edit.
    story is the spine of case study 01 and of `/notes`, and it is told as "the field sales
    platform we already licensed". Naming a vendor her employer contracts with, and publishing
    what they paid, are both out. Decided 2026-08-06.
-12. **The AI-blocking line is industry level, never employer level.** "I come from an industry
-    that blocks AI on employee laptops" is the hero and it is fine. "My company blocked AI on my
-    laptop" is a public statement about a named current employer's IT policy and is not. Same
-    decision, same date.
+12. **Never say AI was blocked, restricted or banned, at any level.** This rule got stricter
+    twice. It began as "never attribute it to a named employer", then the industry-level version
+    ("an industry that blocks AI on employee laptops") ran as the hero for a while. On
+    2026-08-06 Duaa asked for it gone from the whole site: even as an industry observation it
+    reads as a complaint about an employer's IT policy, and it invites a question she does not
+    want asked. Use neutral framings about where the industry is with AI instead, for example
+    "an industry still working out what AI is for". The related wall in `#notes` is now about
+    software being procured and installed centrally, which is the true and unloaded version of
+    the same constraint.
 13. **No absolute revenue figures.** The Egypt account growth is published as a multiple only,
     "roughly 6x over 18 months". Duaa explicitly chose the multiple over the absolutes.
 14. **No AI-twin chatbot, ever.** It needs a stored API key, a serverless function, a rate

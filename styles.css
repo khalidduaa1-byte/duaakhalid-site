@@ -527,7 +527,7 @@ h2 {
      landed underneath it. A tighter gap keeps the nav on one row down to 360px.
      The links then carry their own vertical padding, which turns a 14px-tall
      tap target into a 44px one, and the smaller box padding pays for it: the
-     header is 94px at 360, 390 and 430, where it used to be 149, 99 and 99.
+     header is 95px at 360, 390 and 430, where it used to be 149, 99 and 99.
      If you change the nav item count or these paddings, re-measure .anchor's
      scroll-margin-top. */
   .sitehead .in { padding: 10px var(--pad); gap: 2px 20px; }

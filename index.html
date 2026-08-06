@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Duaa Khalid, AI Product &amp; GTM</title>
-  <meta name="description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
+  <meta name="description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry where AI is still finding its footing. I built the tools my market needed and the field team opened them every day. Nobody made them.">
   
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta property="og:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
+  <meta property="og:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry where AI is still finding its footing. I built the tools my market needed and the field team opened them every day. Nobody made them.">
   <meta property="og:url" content="https://www.duaakhalid.com/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta name="twitter:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
+  <meta name="twitter:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry where AI is still finding its footing. I built the tools my market needed and the field team opened them every day. Nobody made them.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F03419'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23F3F1EC' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
@@ -467,7 +467,10 @@
     @media (max-width: 900px) {
       .log-phases { gap: 6px; margin-bottom: 16px; }
       .ph-name { font-size: 10px; letter-spacing: 0.01em; margin-bottom: 7px; }
-      .ph-svg { height: 10px; }
+      /* The wrapper sets the height, not the svg. The svg is inset: 0 inside it,
+         so giving the svg its own height over-constrains the box and leaves the
+         drawn rail sitting a pixel high in a wrapper that did not shrink. */
+      .ph-rail { height: 10px; }
       /* Thumbs, not cursors. The dot stays 8px and the button goes to 44 tall,
          which is the same target the mobile pass set, restated here so this
          block does not quietly undo it by being later in the cascade. */
@@ -550,6 +553,10 @@
     .hw-read, .hw-was {
       font: 700 clamp(18px, 1.55vw, 22px)/1.25 var(--display);
       letter-spacing: -0.025em;
+      /* Six short display lines carry the whole section, so a two word
+         last line is very visible. Balance removes the orphans and is a
+         no-op where the line already fits. */
+      text-wrap: balance;
     }
     .hw-read {
       color: #8b8880;
@@ -572,15 +579,29 @@
       text-transform: uppercase;
       color: var(--ink);
     }
-    .hw-ev-tag::after { content: ' \00B7 '; color: var(--rule); }
+    /* The tag's own tracking already leaves a trailing space, so the
+       separator sets its own margins rather than padding the content. */
+    .hw-ev-tag::after {
+      content: '\00B7';
+      margin: 0 0.5em 0 0.15em;
+      letter-spacing: 0;
+      color: #8b8880;
+    }
 
     @media (max-width: 900px) {
-      .hw-row { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
-      .hw-num { font-size: 26px; margin-top: 0; }
+      /* The numeral moves beside the first label instead of onto its own
+         line. Stacked it cost about 40px a row for one glyph, and three
+         rows of that is most of a phone screen. */
+      .hw-row {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 14px;
+        row-gap: 18px;
+      }
+      .hw-num { font: 800 20px/1.2 var(--display); margin-top: 0; }
       .hw-swap { grid-template-columns: minmax(0, 1fr); gap: 20px; }
       /* The divider was vertical because the cells were side by side. */
       .hw-cell-was { border-left: 0; padding-left: 0; }
-      .hw-ev { grid-column: 1; font-size: 14.5px; }
+      .hw-ev { grid-column: 1 / -1; font-size: 14.5px; }
     }
   </style>
 </head>
@@ -618,7 +639,7 @@
       <h1>I get software into companies that are not ready for it.</h1>
 
       <div class="twoup">
-        <p class="lead">Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team used them every day without being told to. All of that in an industry that blocks AI on employee laptops.</p>
+        <p class="lead">Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team opened them every day. Nobody made them. All of that in an industry that is still working out what AI is for.</p>
         <p class="note">MEng, Data Science &amp; Decision Analytics. Cornell Tech, August 2026.</p>
       </div>
       </div>
@@ -703,7 +724,7 @@
       <div class="intro" style="padding-block: 0 28px;">
         <p class="m red">HOW I WORK</p>
         <h2>I need to know what everyone else's job actually is.</h2>
-        <p class="lead" style="max-width: 68ch;">Not out of curiosity. If I do not understand how the people around me work, what lands on their desk and what they are waiting on, I cannot tell why my own work has stopped moving. So I go and ask, and what I find is rarely what the situation looked like from the outside. That is slow, and on the tracker it is most of the reason the thing got used.</p>
+        <p class="lead" style="max-width: 68ch;">Not out of curiosity. If I do not know what lands on somebody else's desk and what they are waiting on, I cannot tell why my own work has stopped moving. So I go and ask, and the answer is rarely what the situation looked like from the outside. It is slow, and on the tracker it is most of the reason the thing got used.</p>
       </div>
 
       <!-- Three corrections, each one a read I had to change in the field.
@@ -736,7 +757,7 @@
               <p class="hw-was">It is there to collect what they hate while changing it is still cheap.</p>
             </div>
           </div>
-          <p class="hw-ev"><span class="hw-ev-tag">Tracker pilot, one week</span>Three advisors and their supervisor, on real data in a real month, before anyone else saw the app. The supervisor's commissions calculated themselves instead of by hand for the first time, and that week is where the fix list came from.</p>
+          <p class="hw-ev"><span class="hw-ev-tag">Tracker pilot, one week</span>Three advisors and their supervisor, on real data in a real month, before anyone else saw the app. The supervisor's commissions calculated themselves instead of by hand, and that week is where the fix list came from.</p>
         </li>
 
         <li class="hw-row">
@@ -744,7 +765,7 @@
           <div class="hw-swap">
             <div class="hw-cell">
               <p class="m hw-lbl">WHAT IT LOOKED LIKE</p>
-              <p class="hw-read">Nobody is using it, so I built the wrong thing.</p>
+              <p class="hw-read">Nobody is using it, so I built it wrong.</p>
             </div>
             <div class="hw-cell hw-cell-was">
               <p class="m red hw-lbl">WHAT IT ACTUALLY WAS</p>
@@ -869,7 +890,7 @@
         <div class="txt">
           <p class="m red">01 / FIELD DATA SYSTEM</p>
           <h2>Beauty Advisor Sales Tracker</h2>
-          <p>We already licensed a platform for this. It did not fit my market, so I built the replacement in two days and got 18 advisors onto it without anyone being told to.</p>
+          <p>We already licensed a platform for this. It did not fit my market, so I built the replacement in two days and 18 advisors moved onto it. It was never mandated.</p>
 
           <details class="cs-fold">
             <summary>
@@ -1249,7 +1270,7 @@
           </div>
           <div>
             <p class="m red">WHERE I STOP</p>
-            <p>No model in production, and no engineering team managed. The largest deployment here is eighteen people across three markets who were never told to use it. <a href="#faq">The rest of the limits are in the FAQ</a>.</p>
+            <p>No model in production, and no engineering team managed. The largest deployment here is eighteen people across three markets, none of whom were required to use it. <a href="#faq">The rest of the limits are in the FAQ</a>.</p>
           </div>
         </div>
       </div>
@@ -1277,13 +1298,13 @@
 
       <details class="cs-fold">
         <summary>
-          <span class="m">01 &middot; AI IS BLOCKED ON THE LAPTOPS</span>
+          <span class="m">01 &middot; THE TOOLING IS NOT ON THE DESK</span>
           <span class="fold-ic">+</span>
         </summary>
         <div class="cs">
           <div class="row">
             <p class="m red">THE WALL</p>
-            <p>Across a lot of this industry, AI tools are blocked at the device level, for privacy and security reasons that are entirely real. The practical consequence is that the person closest to a problem is often the person least able to prototype anything against it. Worth knowing if you are selling in, because the colleague most likely to champion you is usually the one with the least access.</p>
+            <p>Enterprise software in this industry is procured centrally and installed centrally, for privacy and security reasons that are entirely real. The practical consequence is that the person closest to a problem is often the person with the least ability to try anything against it. Worth knowing if you are selling in, because the colleague most likely to champion you is usually the one with the least access.</p>
           </div>
           <div class="row">
             <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
@@ -1355,7 +1376,7 @@
           </div>
           <div class="row">
             <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Know what you are actually competing with. It is not the other vendor. It is somebody inside the account who can now put a working version together in an afternoon for nothing, because the tooling got that cheap. That person exists in every enterprise now, including the ones that block AI on the laptops, and they already know exactly what the product needs to do. Make the smallest market worth your time, or they will build it themselves.</p>
+            <p>Know what you are actually competing with. It is not the other vendor. It is somebody inside the account who can now put a working version together in an afternoon for nothing, because the tooling got that cheap. That person exists in every enterprise now, and they already know exactly what the product needs to do. Make the smallest market worth your time, or they will build it themselves.</p>
           </div>
         </div>
       </details>
@@ -1455,7 +1476,7 @@
           </summary>
           <div class="faq-answer">
             <p>I have not shipped a machine learning model to production. I have not worked at engineering scale: the largest user base here is eighteen people and the largest dataset is a few thousand rows. I have not managed engineers. Homebase's compliance layer is specified in its README and listed as out of scope in that same README, so it is a spec and I have not built it.</p>
-            <p style="margin-top:10px;">What I have done is take a broken operational input, decide what a valid record is, and get a field team in another country to work the new way without being told to. That is the part I would defend.</p>
+            <p style="margin-top:10px;">What I have done is take a broken operational input, decide what a valid record is, and get a field team in another country to work the new way when nobody had asked them to. That is the part I would defend.</p>
             <p style="margin-top:10px;"><strong>On my own sites, nothing is broken right now.</strong> The move-out catalog could previously show "0 items available" instead of the real count. I listed it here while it was open and it is now fixed, reading 11. I leave resolved entries up rather than deleting them, because a list that only ever shows open problems tells you less than one that shows what happened to them.</p>
           </div>
         </details>
