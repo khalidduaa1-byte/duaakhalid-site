@@ -287,13 +287,20 @@
        .shot is a centring flex row, so this one becomes a column to stack them. */
     .proj .shot.fit { flex-direction: column; gap: 18px; }
     .shot-cue {
-      font: 500 11px/1.6 var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #a3a3a3;
-      text-align: center;
+      /* Flush left, like everything else on this page. Centred it was the only
+         centred text on the site and it ragged badly. Sentence case, because
+         uppercase is the slowest way to read a sentence and this is one. */
+      font: 400 13px/1.55 var(--body);
+      color: var(--on-dark-muted);
+      text-align: left;
+      align-self: flex-start;
       max-width: 46ch;
       margin: 0;
+    }
+    .shot-cue b {
+      font: 500 11px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
     .shot-cue b { color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
 
@@ -605,6 +612,89 @@
       .hw-cell-was { border-left: 0; padding-left: 0; }
       .hw-ev { grid-column: 1 / -1; font-size: 14.5px; }
     }
+    /* ------------------------------------------------------------------
+       SELECTED WORK CAROUSEL
+       One case study on screen at a time. Narrative left, the numbers and
+       the WHAT BROKE box right, so the proof is never behind a click. This
+       replaced three stacked <details> folds that nobody opened.
+       Progressive enhancement: without JS all three slides render stacked,
+       which is the old behaviour minus the folds.
+    ------------------------------------------------------------------ */
+    .cw { position: relative; }
+    .cw-slide { border-top: 1px solid var(--rule); padding-block: clamp(28px, 3vw, 40px); }
+    .cw-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(28px, 4vw, 56px);
+      align-items: start;
+    }
+    .cw-org { font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; margin-top: 10px; }
+    .cw-title { font: 800 clamp(26px, 3vw, 38px)/1.08 var(--display); letter-spacing: -.02em; margin-top: 6px; }
+    .cw-body { font: 400 16.5px/1.6 var(--body); color: #2e2d2a; margin-top: 16px; max-width: 62ch; }
+    .cw-left .tags { margin-top: 18px; }
+    .cw-left .btnrow { margin-top: 18px; }
+
+    .cw-metrics { display: flex; flex-direction: column; }
+    .cw-met {
+      display: grid; grid-template-columns: minmax(88px, auto) minmax(0, 1fr);
+      gap: 4px 18px; align-items: baseline;
+      padding: 13px 0; border-bottom: 1px solid var(--rule);
+    }
+    .cw-met:first-child { padding-top: 0; }
+    .cw-met dt { font: 800 clamp(20px, 2vw, 26px)/1 var(--display); letter-spacing: -.02em; color: var(--accent); }
+    .cw-met dd { font: 400 15px/1.45 var(--body); color: #2e2d2a; }
+
+    .cw-broke { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--accent); }
+    .cw-broke p + p { font: 400 15px/1.6 var(--body); color: #2e2d2a; margin-top: 8px; }
+
+    .cw-demo { margin-top: clamp(26px, 3vw, 38px); }
+    .cw-demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+    .cw-demo-grid.one { grid-template-columns: minmax(0, 1fr); }
+    .cw-demo-grid .shot, .cw-demo-grid .shot.fit { min-height: 0; }
+    .dupt-lead { font: 400 14.5px/1.6 var(--body); color: #2e2d2a; margin-bottom: 12px; }
+
+    /* The Homebase slide keeps the dark treatment it had as a band. */
+    .cw-dark { background: var(--ink); color: var(--on-dark); margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); border-top-color: var(--rule-dark); }
+    .cw-dark .cw-org { color: #a3a3a3; }
+    .cw-dark .cw-body, .cw-dark .cw-met dd, .cw-dark .cw-broke p + p { color: var(--on-dark-muted); }
+    .cw-dark .cw-met { border-bottom-color: var(--rule-dark); }
+    .cw-dark .dupt-lead.light { color: var(--on-dark-muted); }
+
+    /* Transport */
+    .cw-bar {
+      display: flex; align-items: center; gap: 12px 18px; flex-wrap: wrap;
+      margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--rule);
+    }
+    .cw-btn {
+      font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase;
+      background: transparent; color: var(--ink); border: 1px solid var(--rule);
+      padding: 11px 15px; min-height: 44px; cursor: pointer; transition: border-color .2s;
+    }
+    .cw-btn:hover { border-color: var(--ink); }
+    .cw-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .cw-btn[disabled] { opacity: .35; cursor: default; }
+    .cw-nums { display: flex; gap: 6px; }
+    .cw-num {
+      font: 500 11px var(--mono); letter-spacing: .06em;
+      background: transparent; color: #5f5d58; border: 1px solid transparent;
+      padding: 11px 12px; min-height: 44px; cursor: pointer; transition: color .2s, border-color .2s;
+    }
+    .cw-num:hover { color: var(--ink); }
+    .cw-num[aria-current="true"] { color: var(--accent); border-color: var(--accent); }
+    .cw-num:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .cw-upnext { margin-left: auto; font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; }
+
+    /* JS-on: one slide at a time */
+    .cw.is-carousel > .cw-track > .cw-slide { display: none; }
+    .cw.is-carousel > .cw-track > .cw-slide.on { display: block; animation: cs-in 380ms ease both; }
+    @media (prefers-reduced-motion: reduce) { .cw.is-carousel > .cw-track > .cw-slide.on { animation: none; } }
+
+    @media (max-width: 900px) {
+      .cw-main, .cw-demo-grid { grid-template-columns: minmax(0, 1fr); }
+      .cw-upnext { margin-left: 0; flex-basis: 100%; }
+      .cw-met { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 11px 0; }
+    }
+
   </style>
 </head>
 <body>
@@ -649,7 +739,7 @@
       <!-- The rollout, lifted into the hero so the sequence is the first thing
            a reader meets rather than something 68% down the page. -->
       <aside class="hero-side">
-        <p class="m red hero-side-lbl">THE ROLLOUT &middot; BEAUTY ADVISORS ON THE SHOP FLOOR</p>
+        <p class="m red hero-side-lbl">THE ROLLOUT &middot; A SALES APP FOR THE SHOP FLOOR</p>
 <div class="cs log" id="rollout-log" aria-live="polite">
         <div class="row">
           <p class="m red">DAY 0</p>
@@ -876,48 +966,46 @@
       </div>
     </section>
 
-<!-- Selected Work Intro -->
+<!-- Selected Work: carousel -->
     <div class="band pad">
       <div class="intro">
         <p class="m red">SELECTED WORK / 2024&ndash;2026</p>
-        <h2>Three systems. Three different kinds of mess.</h2>
+        <h2>Three systems. Three different kinds of broken input.</h2>
+        <p class="lead" style="max-width:640px;margin-top:10px">One at a time. Use the arrows or the numbers to move through all three.</p>
       </div>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="band">
-
-      <!-- Project 01: Beauty Advisor Sales Tracker -->
-      <section class="proj">
-        <div class="txt">
-          <p class="m red">01 / FIELD DATA SYSTEM</p>
-          <h2>Beauty Advisor Sales Tracker</h2>
-          <p>We already licensed a platform for this. It did not fit my market, so I built the replacement in two days and 18 advisors moved onto it. It was never mandated.</p>
-
-          <details class="cs-fold">
-            <summary>
-              <span class="m">READ THE CASE STUDY &middot; RUN THE DEDUP</span>
-              <span class="fold-ic">+</span>
-            </summary>
-          <div class="cs">
-            <div class="row">
-              <p class="m red">PROBLEM</p>
-              <p>I owned a travel retail account in the Middle East and it was growing about 6x over 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel every evening. That does not survive an account growing at that rate.</p>
+    <div class="band pad">
+      <div class="cw" id="cw">
+        <div class="cw-track">
+      <article class="cw-slide" id="cs-1" data-n="1">
+        <div class="cw-main">
+          <div class="cw-left">
+            <p class="m red">01 / FIELD DATA SYSTEM</p>
+            <p class="cw-org">DOLCE &amp; GABBANA BEAUTY &middot; TRAVEL RETAIL MEA</p>
+            <h3 class="cw-title">Beauty Advisor Sales Tracker</h3>
+            <p class="cw-body">We already licensed a platform for this. It could not be configured by the person accountable for the numbers, and spending more on it would not have fixed that. So I built the replacement. Two days to a running site on Supabase, added to the advisors' home screens from the browser rather than shipped through an app store, and piloted with three advisors and their supervisor for a week before anyone else saw it.</p>
+            <p class="m tags">PWA &middot; PYTHON INGEST &middot; DATA VALIDATION &middot; FIELD ROLLOUT</p>
+            <div class="btnrow"><a class="btn" href="https://sales-management-phi-blue.vercel.app" target="_blank" rel="noopener">VIEW DASHBOARD EVIDENCE &rarr;</a></div>
+          </div>
+          <div class="cw-right">
+            <dl class="cw-metrics">
+            <div class="cw-met"><dt>1,324</dt><dd>rows ingested, 0 rejected</dd></div>
+            <div class="cw-met"><dt>29</dt><dd>duplicates removed</dd></div>
+            <div class="cw-met"><dt>18</dt><dd>advisors daily, none required to</dd></div>
+            <div class="cw-met"><dt>2 days</dt><dd>decision to a running site</dd></div>
+            </dl>
+            <div class="cw-broke">
+              <p class="m red">&rarr; WHAT BROKE</p>
+              <p>The signup screen. The app itself worked. Advisors could not get in, because not everyone has an email account they can reach, and I had never thought to check whether the people I built it for could get to the login screen. WhatsApp ran alongside for a month rather than forcing the change.</p>
             </div>
-            <div class="row">
-              <p class="m red">WHAT IT ACTUALLY WAS</p>
-              <p>The obvious answer was to put the market on the field sales platform we already licensed. It would not have helped. Loading a monthly target into it meant emailing the vendor's IT team and waiting, so the person responsible for the numbers could not change her own targets. The dashboard showed what the vendor had decided a dashboard shows. And the per seat cost could not be justified at that market size anyway. We did not have a missing tool. We had a tool nobody on my side could operate, and spending more on it would not have fixed that. </p>
-            </div>
-            <div class="row">
-              <p class="m red">BUILD</p>
-              <p>Two days from deciding to a running site, with Supabase behind it, which I learned on this project. The advisors are on their phones all day, so instead of shipping a native app I had them add the site to their home screen from the browser. Then I gave it to three advisors and the sales supervisor for a week before anyone else saw it. The supervisor got the dashboard with commissions and targets calculating themselves, which was the part she had been doing by hand. I took their feedback, fixed what they hated, and only then launched it to everyone. January to March I loaded myself by writing SQL against Supabase, because the app only went live in April.</p>
-            </div>
-            <div class="row">
-              <p class="m red">PROOF</p>
-              <div>
-                <p>I had backfilled everything up to launch, and then advisors came online on different dates because of the signup problem. While somebody was still locked out I was entering their sales for them. When they got in they started logging their own, and they could not see what was already in there, so they re-entered days I had already covered. The dedup key is what decides whether two rows are one event or two. Here are two that look like two days of work and are actually one. The highlighted columns are the key. Run it.</p>
-
-                <div class="dupt-wrap">
+          </div>
+        </div>
+        <div class="cw-demo">
+          <div class="cw-demo-grid">
+            <div class="cw-demo-run">
+              <p class="dupt-lead">I had backfilled everything up to launch, then advisors came online on different dates. For a while we were both entering the same advisor's days, with no way for her to see mine. The dedup key decides whether two rows are one event or two.</p>
+<div class="dupt-wrap">
                   <table class="dupt" id="dupt">
                     <thead>
                       <tr>
@@ -949,8 +1037,7 @@
                     </tbody>
                   </table>
                 </div>
-
-                <div class="dupt-bar">
+<div class="dupt-bar">
                   <button type="button" class="dupt-btn" id="dedup-btn" aria-pressed="false" aria-controls="dupt">RUN DEDUP &rarr;</button>
                   <div class="dupt-kpis" aria-live="polite">
                     <span class="kpi"><b>ROWS</b><i id="kpi-rows">2</i></span>
@@ -958,27 +1045,9 @@
                     <span class="kpi"><b>DAYS WORKED</b><i id="kpi-days">2</i></span>
                   </div>
                 </div>
-
-                <p class="dupt-note">The data columns and the four-column key are the real schema. Status is added here to show what the pipeline did, and the rule shown keeps the first occurrence. Values and advisor name are illustrative. The same export arrived with 38, 38, 40 and 37 columns across four consecutive months.</p>
-              </div>
+<p class="dupt-note">The data columns and the four-column key are the real schema. Status is added here to show what the pipeline did, and the rule shown keeps the first occurrence. Values and advisor name are illustrative. The same export arrived with 38, 38, 40 and 37 columns across four consecutive months.</p>
             </div>
-            <div class="row">
-              <p class="m red">WHAT BROKE</p>
-              <p>The signup. Not the app, the signup. I had built the thing and tested it and it worked, and then advisors could not get in, because not everyone has an email they can actually access and not everyone has ever registered for anything. That is the part I did not see coming, and it had nothing to do with the product. So I kept WhatsApp running next to it for a month instead of forcing the change, and reconciled the two by hand until people were in.</p>
-            </div>
-            <div class="row">
-              <p class="m red">IMPACT</p>
-              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. I showed it to global beauty leadership about a month after it went out.</p>
-            </div>
-          </div>
-          </details>
-
-          <p class="m tags">PWA &middot; PYTHON INGEST &middot; DATA VALIDATION &middot; FIELD ROLLOUT</p>
-          <div class="btnrow">
-            <a class="btn" href="https://sales-management-phi-blue.vercel.app" target="_blank" rel="noopener">VIEW DASHBOARD EVIDENCE &rarr;</a>
-          </div>
-        </div>
-        <div class="shot fit">
+<div class="shot fit">
           <p class="shot-cue"><b>Try it</b> &middot; pick a city, type a target, and the card recalculates. Demo data, real arithmetic.</p>
           <!-- Pixel-accurate vector representation of the Sales Management Dashboard -->
           <div class="dashboard-window">
@@ -1092,44 +1161,37 @@
             </div>
           </div>
         </div>
-      </section>
-
-
-    </div>
-
-    <!-- Project 02: Homebase (Dark Band) -->
-    <section class="dark">
-      <div class="band pad">
-        <div class="inner">
-          <div class="hb">
-            <div>
-              <p class="m light">02 / AI PRODUCT &middot; HACKATHON 2026</p>
-              <h2 style="margin-top:16px">Homebase</h2>
-              <p style="margin-top:16px">A deterministic context block that helps a voice agent dispatch maintenance vendors. Structured by default, with the model behind an explicit opt-in flag.</p>
-
-              <details class="cs-fold" style="margin-top:20px">
-                <summary>
-                  <span class="m light">READ THE CASE STUDY &middot; TRY THE GENERATOR</span>
-                  <span class="fold-ic">+</span>
-                </summary>
-              <div class="cs">
-                <div class="row">
-                  <p class="m light">PROBLEM</p>
-                  <p>Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.</p>
-                </div>
-                <div class="row">
-                  <p class="m light">WHAT IT ACTUALLY WAS</p>
-                  <p>The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was the entire problem, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem. It is why the default path is a plain string builder and the model only runs behind a flag.</p>
-                </div>
-                <div class="row">
-                  <p class="m light">BUILD</p>
-                  <p>Eight fixed fields, assembled per call so nothing is left to whoever is on the phone. The LLM path only runs with <code>USE_LLM_SCOPE=true</code>; the default is a plain template builder, because a string template was sufficient for the job.</p>
-                </div>
-                <div class="row">
-                  <p class="m light">PROOF</p>
-                  <div>
-                    <p>Change the ticket. The block keeps its shape, because the shape is the product.</p>
-                    <div class="hb-terminal">
+          </div>
+        </div>
+      </article>
+      <article class="cw-slide cw-dark" id="cs-2" data-n="2">
+        <div class="cw-main">
+          <div class="cw-left">
+            <p class="m light">02 / AI PRODUCT &middot; HACKATHON 2026</p>
+            <p class="cw-org">HOMEBASE &middot; CO-FOUNDED, TWO PERSON TEAM</p>
+            <h3 class="cw-title">Homebase</h3>
+            <p class="cw-body">The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem, which is why the default path is a plain string builder and the model only runs behind a flag.</p>
+            <p class="m tags">VOICE AGENT &middot; DETERMINISTIC TEMPLATE &middot; FIRESTORE</p>
+            <div class="btnrow"><a class="btn light-btn" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener">VIEW CONCEPT PAGE &rarr;</a></div>
+          </div>
+          <div class="cw-right">
+            <dl class="cw-metrics">
+            <div class="cw-met"><dt>8</dt><dd>fixed fields, every call</dd></div>
+            <div class="cw-met"><dt>6</dt><dd>Firestore collections</dd></div>
+            <div class="cw-met"><dt>3.5 hrs</dt><dd>what actually got built</dd></div>
+            <div class="cw-met"><dt>0</dt><dd>production usage, so no impact claim</dd></div>
+            </dl>
+            <div class="cw-broke">
+              <p class="m light">&rarr; WHAT BROKE</p>
+              <p>Most of it, in the sense that most of it never shipped. What exists is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification. The concept page also advertises satisfaction and response time figures for a build with no production usage. They are not mine and they are not repeated here.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cw-demo">
+          <div class="cw-demo-grid">
+            <div class="cw-demo-run">
+              <p class="dupt-lead light">Change the ticket. The block keeps its shape, because the shape is the product.</p>
+<div class="hb-terminal">
                       <div class="hb-term-bar">build_context() &middot; deterministic path</div>
                       <div class="hb-form">
                         <label class="hb-lbl" for="hb-issue">ISSUE</label>
@@ -1147,136 +1209,47 @@
                       </div>
                       <div class="hb-term-body" id="hb-out"></div>
                     </div>
-                    <p class="dupt-note light">Same eight fields every call, whatever you pick. The system prompt never changes; only this block does.</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <p class="m light">WHAT BROKE</p>
-                  <p>Most of it, in the sense that most of it never shipped. What exists after roughly three and a half hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification and not a product. The concept page also advertises tenant satisfaction and response time figures for a build with no production usage. Those are not mine, they are not repeated here, and the screenshot above is cropped above them on purpose.</p>
-                </div>
-                <div class="row">
-                  <p class="m light">IMPACT</p>
-                  <p>Hackathon build, co-founded, no production usage, so there is no impact number to claim and I am not inventing one. The decision worth showing instead: the voice agent's system prompt stays static while per-call variation is injected as a structured block, so the prompt is not rewritten on every call. The default path is a plain template, with the model only behind a flag, because a string template was sufficient.</p>
-                </div>
-              </div>
-              </details>
-
-              <div class="btnrow" style="margin-top:24px">
-                <a class="btn light-btn" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener">VIEW CONCEPT PAGE &rarr;</a>
-              </div>
             </div>
-            <div class="frame">
+<div class="frame">
               <a class="shot-link" href="https://homebase-labs.lovable.app/" target="_blank" rel="noopener" aria-label="Open the Homebase concept page in a new tab"><img class="shot-img" src="/homebase-shot.jpg" alt="The Homebase concept page showing the assistant handling a tenant maintenance request" width="1600" height="716" loading="lazy"></a>
             </div>
           </div>
-          <div class="strip">
-            <div>
-              <p class="m light" style="opacity:.6">01</p>
-              <p class="k" style="margin-top:10px">CAPTURE ISSUE<br>LOCATION + URGENCY</p>
-            </div>
-            <div>
-              <p class="m light" style="opacity:.6">02</p>
-              <p class="k" style="margin-top:10px">NORMALIZE CONTEXT<br>FIXED SCHEMA</p>
-            </div>
-            <div>
-              <p class="m light" style="opacity:.6">03</p>
-              <p class="k" style="margin-top:10px">ROUTE VENDOR<br>AUDITABLE HANDOFF</p>
+        </div>
+      </article>
+      <article class="cw-slide" id="cs-3" data-n="3">
+        <div class="cw-main">
+          <div class="cw-left">
+            <p class="m red">03 / PERSONAL BUILD</p>
+            <p class="cw-org">MOVE-OUT SALE &middot; DUBAI, 2026</p>
+            <h3 class="cw-title">Move-Out Sale Site &amp; Tracker</h3>
+            <p class="cw-body">A catalog fixes the messaging and does nothing about the part that was costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. The real problem was that the listing and the accounting were two separate documents, free to disagree with each other, so one Python script now generates both from a single item list.</p>
+            <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
+            <div class="btnrow"><a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a></div>
+          </div>
+          <div class="cw-right">
+            <dl class="cw-metrics">
+            <div class="cw-met"><dt>20 of 31</dt><dd>items sold in 30 days</dd></div>
+            <div class="cw-met"><dt>78.6%</dt><dd>recovery on what was paid</dd></div>
+            <div class="cw-met"><dt>AED 4,900</dt><dd>still on the table, 11 items</dd></div>
+            <div class="cw-met"><dt>1</dt><dd>script, two outputs</dd></div>
+            </dl>
+            <div class="cw-broke">
+              <p class="m red">&rarr; WHAT BROKE</p>
+              <p>A dresser went live carrying a discount badge that was not real. I had recorded it at AED 1,100 when it actually cost 499, because I trusted a store catalog page instead of the receipt. That is the whole reason the generator prices against what was paid. The catalog also had a counter that could show 0 items available. I listed it on this site as an open defect while it was open, and it is fixed.</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <div class="band">
-
-      <!-- Project 03: Move-Out Sale -->
-      <section class="proj flip">
-        <div class="txt">
-          <p class="m red">03 / PERSONAL BUILD</p>
-          <h2>Move-Out Sale Site &amp; Tracker</h2>
-          <p>One Python script generates the buyer-facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</p>
-
-          <details class="cs-fold">
-            <summary>
-              <span class="m">READ THE CASE STUDY</span>
-              <span class="fold-ic">+</span>
-            </summary>
-          <div class="cs">
-            <div class="row">
-              <p class="m red">PROBLEM</p>
-              <p>Thirty one pieces of furniture to sell before I left the country, and every buyer asked the same three questions about size, condition and whether the price moved. One thread each, the same answers retyped.</p>
-            </div>
-            <div class="row">
-              <p class="m red">WHAT IT ACTUALLY WAS</p>
-              <p>A catalog fixes the messaging. It does nothing about the part that was actually costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. A dresser I had recorded at AED 1,100 had cost 499, so the site was advertising a saving that did not exist. The real problem was that the listing and the accounting were two separate documents, free to disagree with each other.</p>
-            </div>
-            <div class="row">
-              <p class="m red">BUILD</p>
-              <p>The generator prices against purchase price, not the store catalog page, so a saving cannot be displayed unless it is real. Bundles carry their cost on the bundle line, with no invented per-item split, and unallocated cost stays visible instead of being quietly spread around.</p>
-            </div>
-            <div class="row">
-              <p class="m red">PROOF</p>
-              <p>The live catalog, generated from the same item list that feeds the profit tracker.</p>
-            </div>
-            <div class="row">
-              <p class="m red">WHAT BROKE</p>
-              <p>A dresser went live with a discount badge on it that was not real. I had it recorded at AED 1,100 when it actually cost 499, because I had trusted a store catalog page instead of the receipt. That is the whole reason the generator now prices against what was paid. The catalog also carried a counter that could read 0 items available instead of the real figure. I listed it on this site as an open defect before I fixed it, which I would rather do than have you find it. It is fixed now, and it reads 11.</p>
-            </div>
-            <div class="row">
-              <p class="m red">IMPACT</p>
-              <p>20 of 31 items sold in 30 days. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 still on the table across 11 items.</p>
-            </div>
-          </div>
-          </details>
-
-          <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
-          <div class="btnrow">
-            <a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a>
-          </div>
-        </div>
-        <div class="shot">
+        <div class="cw-demo">
+          <div class="cw-demo-grid one">
+<div class="shot">
           <a class="shot-link" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live move-out sale catalog in a new tab"><img class="shot-img" src="/moveout-catalog.jpg" alt="The live move-out sale catalog showing furniture listings" width="1600" height="1200" loading="lazy"></a>
         </div>
-      </section>
-
-    </div>
-
-
-<!-- Capabilities Section -->
-    <section class="band pad">
-      <div class="caps">
-        <div>
-          <p class="m red">CAPABILITIES</p>
-          <h2 style="margin-top:16px;max-width:28ch">What I am actually good at, and where I stop.</h2>
+          </div>
         </div>
-        <div class="capgrid">
-          <div>
-            <p class="m red">GETTING PEOPLE TO USE IT</p>
-            <p>This is the one I would defend hardest. Eighteen people in three cities opened a tool every day that nobody had told them to open. Building it took two days. That took months, and most of it was not product work.</p>
-          </div>
-          <div>
-            <p class="m red">DECIDING WHAT COUNTS AS ONE EVENT</p>
-            <p>Advisor, date, store, shift. The dedup key is a judgement call, not a technical detail. Get it wrong and every number underneath is wrong in a way that still looks completely plausible.</p>
-          </div>
-          <div>
-            <p class="m red">KNOWING WHAT TO BUILD</p>
-            <p>The tooling is fast now. Deciding what it should produce is not, and it does not get faster. Nothing I used could tell me what someone needs at the end of a shift in Cairo. You have to bring that, and then check what comes back.</p>
-          </div>
-          <div>
-            <p class="m red">THE COMMERCIAL SIDE</p>
-            <p>Five years owning accounts, targets, commissions, and the people carrying them. The commercial consequence is where I start, not something I check at the end.</p>
-          </div>
-          <div>
-            <p class="m red">ROLLOUT, WHICH IS TRAINING</p>
-            <p>It is never a link you send. It is sitting with people until they are in.</p>
-          </div>
-          <div>
-            <p class="m red">WHERE I STOP</p>
-            <p>No model in production, and no engineering team managed. The largest deployment here is eighteen people across three markets, none of whom were required to use it. <a href="#faq">The rest of the limits are in the FAQ</a>.</p>
-          </div>
+      </article>
         </div>
       </div>
-    </section>
+    </div>
 
         <div id="notes" class="anchor"></div>
 <!-- Point of view -->

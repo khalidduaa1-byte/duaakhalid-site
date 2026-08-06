@@ -637,3 +637,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sync();
 })();
+
+
+/* ------------------------------------------------------------------
+   Selected Work carousel.
+
+   Three case studies, one on screen at a time, with the transport built
+   here rather than in the markup. Progressive enhancement, same contract
+   as the rollout stepper: with JS off all three slides render stacked and
+   every word is readable, so this can only ever add.
+
+   Deliberately not auto-advancing. The rollout stepper on this page does
+   advance, and two things moving on one page is one too many. A reader
+   who wants the next case study will ask for it.
+------------------------------------------------------------------ */
+(function () {
+  var cw = document.getElementById('cw');
+  if (!cw) return;
+  var slides = Array.prototype.slice.call(cw.querySelectorAll('.cw-slide'));
+  if (slides.length < 2) return;
+
+  var titleOf = function (s) {
+    var el = s.querySelector('.cw-title');
+    return el ? el.textContent.trim() : '';
+  };
+
+  var i = 0;
+  cw.classList.add('is-carousel');
+
+  var bar = document.createElement('div');
+  bar.className = 'cw-bar';
+
+  function mk(cls, label, aria, fn) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = cls; b.innerHTML = label;
+    b.setAttribute('aria-label', aria);
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  var prev = mk('cw-btn', '&larr; PREV', 'Previous case study', function () { go(i - 1); });
+  var nums = document.createElement('div');
+  nums.className = 'cw-nums';
+  var numEls = slides.map(function (s, n) {
+    var b = mk('cw-num', (n + 1 < 10 ? '0' : '') + (n + 1),
+               'Case study ' + (n + 1) + ', ' + titleOf(s), function () { go(n); });
+    nums.appendChild(b);
+    return b;
+  });
+  var upnext = document.createElement('span');
+  upnext.className = 'cw-upnext';
+  var next = mk('cw-btn', 'NEXT &rarr;', 'Next case study', function () { go(i + 1); });
+
+  bar.appendChild(prev); bar.appendChild(nums); bar.appendChild(upnext); bar.appendChild(next);
+  cw.appendChild(bar);
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    numEls.forEach(function (b, k) {
+      b.classList.toggle('on', k === i);
+      b.setAttribute('aria-current', k === i ? 'true' : 'false');
+    });
+    upnext.textContent = 'Next: ' + titleOf(slides[(i + 1) % slides.length]);
+  }
+
+  // Arrow keys move between case studies while focus is inside the transport.
+  bar.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+  });
+
+  go(0);
+})();
