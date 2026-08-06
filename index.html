@@ -659,18 +659,21 @@
     }
     .cw-main, .cw-demo, .cw-demo-grid { display: contents; }
     .cw-left { grid-column: 1; grid-row: 1; }
-    /* The visual slot. .cw-right is slide 3's; the other two reach into what
-       used to be the demo row for theirs. */
-    .cw-right,
+    /* Row 1, column 2: the compact interactive piece, or on slide 3, which has
+       no interactive piece, the catalog screenshot. Both are things built for a
+       narrow column: the dedup table drops working_days and items_sold so that
+       status still fits a half band, and the generator is a key/value block. */
+    .cw-demo-run, .cw-right { grid-column: 2; grid-row: 1; }
+    /* Row 2, full width: the one wide product-looking piece. The dashboard is
+       an app UI whose tab strip never fitted a half column, and the Homebase
+       capture is 2.2:1, so both were the wrong shape for the slot they were in
+       and the right shape for a band across the bottom. Slide 3 has no row 2
+       and is meant not to. */
     .cw-demo-grid > .shot,
-    .cw-demo-grid > .frame { grid-column: 2; grid-row: 1; align-self: stretch; }
-    /* The mount fills the row rather than sitting at its natural height. The
-       three visuals have very different aspect ratios (the Homebase capture is
-       2.2:1 against the catalog's 4:3), so at natural height one slide had a
-       200px void under its picture and another had none. Filling the row means
-       the panel's top and bottom edges always line up with the narrative's,
-       and the picture centres inside it. */
-    .cw-right { display: flex; }
+    .cw-demo-grid > .frame { grid-column: 1 / -1; grid-row: 2; }
+    /* Slide 3's only visual is a still, so it fills the row it is in and its
+       top and bottom edges line up with the narrative's. */
+    .cw-right { display: flex; align-self: stretch; }
     .cw-right > .shot { flex: 1; }
 
     .cw-org { font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; margin-top: 10px; }
@@ -689,72 +692,55 @@
        (VOICE AGENT / DETERMINISTIC TEMPLATE / FIRESTORE) was invisible. */
     .cw-dark .cw-left .tags { color: #8a8a85; }
 
-    /* The payload band. Same two columns and the same gutter as row 1, so the
-       column line runs unbroken down the slide: prose on the left under the
-       narrative, the working widget on the right under the visual. */
+    /* The compact interactive column: caption, widget, controls, caveat,
+       stacked. It reads top to bottom in source order, so nothing here is
+       placed by hand and adding a row to either demo needs no CSS. */
     .cw-demo-run {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      column-gap: clamp(28px, 4vw, 56px);
-      row-gap: 14px;
-      /* Centred, not top-aligned. The prose in this band is a caption for the
-         widget beside it and the two are never the same height: Homebase's is
-         two lines against a 295px terminal. Top-aligned that read as content
-         that had stopped early; centred it reads as a caption paired with the
-         thing it captions. */
-      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
     }
-    .cw-demo-run > .dupt-lead   { grid-area: 1 / 1; margin-bottom: 0; }
-    .cw-demo-run > .dupt-wrap   { grid-area: 1 / 2; margin-top: 0; }
-    .cw-demo-run > .hb-terminal { grid-area: 1 / 2; }
-    .cw-demo-run > .dupt-note   { grid-area: 2 / 1; margin-top: 0; }
-    .cw-demo-run > .dupt-bar    { grid-area: 2 / 2; margin-top: 0; }
+    .cw-demo-run > .dupt-lead { margin-bottom: 0; }
+    .cw-demo-run > .dupt-wrap,
+    .cw-demo-run > .dupt-bar,
+    .cw-demo-run > .dupt-note { margin-top: 0; }
 
-    /* One mount for all three visuals: the same ink panel and the same
-       padding, so the mockup, the concept page and the catalog read as three
-       instances of one object rather than three different treatments. */
+    /* The full-width closer. Slide 1's is an ink panel because the "try it"
+       cue is set for a dark ground and the dashboard is a light UI that needs
+       one; slide 2's is a hairline rectangle because the slide is already ink
+       and the image is its own object. Both sit inside the band gutters, so
+       neither reads as bleeding by accident. */
     .cw-right-img .shot,
-    .cw-demo-grid > .shot,
-    .cw-demo-grid > .frame {
+    .cw-demo-grid > .shot {
       background: var(--ink);
       min-height: 0;
       padding: clamp(14px, 1.6vw, 22px);
-      display: flex; flex-direction: column; gap: 16px;
+      display: flex; flex-direction: column; gap: 14px;
       align-items: center; justify-content: center;
       box-sizing: border-box;
     }
-    /* Slide 2 is the one exception to the column assignment, and it is a
-       better slide for it. The Homebase capture is 2.2:1, so in a half column
-       it was 224px tall against a 422px narrative and left the same dead
-       column the metrics used to. So the payload and the picture swap places:
-       the context generator, which is the thing worth touching, goes up beside
-       the narrative, and the screenshot runs the full width underneath, where
-       a 2.2:1 image is exactly the right shape to close a slide.
-       The caption travels with the generator so it still introduces it. */
-    .cw-dark .cw-demo-run {
-      grid-column: 2; grid-row: 1;
-      grid-template-columns: minmax(0, 1fr);
-      row-gap: 12px;
-      align-items: start;
-    }
-    .cw-dark .cw-demo-run > .dupt-lead,
-    .cw-dark .cw-demo-run > .hb-terminal { grid-area: auto; }
-    /* No mount at full width: a hairline is enough to say the edge is meant,
-       and the image sits inside the band gutters rather than bleeding. */
-    .cw-dark .cw-demo-grid > .frame {
-      grid-column: 1 / -1; grid-row: 2;
+    .cw-demo-grid > .frame {
       background: transparent;
       border: 1px solid var(--rule-dark);
       padding: 0;
+      line-height: 0;
     }
-    .cw-dark .cw-demo-grid > .frame .shot-img { max-height: none; }
-    .cw-right-img .shot-img { width: 100%; height: auto; max-height: none; }
+    /* The mockup is capped at 520px so that it stayed a "window" in a half
+       column. In the full-width slot that cap left it floating in the middle
+       of a 1120px ink field with the cue stranded at the far left, and the tab
+       strip still clipped, which is the fault this move was meant to cure.
+       Uncapped it fills the panel and the seven tabs finally fit.
+       zoom stays 1.22: it scales layout AND hit targets, which is why this
+       must never become transform: scale(). */
+    .cw-demo-grid > .shot { align-items: stretch; }
+    .cw-demo-grid > .shot .dashboard-window { max-width: none; }
+    .cw-demo-grid > .frame .shot-img { max-height: none; }
+    /* No max-height and no object-fit anywhere: both screenshots run at their
+       own aspect at whatever width the slot gives them, so nothing is ever
+       letterboxed inside its own box. */
     .cw-demo-grid .shot-link, .cw-right-img .shot-link { width: 100%; }
-    .cw-demo-grid .shot-img {
-      width: 100%; height: auto; max-height: 420px;
-      object-fit: contain; object-position: center;
-    }
+    .cw-demo-grid .shot-img, .cw-right-img .shot-img { width: 100%; height: auto; }
     .dupt-lead { font: 400 14.5px/1.6 var(--body); color: #2e2d2a; margin-bottom: 12px; }
 
     /* The Homebase slide keeps the dark treatment it had as a band. */
@@ -816,15 +802,12 @@
     @media (prefers-reduced-motion: reduce) { .cw-track { transition: none; } }
 
     @media (max-width: 900px) {
-      /* One column, source order, with the visual pulled up to sit directly
-         under the narrative it illustrates and the payload band last. */
+      /* One column, source order. Narrative, then the compact interactive,
+         then the wide closer, which is exactly how the slide reads at desktop
+         top to bottom, so nothing needs reordering. */
       .cw-slide { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
-      .cw-left, .cw-right,
+      .cw-left, .cw-right, .cw-demo-run,
       .cw-demo-grid > .shot, .cw-demo-grid > .frame { grid-column: 1; grid-row: auto; }
-      .cw-demo-run { grid-column: 1; grid-template-columns: minmax(0, 1fr); row-gap: 12px; order: 1; }
-      .cw-demo-run > .dupt-lead, .cw-demo-run > .dupt-wrap,
-      .cw-demo-run > .hb-terminal, .cw-demo-run > .dupt-note,
-      .cw-demo-run > .dupt-bar { grid-area: auto; }
       .cw-upnext { margin-left: 0; flex-basis: 100%; text-align: left; order: 3; }
       /* NEXT is the primary action, so on a phone it gets its own full-width
          row instead of being pushed to a third line under a right-aligned

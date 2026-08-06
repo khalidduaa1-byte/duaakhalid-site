@@ -633,6 +633,16 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
   .tcard-title { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 4px; }
   .tcard-title .track-badge { grid-column: 1 / -1; justify-self: start; }
 
+  /* Seven 8.5px tabs cannot share a 322px window with the month and city
+     filters: the strip wanted 546px and had 141px at 390 and 111px at 360, so
+     .db-nav-tabs' own overflow: hidden was slicing the ACTIVE tab down to
+     "Ta", which reads as a broken render rather than as a narrow app. On a
+     phone the mockup shows the view you are actually looking at, and the
+     topbar wraps rather than clipping if the filters still do not fit.
+     Measured at 360, 390 and 430. */
+  .db-topbar { flex-wrap: wrap; }
+  .db-nav-tabs .db-tab:not(.active) { display: none; }
+
   /* The control row is the one genuinely interactive part of the mockup, and
      the cue above it says "try it", but at zoom 1 the select, the number input
      and the Save button were all 20px tall with their labels ellipsised to
