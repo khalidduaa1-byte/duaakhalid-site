@@ -517,6 +517,8 @@
        Ordinals sit in an <ol>, so the numerals are aria-hidden and
        purely typographic. Order is carried by the list itself.
     ================================================================== */
+    /* role="list" is on the <ol> because list-style: none drops list
+       semantics in Safari, and the ordinals are aria-hidden decoration. */
     .hw-ledger { list-style: none; margin-top: 4px; }
     .hw-row {
       display: grid;
@@ -729,7 +731,7 @@
 
       <!-- Three corrections, each one a read I had to change in the field.
            Same device as the case studies, named here and shown there. -->
-      <ol class="hw-ledger">
+      <ol class="hw-ledger" role="list">
         <li class="hw-row">
           <p class="hw-num" aria-hidden="true">01</p>
           <div class="hw-swap">
@@ -786,21 +788,21 @@
         </div>
         <div class="rows">
           <div class="r">
-            <p class="m red">NEXT / AUG 2026</p>
+            <p class="m red">NOW / FROM AUG 2026</p>
             <div>
               <p class="org">CORNELL TECH</p>
             </div>
             <p class="d">MEng in Data Science and Decision Analytics. I have been building these tools alongside the day job, on free tooling and whatever I could teach myself in the evenings. I want to learn to do it properly.</p>
           </div>
           <div class="r">
-            <p class="m red">NOW / 2024&ndash;2026</p>
+            <p class="m">2024&ndash;2026</p>
             <div>
               <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
             </div>
             <p class="d">Key account management across thirteen markets in travel retail MEA, with 55 beauty advisors reporting through me. Nobody could tell an account was slipping until it already had, so I built the account health layer that benchmarks the accounts against each other and flags the ones at risk. It is now the primary decision input across all thirteen. One of those markets was my own account, and it grew roughly 6x in eighteen months, which is where the <a href="#work">sales tracker</a> came from.</p>
           </div>
           <div class="r">
-            <p class="m">PREVIOUSLY / 2021&ndash;2024</p>
+            <p class="m">2021&ndash;2024</p>
             <div>
               <p class="org">LVMH &middot; MENA</p>
             </div>
@@ -1276,120 +1278,15 @@
       </div>
     </section>
 
-    <div id="notes" class="anchor"></div>
-<!-- Hero -->
-    <section class="band pad rule">
-      <div class="hero-section" style="padding-block: 60px 40px;">
-        <p class="m red">FIELD NOTES</p>
-        <h2>Notes from the buying side.</h2>
-        <p class="lead" style="max-width: 720px; margin-top: 10px;">
-          For five years I was the customer for enterprise software in luxury retail, and most of what decided whether a tool actually got used had very little to do with the tool. These are the constraints I watched decide outcomes, what would have worked on me, and a log of one rollout from the inside.
-        </p>
-      </div>
-    </section>
-
-<!-- The walls -->
-    <section class="band pad" style="padding-block: 56px;">
-      <div class="intro" style="padding-block: 0 28px;">
-        <p class="m red">01 / THE WALLS</p>
-        <h2>Five things that decide whether a tool gets used.</h2>
-        <p class="lead" style="max-width: 660px; margin-top: 10px;">None of these are unusual and none of them are anyone's fault. They are just what the buying side looks like from the inside. The second row of each is what I would want to know if I were on the other side of the table.</p>
-      </div>
-
-      <details class="cs-fold">
-        <summary>
-          <span class="m">01 &middot; THE TOOLING IS NOT ON THE DESK</span>
-          <span class="fold-ic">+</span>
-        </summary>
-        <div class="cs">
-          <div class="row">
-            <p class="m red">THE WALL</p>
-            <p>Enterprise software in this industry is procured centrally and installed centrally, for privacy and security reasons that are entirely real. The practical consequence is that the person closest to a problem is often the person with the least ability to try anything against it. Worth knowing if you are selling in, because the colleague most likely to champion you is usually the one with the least access.</p>
-          </div>
-          <div class="row">
-            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Nothing that starts by asking IT to unblock a domain. What gets through is a deployment that never needs install rights, or a pilot scoped so tightly that security is reviewing one workflow instead of a whole category of tool. Sell to the person whose numbers are wrong. Not to the person whose job is to say no.</p>
-          </div>
-        </div>
-      </details>
-
-      <details class="cs-fold">
-        <summary>
-          <span class="m">02 &middot; THE BUYER CANNOT CONFIGURE THE TOOL</span>
-          <span class="fold-ic">+</span>
-        </summary>
-        <div class="cs">
-          <div class="row">
-            <p class="m red">THE WALL</p>
-            <p>We already paid for a field sales platform. Loading a monthly target into it meant writing an email to the vendor's IT team and waiting for somebody there to do it. So the person who owned the account, whose targets they were, could not change her own targets. And the dashboard showed what the vendor had decided a dashboard should show, which was not what I needed to see.</p>
-          </div>
-          <div class="row">
-            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Let the account owner change a routine setting without raising a ticket. Every hour of vendor side turnaround on something that simple is an hour in which somebody rebuilds the view they need in Excel. That is not a feature request. It is the difference between a tool that gets used and a spreadsheet that quietly replaces it.</p>
-          </div>
-        </div>
-      </details>
-
-      <details class="cs-fold">
-        <summary>
-          <span class="m">03 &middot; PER SEAT PRICING KILLS THE MARKETS THAT NEED IT</span>
-          <span class="fold-ic">+</span>
-        </summary>
-        <div class="cs">
-          <div class="row">
-            <p class="m red">THE WALL</p>
-            <p>The platform made sense across the large markets. Mine had a fraction of that headcount and a much lower cost base, so the per seat maths could not be justified for it. Which means the smallest markets, the ones with the least support and the most manual work, get the worst tooling. The place that needed it most was the place that could least afford it.</p>
-          </div>
-          <div class="row">
-            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Price the small deployments like you actually want them. A market that size is not a rounding error, it is the pilot that proves the rollout, and it is where the person who would have championed you internally is currently doing the whole thing by hand at midnight.</p>
-          </div>
-        </div>
-      </details>
-
-      <details class="cs-fold">
-        <summary>
-          <span class="m">04 &middot; THE USER COULD NOT SIGN UP</span>
-          <span class="fold-ic">+</span>
-        </summary>
-        <div class="cs">
-          <div class="row">
-            <p class="m red">THE WALL</p>
-            <p>This is the one I got wrong myself, so it is the one I trust most. I built the tool, tested it, and it worked fine. Then the advisors could not get in. Registering needed an email address, and not everyone has an email account they can actually get into, and plenty of people have never signed up for anything online in their life. Nothing was broken. I had just never thought to check whether the people I built it for could reach the login screen.</p>
-          </div>
-          <div class="row">
-            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Count the first screen as part of the product. If onboarding assumes an email, an app store account, an SSO identity or a password manager, you have already cut out a chunk of the field team you are being paid to reach. And do not force the cutover. I kept WhatsApp running alongside for a month and reconciled the two by hand, which was tedious, and which is also the only reason people came across at all.</p>
-          </div>
-        </div>
-      </details>
-
-      <details class="cs-fold">
-        <summary>
-          <span class="m">05 &middot; ANYTHING WITH A PRICE TAG MOVES SLOWLY</span>
-          <span class="fold-ic">+</span>
-        </summary>
-        <div class="cs">
-          <div class="row">
-            <p class="m red">THE WALL</p>
-            <p>Anything with a licence fee needs a business case, a procurement cycle and a security review. That process is rational and it is also slow, and for a market the size of mine it would have consumed more attention than the problem was worth. So the small markets wait, and in the meantime the work carries on being done by hand.</p>
-          </div>
-          <div class="row">
-            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
-            <p>Know what you are actually competing with. It is not the other vendor. It is somebody inside the account who can now put a working version together in an afternoon for nothing, because the tooling got that cheap. That person exists in every enterprise now, and they already know exactly what the product needs to do. Make the smallest market worth your time, or they will build it themselves.</p>
-          </div>
-        </div>
-      </details>
-    </section>
-
-
+        <div id="notes" class="anchor"></div>
 <!-- Point of view -->
     <section class="dark" id="pov">
       <div class="band pad">
         <div class="inner">
           <div>
-            <p class="m light">03 / WHAT I THINK</p>
+            <p class="m light">FIELD NOTES</p>
             <h2 style="margin-top:16px;max-width:22ch">They do not work for the brand. They work for you.</h2>
+            <p class="lead light" style="margin-top:14px;max-width:52ch;opacity:.75">Five years as the customer for enterprise software, and what decided whether a tool got used.</p>
           </div>
 
           <div class="cs" style="max-width: 720px">
@@ -1398,6 +1295,7 @@
             <p>Which is why I do not think adoption is a product problem.</p>
             <p>When I put the tracker in front of eighteen people, nobody had told them to use it. No mandate, no deadline, no manager checking. They used it because I had spent two years building the kind of relationship where if I said this will make your life easier, they believed me enough to try it once. The product then had to be good enough not to waste that. But the product is not what got them to open it the first time.</p>
             <p>That is the part I think transfers. Forward deployed work means shipping to people who do not report to you, inside a company that is not yours, who already have a full job. You cannot mandate them. You can only be the person whose thing is worth trying. Every decision on that rollout came out of this: the home screen instead of the app store, the month of WhatsApp running alongside, refusing to set a cutover date. None of that is clever engineering. It is just what it costs to not burn the goodwill I already had.</p>
+            <p>It is also worth saying what that means for anyone selling into a company like the one I worked in. Your competition is not the other vendor. It is somebody inside the account who can put a working version together in an afternoon for nothing, because the tooling got that cheap, and who already knows exactly what the product needs to do. I was that person. Make the smallest market worth your time, or they will build it themselves.</p>
           </div>
         </div>
       </div>
