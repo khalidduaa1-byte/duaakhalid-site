@@ -687,10 +687,10 @@
        as a pair of equal minor controls and readers scrolled past the whole bar
        instead of using it. */
     .cw-btn.cw-next {
-      background: var(--ink); color: var(--bg); border-color: var(--ink);
+      background: var(--accent); color: #fff; border-color: var(--accent);
       font-weight: 600; padding: 13px 22px;
     }
-    .cw-btn.cw-next:hover { background: var(--accent); border-color: var(--accent); }
+    .cw-btn.cw-next:hover { background: var(--ink); border-color: var(--ink); }
     .cw-upnext b { color: var(--ink); font-weight: 600; }
     .cw-btn {
       font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase;
@@ -924,51 +924,6 @@
               <p class="org">LVMH &middot; MENA</p>
             </div>
             <p class="d">I started out tracking out of stocks and aged inventory by hand across the MENA accounts. Then I became internal product owner for the sell-in tool the account managers used every day. I wrote the requirements and ran the roadmap, then sat in feedback loops with those account managers for two years. It was the first time I was the single point of contact across retailers, marketing, demand planning and supply chain.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-<!-- Capabilities Dark Section -->
-    <section class="dark">
-      <div class="band pad">
-        <div class="inner">
-          <div>
-            <p class="m light">CAPABILITIES</p>
-            <h2 style="margin-top:16px;">I would not have built any of this without AI.</h2>
-            <p class="lead" style="margin-top: 18px; max-width: 640px;">AI is the reason these exist at all. It could not tell me what counts as a valid row, what a supervisor needs on a dashboard at month end, or what a field team working off phones can realistically be asked to do. I brought that part, and I checked what came back, because I was the one answering for the numbers.</p>
-          </div>
-
-          <div class="cap-3col">
-            <div class="cap-col">
-              <p class="m light" style="opacity: 0.6;">BUILD</p>
-              <ul>
-                <li>Python</li>
-                <li>SQL, including backfilling three months by hand</li>
-                <li>Supabase, learned on the tracker</li>
-                <li>Firestore</li>
-                <li>Sites people add to a phone home screen</li>
-              </ul>
-            </div>
-            <div class="cap-col">
-              <p class="m light" style="opacity: 0.6;">OPERATE</p>
-              <ul>
-                <li>Field rollout and training</li>
-                <li>Key account management</li>
-                <li>GTM across MENA</li>
-                <li>Pilot first, then launch</li>
-                <li>Getting a team off WhatsApp</li>
-              </ul>
-            </div>
-            <div class="cap-col-red">
-              <p class="m light">DEFINE THE RULES</p>
-              <ul>
-                <li>Deciding what counts as a valid row</li>
-                <li>Dedup keys and validation rules</li>
-                <li>Commission and target logic</li>
-                <li>Account health benchmarking</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -1264,16 +1219,17 @@
           <div>
             <p class="m light">FIELD NOTES</p>
             <h2 style="margin-top:16px;max-width:22ch">They do not work for the brand. They work for you.</h2>
-            <p class="lead light" style="margin-top:14px;max-width:52ch;opacity:.75">Five years as the customer for enterprise software, and what decided whether a tool got used.</p>
+            <p class="lead light" style="margin-top:14px;max-width:52ch;opacity:.75">Adoption is won on trust, long before anyone sees a feature.</p>
           </div>
 
           <div class="cs" style="max-width: 720px">
             <p>I had 55 beauty advisors under me and I was responsible for their salaries, their commissions, and whether they were motivated enough to get through a shift. That last one is not a soft thing. If somebody on that floor is having a bad month their sales change, and that changes my numbers. You feel it inside a week.</p>
-            <p>It took me a while to understand what was actually going on. They were not working for the brand. Everybody loves the brand, that is why they applied. But nobody stays late for a logo. They work for the person in front of them, and if they do not like that person they will do exactly what the job description says and not one thing more. No matter how much they love the brand, they will not be able to work.</p>
-            <p>Which is why I do not think adoption is a product problem.</p>
-            <p>When I put the tracker in front of eighteen people, nobody had told them to use it. No mandate, no deadline, no manager checking. They used it because I had spent two years building the kind of relationship where if I said this will make your life easier, they believed me enough to try it once. The product then had to be good enough not to waste that. But the product is not what got them to open it the first time.</p>
-            <p>That is the part I think transfers. Forward deployed work means shipping to people who do not report to you, inside a company that is not yours, who already have a full job. You cannot mandate them. You can only be the person whose thing is worth trying. Every decision on that rollout came out of this: the home screen instead of the app store, the month of WhatsApp running alongside, refusing to set a cutover date. None of that is clever engineering. It is just what it costs to not burn the goodwill I already had.</p>
-            <p>It is also worth saying what that means for anyone selling into a company like the one I worked in. Your competition is not the other vendor. It is somebody inside the account who can put a working version together in an afternoon for nothing, because the tooling got that cheap, and who already knows exactly what the product needs to do. I was that person. Make the smallest market worth your time, or they will build it themselves.</p>
+            <p>People join because they love the brand. They do not go above and beyond because of it. They work for the person in front of them, and if they trust that person they will try something new. If they do not, they will do exactly what the job description asks and nothing more. Nobody stays late for a logo.</p>
+            <p>Which is why I think adoption is decided before the product is opened, not inside it.</p>
+            <p>The tracker was a lightweight sell-out dashboard that replaced several spreadsheets and gave the advisors one place to see their daily targets, their sales and their commissions. When I put it in front of eighteen people, nobody had told them to use it. No mandate, no deadline, no manager checking. They used it because I had spent two years building the kind of relationship where if I said this will make your life easier, they believed me enough to try it once. Trust got them to open it. The product earned the second visit.</p>
+            <p>That is the part I think transfers. Forward deployed work means shipping to people who do not report to you, inside a company that is not yours, who already have a full job. You cannot mandate them. You have to be the person whose recommendation is worth trying. Every decision on that rollout came out of it: the home screen instead of the app store, WhatsApp kept running alongside, and refusing to set a cutover date until people were ready. None of that is clever engineering. It is what it costs to not burn the trust you already have.</p>
+            <p>It is worth saying what that means for anyone selling into a company like the one I worked in. Your competition is not always another vendor. It is somebody inside the account who can put a working version together in an afternoon, because the tooling got that cheap, and who understands the workflow better than you do. I was that person. If the problem is small enough and close enough to the business, your customer will build it themselves.</p>
+            <p>The lesson was never that I built a better tracker. It was that trust is part of the product.</p>
           </div>
         </div>
       </div>
@@ -1372,6 +1328,50 @@
         </ul>
       </div>
 
+    </section>
+
+<!-- Capabilities Dark Section. Lives at the bottom, after the FAQ, so the page ends
+     cream, then dark, then the red CTA. -->
+    <section class="dark">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">CAPABILITIES</p>
+          </div>
+
+          <div class="cap-3col">
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">BUILD</p>
+              <ul>
+                <li>Python</li>
+                <li>SQL, including backfilling three months by hand</li>
+                <li>Supabase, learned on the tracker</li>
+                <li>Firestore</li>
+                <li>Sites people add to a phone home screen</li>
+              </ul>
+            </div>
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">OPERATE</p>
+              <ul>
+                <li>Field rollout and training</li>
+                <li>Key account management</li>
+                <li>GTM across MENA</li>
+                <li>Pilot first, then launch</li>
+                <li>Getting a team off WhatsApp</li>
+              </ul>
+            </div>
+            <div class="cap-col-red">
+              <p class="m light">DEFINE THE RULES</p>
+              <ul>
+                <li>Deciding what counts as a valid row</li>
+                <li>Dedup keys and validation rules</li>
+                <li>Commission and target logic</li>
+                <li>Account health benchmarking</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
 <!-- CTA Section -->

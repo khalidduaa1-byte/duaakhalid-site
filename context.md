@@ -47,6 +47,12 @@ Last synced to the live site: 2026-07-30.
 ### Beauty Advisor Sales Tracker
 - Context: Dolce & Gabbana Beauty, Travel Retail MEA
 - What it is: A PWA where 18 beauty advisors log daily sales, behind an ingest pipeline that de-duplicates the supervisor export before any KPI is calculated.
+- **It is a sell-out dashboard.** Duaa's own description, 2026-08-06: "a lightweight sell-out
+  dashboard that replaced several spreadsheets and gave beauty advisors a single place to see
+  their daily targets, sales performance, and commissions." This settles the sell-in versus
+  sell-out ambiguity **for this project only**, and it is why the stat row reads sales rather
+  than orders. The separate 45-minutes-to-5-minutes claim is attached to the Givenchy and Kenzo
+  **sell-in** ordering tool and is still open, see below. Do not merge the two.
 
 #### How it came to exist. Source: Duaa, interview 2026-08-06.
 This is the origin story the site did not previously tell, and it is now the spine of the case
@@ -193,8 +199,22 @@ The only figures used are the already-verified 1,324 in, 0 rejected, 29 removed.
 Her argument, from the interview. Field teams do not adopt because a tool exists or because
 leadership endorsed it, they adopt because of the relationship with the person who brought it.
 Evidence is the tracker, which nobody was required to use. Applied to forward-deployed work,
-where you ship to people who do not report to you. **No team headcount is stated**, pending the
-55 vs 30-plus question. The "two years" of relationship refers to her time at Dolce & Gabbana.
+where you ship to people who do not report to you. The "two years" of relationship refers to her
+time at Dolce & Gabbana. 55 is the team she was responsible for, 18 is who the tracker went to.
+
+**Rewritten 2026-08-06 from Duaa's own draft.** Her structure and her best lines were kept: trust
+got them to open it and the product earned the second visit, nobody stays late for a logo, and
+trust is part of the product. The subtitle is "Adoption is won on trust, long before anyone sees
+a feature." Her proposed subtitle, "Enterprise adoption isn't won by features. It's won by
+trust", was not used: negative parallelism of that shape is one of the strongest AI tells and it
+is the one thing this page cannot afford.
+
+**Two claims from her draft are deliberately not on the page**, because nothing in this file
+supports either one. Publish them only if she confirms:
+1. "Within weeks it became the default way the team tracked their performance." No adoption
+   timeline is recorded anywhere.
+2. A **WhatsApp group for answering questions in real time.** WhatsApp is documented here as the
+   parallel channel advisors *submitted sales* through for a month, which is a different thing.
 
 ## Now note (home page), August 2026
 Source: Duaa, 2026-08-06. Packing up a life in Dubai. Her nephew was born a couple of months
