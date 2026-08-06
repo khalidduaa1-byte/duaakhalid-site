@@ -8,8 +8,12 @@ copy change**.
 Last synced to the live site: 2026-07-30.
 
 ## Positioning
-- Headline: I come from an industry that blocks AI on employee laptops.
-- Lead: Five years in luxury beauty, running accounts across MENA. I built the tools anyway, without asking for the budget, and the field team used them daily without anyone being told to. I want that to be the job now, not the workaround.
+- Headline: I get software into companies that are not ready for it.
+- Lead: Five years in luxury beauty, an industry that blocks AI on employee laptops and licenses tools its own account owners cannot configure. I built what we needed anyway, at no cost, and the field team used it every day without being told to. That is the job I want next.
+- **Never frame the build as going around management.** "Without asking for a budget" was retired
+  on 2026-08-06: Duaa flagged that it reads as reckless and that it is inaccurate. The correct and
+  stronger framing is that **building it cost nothing but her own time, so there was no spend to
+  approve and no case to make.** The contrast with a per-seat licence is the point.
 - Role descriptor: AI Product + GTM. This names the roles she is targeting, not a claim that her projects contain models.
 - Status: Incoming MEng, Data Science & Decision Analytics, Cornell Tech, August 2026. Dubai to New York.
 - Target roles, in her words: forward-deployed AI, enterprise side. The site is written for hiring managers.
@@ -45,7 +49,9 @@ study. Every item here is from Duaa directly.
 - **Build vs buy.** The company already licensed a field-sales platform. It worked for the large
   markets and not for hers. Loading a monthly target meant emailing the vendor's IT team and
   waiting. The dashboard did not show what she needed. The per-seat cost could not be justified
-  for a market that size. **She did not escalate for budget. She built the replacement.**
+  for a market that size. **Building the replacement cost nothing but her own time, so there was
+  no spend to approve. She built it.** It was a judgement call by the person accountable for the
+  numbers, not a brief she was handed, and not a decision taken around anyone.
 - **Never name the vendor and never publish its contract value.** Say "the field-sales platform
   we already licensed". Decided with Duaa on 2026-08-06.
 - **Two days** from decision to a running site. Supabase behind it. She learned Supabase on this
