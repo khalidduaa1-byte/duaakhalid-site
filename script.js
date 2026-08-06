@@ -434,17 +434,19 @@ document.addEventListener('DOMContentLoaded', () => {
     s.appendChild(svgEl('line', {
       'class': 'ph-base', x1: 0, y1: 6, x2: 100, y2: 6, 'vector-effect': 'non-scaling-stroke'
     }));
+    // Two tick heights, which is what makes it a scale and not a progress bar:
+    // a 8px cap divides the phases, a 5px tick counts the steps inside one.
     for (var t = 1; t < p.span; t++) {
       s.appendChild(svgEl('line', {
-        'class': 'ph-tick', x1: (t / p.span) * 100, y1: 4, x2: (t / p.span) * 100, y2: 8,
+        'class': 'ph-tick', x1: (t / p.span) * 100, y1: 3.5, x2: (t / p.span) * 100, y2: 8.5,
         'vector-effect': 'non-scaling-stroke'
       }));
     }
     s.appendChild(svgEl('line', {
-      'class': 'ph-cap', x1: 0.5, y1: 0.5, x2: 0.5, y2: 11.5, 'vector-effect': 'non-scaling-stroke'
+      'class': 'ph-cap', x1: 0.5, y1: 2, x2: 0.5, y2: 10, 'vector-effect': 'non-scaling-stroke'
     }));
     s.appendChild(svgEl('line', {
-      'class': 'ph-cap', x1: 99.5, y1: 0.5, x2: 99.5, y2: 11.5, 'vector-effect': 'non-scaling-stroke'
+      'class': 'ph-cap', x1: 99.5, y1: 2, x2: 99.5, y2: 10, 'vector-effect': 'non-scaling-stroke'
     }));
     var fill = svgEl('line', {
       'class': 'ph-fill', x1: 0, y1: 6, x2: 0, y2: 6, 'vector-effect': 'non-scaling-stroke'

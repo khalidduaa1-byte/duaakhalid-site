@@ -348,7 +348,7 @@
       display: flex;
       align-items: flex-end;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
     }
     .ph {
       flex: 1 1 0;
@@ -367,12 +367,15 @@
       -webkit-appearance: none;
       appearance: none;
     }
+    /* 11px, not 13px. At 13px the display face out-shouted the mono label above
+       it and the card grew a second headline. At 11px with a little tracking it
+       sits just under the label, which is the right rank for a chapter name. */
     .ph-name {
       display: block;
-      font: 800 13px/1 var(--display);
-      letter-spacing: 0.02em;
+      font: 800 11px/1 var(--display);
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #8b8880;
+      color: #5f5d58;
       margin-bottom: 9px;
       white-space: nowrap;
       transition: color 0.2s ease;
@@ -438,10 +441,14 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--rule);
+      background: #8b8880;
       transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
-    .log-dot.done::before { background: #8b8880; }
+    /* --rule at #B8B5AE was the whole problem, so behind and ahead both step up
+       the existing warm neutral ramp rather than introducing a hue: ahead is the
+       midpoint between the hairline and the muted text token, behind is that
+       token. Both are legible at 8px; neither competes with the accent. */
+    .log-dot.done::before { background: #5f5d58; }
     .log-dot.on::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(240, 52, 25, 0.15); }
     .log-dot:hover::before { width: 12px; height: 12px; background: var(--ink); }
     .log-dot:hover { transform: none; }
@@ -468,6 +475,10 @@
       .log-dot { box-sizing: border-box; width: 28px; height: 44px; padding: 0; }
       .log-dot:focus-visible { outline-offset: -6px; }
       .log-btn { padding: 12px 16px; min-height: 44px; }
+      /* Same treatment for the phase buttons, which measured 34px tall. The
+         padding grows the target and the matching negative margin spends it in
+         the 16px gap already under the strip, so nothing moves on screen. */
+      .ph { padding-bottom: 10px; margin-bottom: -10px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
