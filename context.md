@@ -195,16 +195,28 @@ specific claim it touches.
 export's layout drift. See "How it came to exist" above. The site has been corrected in three
 places: the PROOF caption, the rollout log, and the FAQ answer on the dedup key.
 
-1. **Team size, 55 vs 30 plus.** Interview says 55 advisors under her at Dolce & Gabbana. This
-   file and the site say a "30 plus person beauty advisor team" for the workshops. These may
-   count different things. **No headcount for the managed team appears on the site.**
-2. **Egypt team, 19 vs 18 vs about 20.** Interview says 19. The January to April export holds 18,
-   roughly 20 onboarded. The site uses **18** throughout. 19 is not used anywhere.
-3. **The 45 minutes to 5 minutes claim.** This file, the `#faq` section's first answer, and the résumés attach it to
+**Resolved 2026-08-06:** team size. **55 is the real headcount** of the beauty advisor team Duaa
+was responsible for at Dolce & Gabbana, confirmed by her. It is now published in the `#about`
+lead and in the point-of-view piece. The separate "30 plus person advisor team" figure attached
+to the **sales enablement workshops** is untouched, because she did not contradict it and it
+describes a different thing: 55 is who she was accountable for, 30 plus is who went through the
+workshops. Do not collapse the two into one number.
+
+**Resolved 2026-08-06:** Egypt headcount, and the decision is **not to publish 19.** Duaa
+confirmed 19 as the rough Egypt team size and asked whether it was needed. It is not, and adding
+it would do harm. Three real numbers already describe this team: **18** appear in the January to
+April export, **roughly 20** were onboarded across the window including people who moved off the
+team, and **19** is the approximate headcount. The site publishes 18, which is the only one the
+data supports directly, and the FAQ already explains 18 against roughly 20 as two figures counting
+different things. Introducing a third number between them muddies the most carefully caveated
+claim on the site, and 19 is the least precise of the three. Recorded here so the figure is not
+lost, deliberately absent from the page.
+
+1. **The 45 minutes to 5 minutes claim.** This file, the `#faq` section's first answer, and the résumés attach it to
    the Givenchy and Kenzo sell-in ordering tool. In the interview Duaa described something
    different, automating sell-out report consolidation from retailer data. The claim is live on
    the site and has been left untouched, and **no new copy was built on top of it.**
-4. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
+2. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
    for. This file documents a dresser at 1,100 that cost 499 and a dining table at 1,499 that was
    2,100 with chairs. The site uses the dresser. The sofa is not published.
 
