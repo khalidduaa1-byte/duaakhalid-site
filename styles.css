@@ -521,6 +521,27 @@ h2 {
   .tl .r { grid-template-columns: minmax(0, 1fr); }
   .floating-dock { width: 90%; }
   .dock-text { font-size: 10px; }
+
+  /* Header. At 360px the six nav items wrapped to a THIRD line and the header
+     went to 149px, while .anchor only cleared 124px, so every anchored section
+     landed underneath it. A tighter gap keeps the nav on one row down to 360px.
+     The links then carry their own vertical padding, which turns a 14px-tall
+     tap target into a 44px one, and the smaller box padding pays for it: the
+     header is 94px at 360, 390 and 430, where it used to be 149, 99 and 99.
+     If you change the nav item count or these paddings, re-measure .anchor's
+     scroll-margin-top. */
+  .sitehead .in { padding: 10px var(--pad); gap: 2px 20px; }
+  .sitehead .mark { padding-block: 5px; }
+  .sitehead ul { gap: 0 16px; }
+  .sitehead a.lnk { display: block; padding: 15px 0; }
+
+  /* min-height: 420px left up to 150px of empty black under a visual that is
+     only as tall as the phone is wide. */
+  .proj .shot { min-height: 0; padding: 24px var(--pad); }
+
+  /* The dock is fixed 20px off the bottom of the viewport, so at the end of the
+     page it sat on top of the last footer line. */
+  .sitefoot .in { padding-bottom: 104px; }
 }
 
 /* Portrait: the file's own aspect drives the height, so it can never be stretched.
@@ -561,7 +582,34 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
 /* The dashboard mockup is built at a small fixed scale; zoom enlarges it while
    keeping layout and click targets correct (transform: scale would not). */
 .dashboard-window { zoom: 1.22; }
-@media (max-width: 900px) { .dashboard-window { zoom: 1; } }
+@media (max-width: 900px) {
+  .dashboard-window { zoom: 1; }
+
+  /* The status pill is white-space: nowrap and .tcard-title never got a chance
+     to shrink around it, so .db-cards-grid ran ~14px wider than the window and
+     the window's own overflow: hidden sliced "Behind Target" off the Sharm card.
+     Verified at 360, 390 and 430. Giving the pill its own line inside the card
+     is what lets the three columns fit; stacking the cards was the alternative
+     and it triples the height of the mockup. Grid rather than a wrapped flex
+     row because justify-self keeps the pill the width of its own text, and a
+     flex-basis: 100% item stretches into a full-width banner. */
+  .tcard-title { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 4px; }
+  .tcard-title .track-badge { grid-column: 1 / -1; justify-self: start; }
+
+  /* The control row is the one genuinely interactive part of the mockup, and
+     the cue above it says "try it", but at zoom 1 the select, the number input
+     and the Save button were all 20px tall with their labels ellipsised to
+     "Per BA ta...". Two readable columns instead of five 8px ones. */
+  .db-form-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; padding: 8px; }
+  .db-form-row .input-box,
+  .db-form-row .btn-save { font-size: 12px; min-height: 44px; padding: 8px 10px; }
+  .db-form-row div.input-box { display: flex; align-items: center; }
+  .db-form-row .btn-save { grid-column: 1 / -1; }
+  /* The negative margin keeps the hint line the height it looks, while the
+     padding gives Reset a 44px box to be tapped in. */
+  .db-hint { font-size: 11px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+  .db-reset { padding: 15px 10px; margin: -9px -10px; }
+}
 
 /* The case studies collapse by default, so the project blocks stay scannable.
    Native <details>, the same pattern as /faq, which means it works with JS off
@@ -697,11 +745,27 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
 .cs .row.in { animation: cs-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 /* At 390px the table has about 348px to work with, so it needs to run tighter
-   still or `status` is pushed out of view and the tags become unreachable. */
+   still or `status` is pushed out of view and the tags become unreachable.
+   Measured again at 360px, where it had 318px and needed 329, so the STATUS
+   header rendered as "STATU". These paddings buy back the 11px and leave the
+   table fitting with slack at all three phone widths. */
 @media (max-width: 900px) {
   .dupt { font-size: 9px; }
-  .dupt th, .dupt td { padding: 5px 4px; }
-  .dupt .st { min-width: 50px; }
+  .dupt th, .dupt td { padding: 5px 3px; }
+  .dupt .st { min-width: 46px; }
+}
+
+/* Touch targets.
+   This block sits at the end of the file on purpose. .dupt-btn, .hb-sel and
+   .dock-btn all declare their padding further down than the "Mobile Breakdown"
+   media query, so an override placed up there loses the cascade at equal
+   specificity and silently does nothing. Everything here measured between 24px
+   and 39px tall on a phone before the change. */
+@media (max-width: 900px) {
+  .btn { min-height: 44px; }
+  .dupt-btn { padding: 16px; }
+  .hb-sel { min-height: 44px; padding: 8px 10px; font-size: 11.5px; }
+  .dock-btn { padding: 11px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

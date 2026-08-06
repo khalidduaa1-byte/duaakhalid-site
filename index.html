@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Duaa Khalid, AI Product &amp; GTM</title>
-  <meta name="description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta name="description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
   
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta property="og:description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta property="og:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
   <meta property="og:url" content="https://www.duaakhalid.com/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Duaa Khalid, AI Product &amp; GTM">
-  <meta name="twitter:description" content="Duaa Khalid builds the validation, product and rollout layer that catches bad data before it reaches the people making decisions.">
+  <meta name="twitter:description" content="I get software into companies that are not ready for it. Five years in luxury beauty, an industry that blocks AI on employee laptops. I built things anyway, and the field team used them every day without being told to.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F03419'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='800' fill='%23F3F1EC' text-anchor='middle' letter-spacing='-2'%3EDK%3C/text%3E%3C/svg%3E">
@@ -21,9 +21,568 @@
   <!-- Google Fonts: Bricolage Grotesque, IBM Plex Mono, Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
   
   <link rel="stylesheet" href="styles.css">
+  <style>
+/* About Specific Layout Styles */
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding-block: clamp(48px, 6vw, 72px);
+      align-items: start;
+    }
+    .portrait-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .portrait-img-wrapper {
+      background: #000000;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.15);
+    }
+    .portrait-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .portrait-caption {
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f5d58;
+    }
+
+    .about-txt-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .rely-card {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .rely-card .m { color: #ffffff; opacity: 0.9; }
+    .rely-card strong {
+      font: 700 clamp(20px, 2.2vw, 26px)/1.2 var(--display);
+      letter-spacing: -0.02em;
+    }
+
+    /* Capabilities 3-Column Grid */
+    .cap-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 0;
+      margin-top: 36px;
+      border: 1px solid var(--rule-dark);
+    }
+    .cap-col {
+      padding: 32px;
+      border-right: 1px solid var(--rule-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 400 16px var(--body);
+      color: var(--on-dark);
+    }
+    .cap-col-red {
+      background: var(--accent);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cap-col-red ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font: 600 16px var(--body);
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .about-hero-grid, .cap-3col { grid-template-columns: 1fr; }
+      .cap-col { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+    }
+
+.faq-container { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .faq-item {
+      border: 1px solid var(--rule);
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item:hover { border-color: var(--ink); }
+    /* Native <details>, so the reveals work with JS disabled and are keyboard
+       operable. The list-style resets remove the default disclosure triangle
+       without losing the summary's built-in button semantics. */
+    .faq-item > summary {
+      padding: 22px 28px;
+      font: 700 18px/1.3 var(--display);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+      background: #ffffff;
+      list-style: none;
+    }
+    .faq-item > summary::-webkit-details-marker { display: none; }
+    .faq-item > summary::marker { content: ''; }
+    .faq-item > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+    .faq-item .toggle-icon {
+      font-family: var(--mono);
+      font-weight: 500;
+      color: var(--accent);
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] > summary .toggle-icon { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 18px 28px 24px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2e2d2a;
+      border-top: 1px solid #f1f5f9;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-item, .faq-item .toggle-icon { transition: none; }
+    }
+    .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: 40px; border-radius: 8px; margin-top: 40px; }
+    .honest-caveats h3 { font: 700 24px var(--display); color: var(--on-dark); }
+    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .honest-caveats li { color: var(--on-dark-muted); font-size: 15px; }
+
+    /* Hero credibility strip. Display face rather than the mono label, because at
+       label size these read as metadata; at display size they read as provenance.
+       Cornell carries the accent so the eye separates what is next from what is past. */
+    .creds {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px clamp(20px, 3vw, 40px);
+      margin-top: clamp(26px, 3vw, 38px);
+      padding-top: clamp(18px, 2vw, 24px);
+      border-top: 1px solid var(--rule);
+    }
+    .creds b {
+      font: 800 clamp(15px, 1.6vw, 20px)/1.1 var(--display);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .creds b.next { color: var(--accent); }
+    .creds .since {
+      font: 500 11px/1.4 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f5d58;
+      margin-left: auto;
+    }
+    @media (max-width: 700px) {
+      .creds .since { margin-left: 0; flex-basis: 100%; }
+    }
+
+    /* Hero split. Copy on the left, the rollout sequence on the right, so the
+       proof is the first thing a reader meets rather than something two thirds
+       down the page. Collapses to one column below 1000px, where a side by side
+       would squeeze both halves below their comfortable measure. */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(32px, 4vw, 64px);
+      align-items: start;
+    }
+    .hero-copy .twoup { display: block; }
+    .hero-copy .note { margin-top: 14px; }
+    .hero-side {
+      border: 1px solid var(--rule);
+      padding: 20px 22px 22px;
+      margin-top: 8px;
+    }
+    .hero-side-lbl {
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+    /* In the hero the label column would eat the measure, so the step stacks. */
+    .hero-side .log > .row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    @media (max-width: 1000px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr); }
+      .hero-copy .twoup { display: grid; }
+    }
+
+    /* Rollout log stepper. Progressive enhancement only: with JS off this stays the
+       plain stacked list it has always been, and script.js adds .is-stepper to turn
+       it into one step at a time. min-height is set in JS from the tallest step so
+       advancing never jumps the page. */
+    .log.is-stepper > .row { display: none; }
+    .log.is-stepper > .row.on { display: grid; animation: cs-in 420ms ease both; }
+    .log-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .log-dots { display: flex; gap: 7px; align-items: center; }
+    .log-dot {
+      width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
+      background: var(--rule); cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .log-dot:hover { transform: scale(1.35); }
+    .log-dot.on { background: var(--accent); }
+    .log-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .log-count { font: 500 11px var(--mono); letter-spacing: 0.08em; color: #5f5d58; }
+    .log-ctl { display: flex; gap: 6px; margin-left: auto; }
+    .log-btn {
+      font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+      background: transparent; color: var(--ink); border: 1px solid var(--rule);
+      padding: 6px 11px; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    }
+    .log-btn:hover { border-color: var(--ink); }
+    .log-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 700px) { .log-ctl { margin-left: 0; } }
+    @media (prefers-reduced-motion: reduce) { .log.is-stepper > .row.on { animation: none; } }
+    /* The 8px dots needed a thumb-sized hit area. That now lives in the phase
+       strip block appended at the end of this stylesheet, which rebuilt the dot
+       on a ::before and restated the 28x44 mobile target there, so there is one
+       implementation rather than two competing ones. Only the bar's own spacing
+       is set here: on a phone the row wraps and the desktop 22px gap left the
+       control bar looking detached from the step it drives. */
+    @media (max-width: 900px) {
+      .log-bar { gap: 4px 12px; margin-bottom: 18px; }
+    }
+
+    /* The dashboard is genuinely interactive but nothing said so. Its only hint was
+       8px text inside a zoomed window, which nobody reads. This cue sits at normal
+       size above the widget, so the affordance is read before the thing it describes.
+       .shot is a centring flex row, so this one becomes a column to stack them. */
+    .proj .shot.fit { flex-direction: column; gap: 18px; }
+    .shot-cue {
+      font: 500 11px/1.6 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a3a3a3;
+      text-align: center;
+      max-width: 46ch;
+      margin: 0;
+    }
+    .shot-cue b { color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+
+    /* The "now" note lives in the footer as a signature line rather than as its own
+       band, so it reads as a human sign-off and not as a section demanding attention. */
+    .footnow {
+      font: 400 14px/1.6 var(--body);
+      color: #5f5d58;
+      max-width: 62ch;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .footnow .m.red { display: block; margin-bottom: 6px; }
+
+    /* Anchor targets clear the sticky header without a negative-offset hack.
+       The header is 67px wide-screen. Below 900px the mark and the nav each get
+       their own row, which used to mean 99px at 390px and 149px at 360px where
+       the six items wrapped a second time. The nav now holds one row down to
+       360px and the header measures 96px across 360, 390 and 430, so one mobile
+       offset covers all three with the same ~26px of clearance the desktop value
+       has. Re-measure both if the nav item count or the header padding changes.
+       Verified in a real browser at 360, 390, 430 and 1440. */
+    .anchor { display: block; height: 0; scroll-margin-top: 92px; }
+    @media (max-width: 900px) { .anchor { scroll-margin-top: 122px; } }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    /* Scroll-spy state, set by script.js */
+    .sitehead nav a.here { color: var(--accent); }
+
+    /* ==================================================================
+       ROLLOUT LOG: PHASE STRIP, DRAWN RAIL, DOT TARGETS, LIVE HEIGHT
+       Appended block. Built by the "Rollout log stepper" section of
+       script.js, which carries the longer reasoning. Everything here is
+       scoped to .log-*, .ph* and .mk-*, all of which are new class names.
+
+       Why a strip. Seven dated entries read as a diary. Grouped into four
+       named phases they read as a process, and since each segment is as wide
+       as the number of steps it holds, the shape of the rollout stays visible
+       while only one step is open.
+
+       Why the display face for the phase names. Same reason .creds uses it:
+       at label size these read as metadata, at display size they read as
+       chapters. Behind you is ink, where you are is accent, ahead is muted.
+
+       Why the rail is drawn. It is a measured scale, not a progress bar. Tall
+       caps divide the phases, short ticks count the steps inside one, and a
+       station mark rides the leading edge of the fill. Inline SVG in the
+       existing tokens: no image files, no dependencies, no new colours.
+    ================================================================== */
+    .log-phases {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .ph {
+      flex: 1 1 0;
+      /* Left at auto on purpose. The automatic minimum size of a flex item is
+         its min-content size, and since the rail is taken out of flow below,
+         the only in-flow content is the nowrap label. So a segment can never
+         be squeezed narrower than its own word, which is the whole risk for
+         DECIDE holding one step of seven at 390px, and nothing else floors it. */
+      min-width: auto;
+      display: block;
+      padding: 0;
+      border: 0;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    /* 11px, not 13px. At 13px the display face out-shouted the mono label above
+       it and the card grew a second headline. At 11px with a little tracking it
+       sits just under the label, which is the right rank for a chapter name. */
+    .ph-name {
+      display: block;
+      font: 800 11px/1 var(--display);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5f5d58;
+      margin-bottom: 9px;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+    .ph.done .ph-name { color: var(--ink); }
+    .ph.now .ph-name { color: var(--accent); }
+    .ph:hover .ph-name { color: var(--accent); }
+    .ph:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .ph-rail { position: relative; display: block; height: 12px; }
+    /* preserveAspectRatio is none, so the rail stretches to its segment. The
+       strokes are non-scaling, which is what stops the vertical caps from
+       fattening as the segment gets wider. It is absolutely positioned because
+       an in-flow SVG contributes the width of its viewBox, 100px, as intrinsic
+       size: with four of those in the flex row there was almost no free space
+       left to share out and the four phases came out nearly equal instead of
+       1:2:2:2. Out of flow it contributes nothing and the ratio is true. */
+    .ph-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .ph-base { stroke: var(--rule); stroke-width: 1; }
+    .ph-cap  { stroke: var(--rule); stroke-width: 1; }
+    .ph-tick { stroke: var(--rule); stroke-width: 1; opacity: 0.75; }
+    .ph-fill { stroke: var(--accent); stroke-width: 2; }
+    .ph:hover .ph-base, .ph:hover .ph-cap { stroke: var(--ink); }
+
+    .ph-mark {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      overflow: visible;
+    }
+    .mk-halo { fill: var(--bg); }
+    .mk-ring { fill: none; stroke: var(--accent); stroke-width: 1.25; }
+    .mk-core { fill: var(--accent); }
+
+    /* The dots were 8px painted in --rule, the lowest-contrast token in the
+       system, with the hit area of a full stop. The visible dot is still 8px
+       and it is now centred inside a 24px button, so the target is 24 square
+       at every width. Three states, matching the strip: behind is a solid
+       grey, here is accent inside a soft ring, ahead is the hairline. Hover
+       grows the dot to 12px and darkens it, which is the affordance. */
+    .log-dots { display: flex; align-items: center; gap: 0; margin-left: -8px; }
+    /* .on and .done are listed so they match the specificity of the earlier
+       `.log-dot.on { background: var(--accent) }`. Without them the accent
+       painted the whole 24px button and the current step read as a red block. */
+    .log-dot, .log-dot.on, .log-dot.done { background: none; }
+    .log-dot {
+      box-sizing: border-box;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transform: none;
+      transition: none;
+    }
+    .log-dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8b8880;
+      transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+    /* --rule at #B8B5AE was the whole problem, so behind and ahead both step up
+       the existing warm neutral ramp rather than introducing a hue: ahead is the
+       midpoint between the hairline and the muted text token, behind is that
+       token. Both are legible at 8px; neither competes with the accent. */
+    .log-dot.done::before { background: #5f5d58; }
+    .log-dot.on::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(240, 52, 25, 0.15); }
+    .log-dot:hover::before { width: 12px; height: 12px; background: var(--ink); }
+    .log-dot:hover { transform: none; }
+    .log-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .log-btn { min-height: 30px; }
+
+    /* min-height is gone. Pinning the box to the tallest step left four of the
+       seven sitting above a hole, and in the hero that hole is the first thing
+       on the page. script.js eases the box from the outgoing height to the
+       incoming one instead, then hands height back to auto, so the dead space
+       goes without the page snapping under the reader. overflow is only
+       clipped while that transition is running. */
+    .log.is-stepper { transition: height 300ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .log.is-stepper.is-sizing { overflow: hidden; }
+
+    @media (max-width: 900px) {
+      .log-phases { gap: 6px; margin-bottom: 16px; }
+      .ph-name { font-size: 10px; letter-spacing: 0.01em; margin-bottom: 7px; }
+      .ph-svg { height: 10px; }
+      /* Thumbs, not cursors. The dot stays 8px and the button goes to 44 tall,
+         which is the same target the mobile pass set, restated here so this
+         block does not quietly undo it by being later in the cascade. */
+      .log-dots { margin-left: -10px; }
+      .log-dot { box-sizing: border-box; width: 28px; height: 44px; padding: 0; }
+      .log-dot:focus-visible { outline-offset: -6px; }
+      .log-btn { padding: 12px 16px; min-height: 44px; }
+      /* Same treatment for the phase buttons, which measured 29px tall. The
+         padding takes them to 44 and the matching negative margin spends it in
+         the 16px gap already under the strip, so nothing moves on screen. */
+      .ph { padding-bottom: 15px; margin-bottom: -15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .log.is-stepper { transition: none; }
+      .ph-name, .log-dot::before { transition: none; }
+    }
+
+    /* ==================================================================
+       HOW I WORK: THE CORRECTION LEDGER
+       Appended block, everything scoped to .hw-*, all new class names.
+       No JS, no motion, nothing to break.
+
+       The section was three paragraphs of accurate prose that nobody
+       finished. The method underneath it is one repeated move: a read
+       that looked obvious from where she sat, corrected once she went
+       and looked. That is the same device the case studies carry as
+       WHAT IT ACTUALLY WAS, so the label is reused verbatim and this
+       section names the move the case studies then demonstrate.
+
+       Why a ledger and not another widget. The page already has a
+       stepper in the hero, folds in #work, an accordion in #faq and
+       three interactive demos. A seventh interactive piece here would
+       dilute all of them. What the page does not have anywhere is a
+       block of display type that can be read in five seconds, which
+       is what a hiring manager actually spends on this section.
+
+       Why the strike is accent and 2px. It has to read as a correction
+       rather than as faded-out text. It is also the site's own
+       vocabulary: .dupt strikes the duplicate row to mean superseded
+       rather than deleting it. One accent stroke per row, no other
+       ornament.
+
+       Ordinals sit in an <ol>, so the numerals are aria-hidden and
+       purely typographic. Order is carried by the list itself.
+    ================================================================== */
+    .hw-ledger { list-style: none; margin-top: 4px; }
+    .hw-row {
+      display: grid;
+      grid-template-columns: clamp(56px, 6vw, 84px) minmax(0, 1fr);
+      column-gap: clamp(16px, 2vw, 28px);
+      row-gap: clamp(18px, 2vw, 24px);
+      padding-block: clamp(26px, 3vw, 34px);
+      border-top: 1px solid var(--rule);
+    }
+    .hw-num {
+      font: 800 clamp(28px, 3.2vw, 42px)/0.85 var(--display);
+      letter-spacing: -0.04em;
+      color: #8b8880;
+      /* Optical alignment. The cap height of the numeral sits below the
+         top of its line box, so without this the digits hang low against
+         the 12px label they are meant to align with. */
+      margin-top: -2px;
+    }
+    /* The swap. Two cells at equal measure with a hairline between them,
+       so the correction reads as crossing a boundary rather than as a
+       second sentence. */
+    .hw-swap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(20px, 2.6vw, 40px);
+    }
+    .hw-cell-was {
+      border-left: 1px solid var(--rule);
+      padding-left: clamp(20px, 2.6vw, 40px);
+    }
+    .hw-row .hw-lbl { margin-bottom: 12px; }
+    .hw-row .m.hw-lbl { color: #8b8880; }
+    .hw-row .m.red.hw-lbl { color: var(--accent); }
+    .hw-read, .hw-was {
+      font: 700 clamp(18px, 1.55vw, 22px)/1.25 var(--display);
+      letter-spacing: -0.025em;
+    }
+    .hw-read {
+      color: #8b8880;
+      text-decoration: line-through;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+    }
+    .hw-was { color: var(--ink); }
+    /* Dateline, not a third stacked label. A run-in mono tag keeps the
+       evidence to one paragraph and holds the row's height down. */
+    .hw-ev {
+      grid-column: 2;
+      font: 400 15px/1.6 var(--body);
+      color: #2e2d2a;
+      max-width: 84ch;
+    }
+    .hw-ev-tag {
+      font: 600 12px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .hw-ev-tag::after { content: ' \00B7 '; color: var(--rule); }
+
+    @media (max-width: 900px) {
+      .hw-row { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+      .hw-num { font-size: 26px; margin-top: 0; }
+      .hw-swap { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+      /* The divider was vertical because the cells were side by side. */
+      .hw-cell-was { border-left: 0; padding-left: 0; }
+      .hw-ev { grid-column: 1; font-size: 14.5px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -36,9 +595,10 @@
       </a>
       <nav>
           <ul>
-            <li><a class="lnk" href="/" style="color: var(--accent);">WORK</a></li>
-            <li><a class="lnk" href="/about">ABOUT</a></li>
-            <li><a class="lnk" href="/faq">FAQ</a></li>
+            <li><a class="lnk" href="#about">ABOUT</a></li>
+            <li><a class="lnk" href="#work">WORK</a></li>
+            <li><a class="lnk" href="#notes">NOTES</a></li>
+            <li><a class="lnk" href="#faq">FAQ</a></li>
             <li><a class="lnk" href="/resume.pdf" target="_blank" rel="noopener">RESUME</a></li>
             <li><a class="lnk mail" href="mailto:dk947@cornell.edu">EMAIL</a></li>
           </ul>
@@ -47,40 +607,254 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+<!-- Hero Section -->
     <section class="hero-section band pad rule">
+      <div class="hero-grid">
+      <div class="hero-copy">
       <div class="avail">
-        <span class="m red">DUBAI &rarr; NEW YORK &middot; OPEN TO FORWARD-DEPLOYED AI ROLES</span>
+        <span class="m red">NEW YORK &middot; OPEN TO FORWARD-DEPLOYED AI ROLES</span>
       </div>
       
-      <h1>I turn unreliable operational data into decision systems people actually use.</h1>
-      
+      <h1>I get software into companies that are not ready for it.</h1>
+
       <div class="twoup">
-        <p class="lead">Five years across luxury retail and GTM taught me where bad data becomes expensive. I build the validation, product, and rollout layer that catches it before it reaches the people making decisions.</p>
-        <p class="note">Incoming MEng, Data Science &amp; Decision Analytics &middot; Cornell Tech &middot; August 2026</p>
+        <p class="lead">Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team used them every day without being told to. All of that in an industry that blocks AI on employee laptops.</p>
+        <p class="note">MEng, Data Science &amp; Decision Analytics. Cornell Tech, August 2026.</p>
+      </div>
+      </div>
+
+      <!-- The rollout, lifted into the hero so the sequence is the first thing
+           a reader meets rather than something 68% down the page. -->
+      <aside class="hero-side">
+        <p class="m red hero-side-lbl">THE ROLLOUT &middot; BEAUTY ADVISORS ON THE SHOP FLOOR</p>
+<div class="cs log" id="rollout-log" aria-live="polite">
+        <div class="row">
+          <p class="m red">DAY 0</p>
+          <p>Decided to build rather than wait. The licensed platform was never going to fit a market this size.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAY 2</p>
+          <p>A running site on Supabase, which I had not used before. Advisors live on their phones, so it went on the home screen from the browser rather than through an app store.</p>
+        </div>
+        <div class="row">
+          <p class="m red">WEEK 1</p>
+          <p>Three advisors and the supervisor, nobody else. She got the dashboard, with commissions calculating themselves instead of by hand. A week of collecting everything they hated.</p>
+        </div>
+        <div class="row">
+          <p class="m red">APRIL</p>
+          <p>Launched to everyone, then loaded January to March myself in SQL, so the history was there on the first day people opened it.</p>
+        </div>
+        <div class="row">
+          <p class="m red">DAYS LATER</p>
+          <p>The signup wall. People could not register. Nothing to do with the app itself.</p>
+        </div>
+        <div class="row">
+          <p class="m red">THE MONTH AFTER</p>
+          <p>WhatsApp ran alongside the app while people registered on their own dates. For a while we were both entering the same advisor's days, with no way for her to see mine. That is where the dedup key came from: a visibility problem, not a data one.</p>
+        </div>
+        <div class="row">
+          <p class="m red">JUNE 2026</p>
+          <p>Presented to global beauty leadership. 1,324 rows in, 0 rejected, 29 duplicates removed. Still nobody required to use it.</p>
+        </div>
+      </div>
+      </aside>
+      </div>
+
+      <div class="creds">
+        <b>LVMH</b>
+        <b>Dolce &amp; Gabbana</b>
+        <b class="next">Cornell Tech</b>
+        <span class="since">2021 to now</span>
       </div>
     </section>
 
-    <!-- Stats Section -->
+    <div id="about" class="anchor"></div>
+<!-- About Hero Section -->
+    <section class="band pad rule">
+      <div class="about-hero-grid">
+        <!-- Left: Portrait Photo (Cropped Black Background) -->
+        <div class="portrait-card">
+          <div class="portrait-img-wrapper">
+            <img src="duaa-portrait.jpg" alt="Duaa Khalid in front of a Dolce and Gabbana sign" width="1200" height="1247">
+          </div>
+          <span class="portrait-caption">DOLCE &amp; GABBANA / 2026</span>
+        </div>
+
+        <!-- Right: Bio & Highlights -->
+        <div class="about-txt-col">
+          <p class="m red">ABOUT / DUAA KHALID</p>
+          <h2>I learned product work on store floors, not in a lab.</h2>
+
+          <p class="lead">Fifty five beauty advisors reported through me, and their salaries and commissions moved with their own numbers. When somebody on that floor had a bad month you saw it in the account inside a week. Everything I have built since assumes nobody will be made to open it.</p>
+
+          <p class="lead">Five years in commercial and GTM at LVMH, then Dolce &amp; Gabbana Beauty across MENA. I still like the industry. What it could not give me was the technical side of the work I had already started doing on my own, so in August 2026 I start an MEng in Data Science and Decision Analytics at Cornell Tech.</p>
+
+          <!-- Red Highlight Card -->
+          <div class="rely-card">
+            <span class="m">WHENEVER SOMETHING GOES WELL</span>
+            <strong>&ldquo;Okay, we can still double this.&rdquo;</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- How I Work Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="intro" style="padding-block: 0 28px;">
+        <p class="m red">HOW I WORK</p>
+        <h2>I need to know what everyone else's job actually is.</h2>
+        <p class="lead" style="max-width: 68ch;">Not out of curiosity. If I do not understand how the people around me work, what lands on their desk and what they are waiting on, I cannot tell why my own work has stopped moving. So I go and ask, and what I find is rarely what the situation looked like from the outside. That is slow, and on the tracker it is most of the reason the thing got used.</p>
+      </div>
+
+      <!-- Three corrections, each one a read I had to change in the field.
+           Same device as the case studies, named here and shown there. -->
+      <ol class="hw-ledger">
+        <li class="hw-row">
+          <p class="hw-num" aria-hidden="true">01</p>
+          <div class="hw-swap">
+            <div class="hw-cell">
+              <p class="m hw-lbl">WHAT IT LOOKED LIKE</p>
+              <p class="hw-read">Somebody in the chain is being difficult.</p>
+            </div>
+            <div class="hw-cell hw-cell-was">
+              <p class="m red hw-lbl">WHAT IT ACTUALLY WAS</p>
+              <p class="hw-was">A process I could not see from where I was sitting.</p>
+            </div>
+          </div>
+          <p class="hw-ev"><span class="hw-ev-tag">The platform we already licensed</span>Changing a monthly target meant emailing the vendor's IT team and waiting for somebody there to do it. Nobody in that chain was slow. The permission to make the change sat somewhere I had not thought to look.</p>
+        </li>
+
+        <li class="hw-row">
+          <p class="hw-num" aria-hidden="true">02</p>
+          <div class="hw-swap">
+            <div class="hw-cell">
+              <p class="m hw-lbl">WHAT IT LOOKED LIKE</p>
+              <p class="hw-read">A pilot is there to prove the thing works.</p>
+            </div>
+            <div class="hw-cell hw-cell-was">
+              <p class="m red hw-lbl">WHAT IT ACTUALLY WAS</p>
+              <p class="hw-was">It is there to collect what they hate while changing it is still cheap.</p>
+            </div>
+          </div>
+          <p class="hw-ev"><span class="hw-ev-tag">Tracker pilot, one week</span>Three advisors and their supervisor, on real data in a real month, before anyone else saw the app. The supervisor's commissions calculated themselves instead of by hand for the first time, and that week is where the fix list came from.</p>
+        </li>
+
+        <li class="hw-row">
+          <p class="hw-num" aria-hidden="true">03</p>
+          <div class="hw-swap">
+            <div class="hw-cell">
+              <p class="m hw-lbl">WHAT IT LOOKED LIKE</p>
+              <p class="hw-read">Nobody is using it, so I built the wrong thing.</p>
+            </div>
+            <div class="hw-cell hw-cell-was">
+              <p class="m red hw-lbl">WHAT IT ACTUALLY WAS</p>
+              <p class="hw-was">They could not reach it. Nothing in the app was broken.</p>
+            </div>
+          </div>
+          <p class="hw-ev"><span class="hw-ev-tag">Tracker launch, April</span>Registering needed an email address, and not everyone has one they can get into. I sat with the advisors who were stuck instead of sending another set of instructions, then ran WhatsApp alongside the app for a month while people came online on their own dates.</p>
+        </li>
+      </ol>
+    </section>
+
+<!-- Career Path Section -->
+    <section class="band pad rule" style="padding-block: 60px;">
+      <div class="tl">
+        <div>
+          <p class="m red">CAREER PATH</p>
+          <h2 style="margin-top:16px;">Every step started as somebody else's broken system.</h2>
+        </div>
+        <div class="rows">
+          <div class="r">
+            <p class="m red">NEXT / AUG 2026</p>
+            <div>
+              <p class="org">CORNELL TECH</p>
+            </div>
+            <p class="d">MEng in Data Science and Decision Analytics. I have been building these tools alongside the day job, on free tooling and whatever I could teach myself in the evenings. I want to learn to do it properly.</p>
+          </div>
+          <div class="r">
+            <p class="m red">NOW / 2024&ndash;2026</p>
+            <div>
+              <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
+            </div>
+            <p class="d">Key account management across thirteen markets in travel retail MEA, with 55 beauty advisors reporting through me. Nobody could tell an account was slipping until it already had, so I built the account health layer that benchmarks the accounts against each other and flags the ones at risk. It is now the primary decision input across all thirteen. One of those markets was my own account, and it grew roughly 6x in eighteen months, which is where the <a href="#work">sales tracker</a> came from.</p>
+          </div>
+          <div class="r">
+            <p class="m">PREVIOUSLY / 2021&ndash;2024</p>
+            <div>
+              <p class="org">LVMH &middot; MENA</p>
+            </div>
+            <p class="d">I started out tracking out of stocks and aged inventory by hand across the MENA accounts. Then I became internal product owner for the sell-in tool the account managers used every day. I wrote the requirements and ran the roadmap, then sat in feedback loops with those account managers for two years. It was the first time I was the single point of contact across retailers, marketing, demand planning and supply chain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Capabilities Dark Section -->
+    <section class="dark">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">CAPABILITIES</p>
+            <h2 style="margin-top:16px;">I would not have built any of this without AI.</h2>
+            <p class="lead" style="margin-top: 18px; max-width: 640px;">AI is the reason these exist at all. It could not tell me what counts as a valid row, what a supervisor needs on a dashboard at month end, or what a field team working off phones can realistically be asked to do. I brought that part, and I checked what came back, because I was the one answering for the numbers.</p>
+          </div>
+
+          <div class="cap-3col">
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">BUILD</p>
+              <ul>
+                <li>Python</li>
+                <li>SQL, including backfilling three months by hand</li>
+                <li>Supabase, learned on the tracker</li>
+                <li>Firestore</li>
+                <li>Sites people add to a phone home screen</li>
+              </ul>
+            </div>
+            <div class="cap-col">
+              <p class="m light" style="opacity: 0.6;">OPERATE</p>
+              <ul>
+                <li>Field rollout and training</li>
+                <li>Key account management</li>
+                <li>GTM across MENA</li>
+                <li>Pilot first, then launch</li>
+                <li>Getting a team off WhatsApp</li>
+              </ul>
+            </div>
+            <div class="cap-col-red">
+              <p class="m light">DEFINE THE RULES</p>
+              <ul>
+                <li>Deciding what counts as a valid row</li>
+                <li>Dedup keys and validation rules</li>
+                <li>Commission and target logic</li>
+                <li>Account health benchmarking</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="work" class="anchor"></div>
+<!-- Stats Section -->
     <section class="stats-section band">
       <div class="stats">
         <div class="s">
-          <span class="n">18</span>
-          <span class="m">BEAUTY ADVISORS &middot; DAILY ADOPTION</span>
+          <span class="n">6x</span>
+          <span class="m">SALES GROWTH ON MY ACCOUNT &middot; 18 MONTHS</span>
         </div>
         <div class="s">
-          <span class="n">03</span>
-          <span class="m">EGYPTIAN MARKETS &middot; ONE SYSTEM</span>
+          <span class="n">55</span>
+          <span class="m">BEAUTY ADVISORS ON MY TEAM</span>
         </div>
         <div class="s">
-          <span class="n">1,324</span>
-          <span class="m">ROWS INGESTED &middot; ZERO REJECTED</span>
+          <span class="n">02</span>
+          <span class="m">DAYS TO A RUNNING BUILD</span>
         </div>
       </div>
     </section>
 
-    <!-- Selected Work Intro -->
-    <div id="work" class="band pad">
+<!-- Selected Work Intro -->
+    <div class="band pad">
       <div class="intro">
         <p class="m red">SELECTED WORK / 2024&ndash;2026</p>
         <h2>Three systems. Three different kinds of mess.</h2>
@@ -95,26 +869,30 @@
         <div class="txt">
           <p class="m red">01 / FIELD DATA SYSTEM</p>
           <h2>Beauty Advisor Sales Tracker</h2>
-          <p>A PWA and ingest pipeline that de-duplicates a supervisor export before any KPI is calculated. It then gives 18 advisors a tool simple enough to use every day.</p>
+          <p>We already licensed a platform for this. It did not fit my market, so I built the replacement in two days and got 18 advisors onto it without anyone being told to.</p>
 
           <details class="cs-fold">
             <summary>
-              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; RUN THE DEDUP</span>
+              <span class="m">READ THE CASE STUDY &middot; RUN THE DEDUP</span>
               <span class="fold-ic">+</span>
             </summary>
           <div class="cs">
             <div class="row">
               <p class="m red">PROBLEM</p>
-              <p>Advisor performance arrived as a supervisor's Daxium Excel export whose layout changed month to month, with duplicate rows on the same advisor, date, store and shift. Duplicates double count sales and inflate Days Worked, so no daily KPI could be trusted and productivity could not be compared across cities until month end.</p>
+              <p>I owned a travel retail account in the Middle East and it was growing about 6x over 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel every evening. That does not survive an account growing at that rate.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT IT ACTUALLY WAS</p>
+              <p>The obvious answer was to put the market on the field sales platform we already licensed. It would not have helped. Loading a monthly target into it meant emailing the vendor's IT team and waiting, so the person responsible for the numbers could not change her own targets. The dashboard showed what the vendor had decided a dashboard shows. And the per seat cost could not be justified at that market size anyway. We did not have a missing tool. We had a tool nobody on my side could operate, and spending more on it would not have fixed that. </p>
             </div>
             <div class="row">
               <p class="m red">BUILD</p>
-              <p>The dedup key is advisor plus date plus store plus shift, applied before any KPI is calculated rather than corrected afterwards. 18 advisors across 3 Egyptian markets, Cairo, Sharm and Hurghada, log their own sales daily.</p>
+              <p>Two days from deciding to a running site, with Supabase behind it, which I learned on this project. The advisors are on their phones all day, so instead of shipping a native app I had them add the site to their home screen from the browser. Then I gave it to three advisors and the sales supervisor for a week before anyone else saw it. The supervisor got the dashboard with commissions and targets calculating themselves, which was the part she had been doing by hand. I took their feedback, fixed what they hated, and only then launched it to everyone. January to March I loaded myself by writing SQL against Supabase, because the app only went live in April.</p>
             </div>
             <div class="row">
               <p class="m red">PROOF</p>
               <div>
-                <p>Two rows that look like two days of work and are actually one. The highlighted columns are the dedup key. Run it and watch the KPIs correct themselves.</p>
+                <p>I had backfilled everything up to launch, and then advisors came online on different dates because of the signup problem. While somebody was still locked out I was entering their sales for them. When they got in they started logging their own, and they could not see what was already in there, so they re-entered days I had already covered. The dedup key is what decides whether two rows are one event or two. Here are two that look like two days of work and are actually one. The highlighted columns are the key. Run it.</p>
 
                 <div class="dupt-wrap">
                   <table class="dupt" id="dupt">
@@ -162,8 +940,12 @@
               </div>
             </div>
             <div class="row">
+              <p class="m red">WHAT BROKE</p>
+              <p>The signup. Not the app, the signup. I had built the thing and tested it and it worked, and then advisors could not get in, because not everyone has an email they can actually access and not everyone has ever registered for anything. That is the part I did not see coming, and it had nothing to do with the product. So I kept WhatsApp running next to it for a month instead of forcing the change, and reconciled the two by hand until people were in.</p>
+            </div>
+            <div class="row">
               <p class="m red">IMPACT</p>
-              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. Presented to global beauty leadership.</p>
+              <p>One full run across January to April: 1,324 rows ingested, 0 rejected, 29 duplicates removed. Live with 18 advisors across Cairo, Sharm and Hurghada, none of whom were required to use it. I showed it to global beauty leadership about a month after it went out.</p>
             </div>
           </div>
           </details>
@@ -174,6 +956,7 @@
           </div>
         </div>
         <div class="shot fit">
+          <p class="shot-cue"><b>Try it</b> &middot; pick a city, type a target, and the card recalculates. Demo data, real arithmetic.</p>
           <!-- Pixel-accurate vector representation of the Sales Management Dashboard -->
           <div class="dashboard-window">
             <div class="db-topbar">
@@ -288,69 +1071,32 @@
         </div>
       </section>
 
-      <!-- Project 02: Move-Out Sale -->
-      <section class="proj flip">
-        <div class="txt">
-          <p class="m red">02 / PERSONAL BUILD</p>
-          <h2>Move-Out Sale Site &amp; Tracker</h2>
-          <p>One Python script generates the buyer-facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</p>
-
-          <details class="cs-fold">
-            <summary>
-              <span class="m">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT</span>
-              <span class="fold-ic">+</span>
-            </summary>
-          <div class="cs">
-            <div class="row">
-              <p class="m red">PROBLEM</p>
-              <p>Selling 31 pieces of furniture meant re-answering the same questions item by item over WhatsApp, and pricing everything off store catalog pages that turned out to be wrong by more than double. One dresser was recorded at AED 1,100 when it had actually cost 499, which put a phantom discount badge on a live page.</p>
-            </div>
-            <div class="row">
-              <p class="m red">BUILD</p>
-              <p>The generator prices against purchase price, not the store catalog page, so a saving cannot be displayed unless it is real. Bundles carry their cost on the bundle line, with no invented per-item split, and unallocated cost stays visible instead of being quietly spread around.</p>
-            </div>
-            <div class="row">
-              <p class="m red">PROOF</p>
-              <p>The live catalog, generated from the same item list that feeds the profit tracker.</p>
-            </div>
-            <div class="row">
-              <p class="m red">IMPACT</p>
-              <p>20 of 31 items sold in 30 days. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 still on the table across 11 items.</p>
-            </div>
-          </div>
-          </details>
-
-          <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
-          <div class="btnrow">
-            <a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a>
-          </div>
-        </div>
-        <div class="shot">
-          <a class="shot-link" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live move-out sale catalog in a new tab"><img class="shot-img" src="/moveout-catalog.jpg" alt="The live move-out sale catalog showing furniture listings" width="1600" height="1200" loading="lazy"></a>
-        </div>
-      </section>
 
     </div>
 
-    <!-- Project 03: Homebase (Dark Band) -->
+    <!-- Project 02: Homebase (Dark Band) -->
     <section class="dark">
       <div class="band pad">
         <div class="inner">
           <div class="hb">
             <div>
-              <p class="m light">03 / AI PRODUCT &middot; HACKATHON 2026</p>
+              <p class="m light">02 / AI PRODUCT &middot; HACKATHON 2026</p>
               <h2 style="margin-top:16px">Homebase</h2>
               <p style="margin-top:16px">A deterministic context block that helps a voice agent dispatch maintenance vendors. Structured by default, with the model behind an explicit opt-in flag.</p>
 
               <details class="cs-fold" style="margin-top:20px">
                 <summary>
-                  <span class="m light">CASE STUDY &middot; PROBLEM, BUILD, PROOF, IMPACT &middot; TRY IT</span>
+                  <span class="m light">READ THE CASE STUDY &middot; TRY THE GENERATOR</span>
                   <span class="fold-ic">+</span>
                 </summary>
               <div class="cs">
                 <div class="row">
                   <p class="m light">PROBLEM</p>
                   <p>Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.</p>
+                </div>
+                <div class="row">
+                  <p class="m light">WHAT IT ACTUALLY WAS</p>
+                  <p>The obvious answer is to put a model on the call and let it write the script. But the variation was never the useful part. The inconsistency was the entire problem, and what a vendor needs on the other end of the phone is the same eight fields in the same order every time. That is a template problem, not a model problem. It is why the default path is a plain string builder and the model only runs behind a flag.</p>
                 </div>
                 <div class="row">
                   <p class="m light">BUILD</p>
@@ -380,6 +1126,10 @@
                     </div>
                     <p class="dupt-note light">Same eight fields every call, whatever you pick. The system prompt never changes; only this block does.</p>
                   </div>
+                </div>
+                <div class="row">
+                  <p class="m light">WHAT BROKE</p>
+                  <p>Most of it, in the sense that most of it never shipped. What exists after roughly three and a half hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification and not a product. The concept page also advertises tenant satisfaction and response time figures for a build with no production usage. Those are not mine, they are not repeated here, and the screenshot above is cropped above them on purpose.</p>
                 </div>
                 <div class="row">
                   <p class="m light">IMPACT</p>
@@ -414,85 +1164,326 @@
       </div>
     </section>
 
-    <!-- Timeline / Through-Line -->
-    <section class="band pad">
-      <div class="tl">
-        <div>
-          <p class="m red">THE THROUGH-LINE</p>
-          <h2 style="margin-top:16px;max-width:28ch">From monitoring stock by hand to designing the systems that explain what changed, and what to do next.</h2>
-        </div>
-        <div class="rows">
-          <div class="r">
-            <p class="m">2021&ndash;2023</p>
-            <div>
-              <p class="org">LVMH &middot; MENA</p>
-              <p class="role">Supply Chain &amp; Operations</p>
-            </div>
-            <p class="d">Turned fragmented stock and order workflows into commercial decision support.</p>
-          </div>
-          <div class="r">
-            <p class="m">2024&ndash;2026</p>
-            <div>
-              <p class="org">DOLCE &amp; GABBANA BEAUTY</p>
-              <p class="role">Key Account Infrastructure</p>
-            </div>
-            <p class="d">Built account health monitoring and field-data infrastructure across the region.</p>
-          </div>
-          <div class="r">
-            <p class="m">AUG 2026</p>
-            <div>
-              <p class="org">CORNELL TECH</p>
-              <p class="role">MEng, Data Science &amp; Decision Analytics</p>
-            </div>
-            <p class="d">Building the next generation properly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="band">
 
-    <!-- Capabilities Section -->
+      <!-- Project 03: Move-Out Sale -->
+      <section class="proj flip">
+        <div class="txt">
+          <p class="m red">03 / PERSONAL BUILD</p>
+          <h2>Move-Out Sale Site &amp; Tracker</h2>
+          <p>One Python script generates the buyer-facing catalog and the internal profit tracker from a single item list, so the listing and the accounting cannot disagree.</p>
+
+          <details class="cs-fold">
+            <summary>
+              <span class="m">READ THE CASE STUDY</span>
+              <span class="fold-ic">+</span>
+            </summary>
+          <div class="cs">
+            <div class="row">
+              <p class="m red">PROBLEM</p>
+              <p>Thirty one pieces of furniture to sell before I left the country, and every buyer asked the same three questions about size, condition and whether the price moved. One thread each, the same answers retyped.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT IT ACTUALLY WAS</p>
+              <p>A catalog fixes the messaging. It does nothing about the part that was actually costing me money. I was pricing against store catalog pages rather than against what I had paid, and those pages were wrong by more than double. A dresser I had recorded at AED 1,100 had cost 499, so the site was advertising a saving that did not exist. The real problem was that the listing and the accounting were two separate documents, free to disagree with each other.</p>
+            </div>
+            <div class="row">
+              <p class="m red">BUILD</p>
+              <p>The generator prices against purchase price, not the store catalog page, so a saving cannot be displayed unless it is real. Bundles carry their cost on the bundle line, with no invented per-item split, and unallocated cost stays visible instead of being quietly spread around.</p>
+            </div>
+            <div class="row">
+              <p class="m red">PROOF</p>
+              <p>The live catalog, generated from the same item list that feeds the profit tracker.</p>
+            </div>
+            <div class="row">
+              <p class="m red">WHAT BROKE</p>
+              <p>A dresser went live with a discount badge on it that was not real. I had it recorded at AED 1,100 when it actually cost 499, because I had trusted a store catalog page instead of the receipt. That is the whole reason the generator now prices against what was paid. The catalog also carried a counter that could read 0 items available instead of the real figure. I listed it on this site as an open defect before I fixed it, which I would rather do than have you find it. It is fixed now, and it reads 11.</p>
+            </div>
+            <div class="row">
+              <p class="m red">IMPACT</p>
+              <p>20 of 31 items sold in 30 days. AED 8,400 recovered against AED 10,688 paid for those items, a 78.6% recovery rate. AED 4,900 still on the table across 11 items.</p>
+            </div>
+          </div>
+          </details>
+
+          <p class="m tags">PYTHON &middot; EXCEL MODELLING &middot; STATIC SITE &middot; PRICING RULES</p>
+          <div class="btnrow">
+            <a class="btn" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener">VIEW LIVE CATALOG &rarr;</a>
+          </div>
+        </div>
+        <div class="shot">
+          <a class="shot-link" href="https://moveoutsale.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live move-out sale catalog in a new tab"><img class="shot-img" src="/moveout-catalog.jpg" alt="The live move-out sale catalog showing furniture listings" width="1600" height="1200" loading="lazy"></a>
+        </div>
+      </section>
+
+    </div>
+
+
+<!-- Capabilities Section -->
     <section class="band pad">
       <div class="caps">
         <div>
           <p class="m red">CAPABILITIES</p>
-          <h2 style="margin-top:16px;max-width:28ch">The work is deciding what counts as a valid row, then getting a field team to work the new way.</h2>
+          <h2 style="margin-top:16px;max-width:28ch">What I am actually good at, and where I stop.</h2>
         </div>
         <div class="capgrid">
           <div>
-            <p class="m red">DATA VALIDATION</p>
-            <p>Defining the dedup key: what makes two rows the same event rather than two events, sitting underneath every number shown.</p>
+            <p class="m red">GETTING PEOPLE TO USE IT</p>
+            <p>This is the one I would defend hardest. Eighteen people in three cities opened a tool every day that nobody had told them to open. Building it took two days. That took months, and most of it was not product work.</p>
           </div>
           <div>
-            <p class="m red">INGEST PIPELINES</p>
-            <p>Taking volatile month-to-month exports and turning them into reliable schemas before any KPI is calculated.</p>
+            <p class="m red">DECIDING WHAT COUNTS AS ONE EVENT</p>
+            <p>Advisor, date, store, shift. The dedup key is a judgement call, not a technical detail. Get it wrong and every number underneath is wrong in a way that still looks completely plausible.</p>
           </div>
           <div>
-            <p class="m red">DECISION SUPPORT</p>
-            <p>Building commercial tools that turn 45-minute manual workflows into 5-minute automated actions with feedback loops.</p>
+            <p class="m red">KNOWING WHAT TO BUILD</p>
+            <p>The tooling is fast now. Deciding what it should produce is not, and it does not get faster. Nothing I used could tell me what someone needs at the end of a shift in Cairo. You have to bring that, and then check what comes back.</p>
           </div>
           <div>
-            <p class="m red">ACCOUNT HEALTH</p>
-            <p>Benchmarking accounts across multi-market portfolios so risk surfaces automatically before revenue drops.</p>
+            <p class="m red">THE COMMERCIAL SIDE</p>
+            <p>Five years owning accounts, targets, commissions, and the people carrying them. The commercial consequence is where I start, not something I check at the end.</p>
           </div>
           <div>
-            <p class="m red">FIELD ROLLOUT</p>
-            <p>Onboarding non-technical commercial teams into sustained daily adoption through structured enablement.</p>
+            <p class="m red">ROLLOUT, WHICH IS TRAINING</p>
+            <p>It is never a link you send. It is sitting with people until they are in.</p>
           </div>
           <div>
-            <p class="m red">AI EVALUATION</p>
-            <p>Structuring deterministic prompt templates and inspecting output logs to guarantee reliable execution.</p>
+            <p class="m red">WHERE I STOP</p>
+            <p>No model in production, and no engineering team managed. The largest deployment here is eighteen people across three markets who were never told to use it. <a href="#faq">The rest of the limits are in the FAQ</a>.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
+    <div id="notes" class="anchor"></div>
+<!-- Hero -->
+    <section class="band pad rule">
+      <div class="hero-section" style="padding-block: 60px 40px;">
+        <p class="m red">FIELD NOTES</p>
+        <h2>Notes from the buying side.</h2>
+        <p class="lead" style="max-width: 720px; margin-top: 10px;">
+          For five years I was the customer for enterprise software in luxury retail, and most of what decided whether a tool actually got used had very little to do with the tool. These are the constraints I watched decide outcomes, what would have worked on me, and a log of one rollout from the inside.
+        </p>
+      </div>
+    </section>
+
+<!-- The walls -->
+    <section class="band pad" style="padding-block: 56px;">
+      <div class="intro" style="padding-block: 0 28px;">
+        <p class="m red">01 / THE WALLS</p>
+        <h2>Five things that decide whether a tool gets used.</h2>
+        <p class="lead" style="max-width: 660px; margin-top: 10px;">None of these are unusual and none of them are anyone's fault. They are just what the buying side looks like from the inside. The second row of each is what I would want to know if I were on the other side of the table.</p>
+      </div>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">01 &middot; AI IS BLOCKED ON THE LAPTOPS</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>Across a lot of this industry, AI tools are blocked at the device level, for privacy and security reasons that are entirely real. The practical consequence is that the person closest to a problem is often the person least able to prototype anything against it. Worth knowing if you are selling in, because the colleague most likely to champion you is usually the one with the least access.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Nothing that starts by asking IT to unblock a domain. What gets through is a deployment that never needs install rights, or a pilot scoped so tightly that security is reviewing one workflow instead of a whole category of tool. Sell to the person whose numbers are wrong. Not to the person whose job is to say no.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">02 &middot; THE BUYER CANNOT CONFIGURE THE TOOL</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>We already paid for a field sales platform. Loading a monthly target into it meant writing an email to the vendor's IT team and waiting for somebody there to do it. So the person who owned the account, whose targets they were, could not change her own targets. And the dashboard showed what the vendor had decided a dashboard should show, which was not what I needed to see.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Let the account owner change a routine setting without raising a ticket. Every hour of vendor side turnaround on something that simple is an hour in which somebody rebuilds the view they need in Excel. That is not a feature request. It is the difference between a tool that gets used and a spreadsheet that quietly replaces it.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">03 &middot; PER SEAT PRICING KILLS THE MARKETS THAT NEED IT</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>The platform made sense across the large markets. Mine had a fraction of that headcount and a much lower cost base, so the per seat maths could not be justified for it. Which means the smallest markets, the ones with the least support and the most manual work, get the worst tooling. The place that needed it most was the place that could least afford it.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Price the small deployments like you actually want them. A market that size is not a rounding error, it is the pilot that proves the rollout, and it is where the person who would have championed you internally is currently doing the whole thing by hand at midnight.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">04 &middot; THE USER COULD NOT SIGN UP</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>This is the one I got wrong myself, so it is the one I trust most. I built the tool, tested it, and it worked fine. Then the advisors could not get in. Registering needed an email address, and not everyone has an email account they can actually get into, and plenty of people have never signed up for anything online in their life. Nothing was broken. I had just never thought to check whether the people I built it for could reach the login screen.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Count the first screen as part of the product. If onboarding assumes an email, an app store account, an SSO identity or a password manager, you have already cut out a chunk of the field team you are being paid to reach. And do not force the cutover. I kept WhatsApp running alongside for a month and reconciled the two by hand, which was tedious, and which is also the only reason people came across at all.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="cs-fold">
+        <summary>
+          <span class="m">05 &middot; ANYTHING WITH A PRICE TAG MOVES SLOWLY</span>
+          <span class="fold-ic">+</span>
+        </summary>
+        <div class="cs">
+          <div class="row">
+            <p class="m red">THE WALL</p>
+            <p>Anything with a licence fee needs a business case, a procurement cycle and a security review. That process is rational and it is also slow, and for a market the size of mine it would have consumed more attention than the problem was worth. So the small markets wait, and in the meantime the work carries on being done by hand.</p>
+          </div>
+          <div class="row">
+            <p class="m red">WHAT WOULD HAVE GOTTEN THROUGH</p>
+            <p>Know what you are actually competing with. It is not the other vendor. It is somebody inside the account who can now put a working version together in an afternoon for nothing, because the tooling got that cheap. That person exists in every enterprise now, including the ones that block AI on the laptops, and they already know exactly what the product needs to do. Make the smallest market worth your time, or they will build it themselves.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+
+<!-- Point of view -->
+    <section class="dark" id="pov">
+      <div class="band pad">
+        <div class="inner">
+          <div>
+            <p class="m light">03 / WHAT I THINK</p>
+            <h2 style="margin-top:16px;max-width:22ch">They do not work for the brand. They work for you.</h2>
+          </div>
+
+          <div class="cs" style="max-width: 720px">
+            <p>I had 55 beauty advisors under me and I was responsible for their salaries, their commissions, and whether they were motivated enough to get through a shift. That last one is not a soft thing. If somebody on that floor is having a bad month their sales change, and that changes my numbers. You feel it inside a week.</p>
+            <p>It took me a while to understand what was actually going on. They were not working for the brand. Everybody loves the brand, that is why they applied. But nobody stays late for a logo. They work for the person in front of them, and if they do not like that person they will do exactly what the job description says and not one thing more. No matter how much they love the brand, they will not be able to work.</p>
+            <p>Which is why I do not think adoption is a product problem.</p>
+            <p>When I put the tracker in front of eighteen people, nobody had told them to use it. No mandate, no deadline, no manager checking. They used it because I had spent two years building the kind of relationship where if I said this will make your life easier, they believed me enough to try it once. The product then had to be good enough not to waste that. But the product is not what got them to open it the first time.</p>
+            <p>That is the part I think transfers. Forward deployed work means shipping to people who do not report to you, inside a company that is not yours, who already have a full job. You cannot mandate them. You can only be the person whose thing is worth trying. Every decision on that rollout came out of this: the home screen instead of the app store, the month of WhatsApp running alongside, refusing to set a cutover date. None of that is clever engineering. It is just what it costs to not burn the goodwill I already had.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="faq" class="anchor"></div>
+<!-- FAQ Hero -->
+    <section class="band pad rule">
+      <div class="hero-section" style="padding-block: 60px 40px;">
+        <p class="m red">QUESTIONS &amp; CAVEATS</p>
+        <h2>Your questions answered directly.</h2>
+        <p class="lead" style="max-width: 800px; margin-top: 10px;">
+          The questions that come up when someone reads this site, including what the AI work in these projects actually is.
+        </p>
+      </div>
+    </section>
+
+<!-- FAQ Interactive Accordion Section -->
+    <section class="band pad" style="padding-block: 60px;">
+      <div class="faq-container">
+
+        <details class="faq-item" open>
+          <summary>
+            <span>01. Why did you build this instead of using the tool you already had?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>I owned a travel retail account in the Middle East and it was growing, roughly 6x over about 18 months. The advisors were sending me their daily sales over WhatsApp and I was retyping them into Excel by hand.</p>
+            <p style="margin-top:10px;">We already licensed a field-sales platform. It worked for the large markets and not for mine. Loading a monthly target meant emailing the vendor's IT team and waiting for someone there to do it, the dashboard did not show what I needed, and the per-seat cost could not be justified for a market that size.</p>
+            <p style="margin-top:10px;">Building the replacement cost nothing but my own time, so there was no spend to approve and no case to make. Two days from the decision to a running site, with Supabase behind it, which I learned on this project.</p>
+            <p style="margin-top:10px;"><strong>It was a judgement call, not a brief.</strong> Nobody assigned it and nobody was waiting for it. I decided, as the person accountable for the numbers, that the licensed tool was the wrong fit here. Worth saying plainly, because being handed a project is a different thing.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>02. What went wrong in the rollout?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>The signup screen, and I did not see it coming.</strong></p>
+            <p style="margin-top:10px;">The build was not the hard part. The advisors work off their phones, so rather than ship a native app I had them add the site to their home screen from the browser. I piloted with three advisors and the sales supervisor for a week, took their feedback, fixed it, then launched to everyone.</p>
+            <p style="margin-top:10px;">Then people could not get in. Registering needed an email address, and not everyone had an email account they could actually get into, or had ever signed up for anything online.</p>
+            <p style="margin-top:10px;">I did not force the change. WhatsApp stayed on alongside the app for a month so anyone still stuck could send numbers the way they always had, and I reconciled the two channels by hand. People moved across as they got set up, not because a cutoff date made them. Nothing was broken. I had just never thought to check whether the people I built it for could reach the login screen.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>03. How much of this is actually AI, and how much did AI write?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Less AI in the products than the word implies, and more AI in the building than most people admit.</strong></p>
+            <p style="margin-top:10px;">The tracker and the move-out generator contain no models. Homebase has an opt-in model path behind a flag (<code>USE_LLM_SCOPE=true</code>) and a deterministic template builder as its default, because a string template was sufficient.</p>
+            <p style="margin-top:10px;">I built with AI, in Cursor and Claude Code, and I would not have shipped any of it otherwise. What I will not claim is that AI did the thinking. It will not tell you what makes two rows the same event, what a supervisor needs on a dashboard, or what a field team on phones can and cannot do. You have to know that first, and then the tooling gets fast.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>04. Eighteen advisors is a small number.</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>It is, and I am not going to dress it up. What matters is that <strong>nobody was required to use it</strong>.</p>
+            <p style="margin-top:10px;">The tracker was never mandated. Eighteen advisors across Cairo, Sharm and Hurghada opened it daily anyway. A mandated tool measures compliance. An optional one that people open every day measures whether it was worth their time.</p>
+            <p style="margin-top:10px;">For scope rather than adoption: I was responsible for 55 advisors at Dolce &amp; Gabbana and for account health across thirteen markets.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>05. What have you not done?</span>
+            <span class="toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>I have not shipped a machine learning model to production. I have not worked at engineering scale: the largest user base here is eighteen people and the largest dataset is a few thousand rows. I have not managed engineers. Homebase's compliance layer is specified in its README and listed as out of scope in that same README, so it is a spec and I have not built it.</p>
+            <p style="margin-top:10px;">What I have done is take a broken operational input, decide what a valid record is, and get a field team in another country to work the new way without being told to. That is the part I would defend.</p>
+            <p style="margin-top:10px;"><strong>On my own sites, nothing is broken right now.</strong> The move-out catalog could previously show "0 items available" instead of the real count. I listed it here while it was open and it is now fixed, reading 11. I leave resolved entries up rather than deleting them, because a list that only ever shows open problems tells you less than one that shows what happened to them.</p>
+          </div>
+        </details>
+
+      </div>
+
+      <!-- Honest Caveats Box -->
+      <div class="honest-caveats">
+        <h3>What these numbers do not mean</h3>
+        <ul>
+          <li><strong>The dashboard on this page is demo data:</strong> recreated in HTML with invented figures and invented names. No real advisor performance is published anywhere on this site.</li>
+          <li><strong>January to March was backfilled:</strong> the app launched in April. The first three months of the 1,324-row window were loaded by me in SQL from existing records, not logged daily by advisors.</li>
+          <li><strong>Removed, not rejected:</strong> the 29 were valid rows that collapsed against the dedup key. 1,324 in, 0 rejected. Nothing failed validation.</li>
+          <li><strong>No cycle time measured:</strong> month-end turnaround improved and I never instrumented it, so I am not putting a figure on it.</li>
+          <li><strong>18 live, about 20 onboarded:</strong> two real numbers counting different things, not a rounding of one.</li>
+          <li><strong>The honest move-out figure is 20 of 31:</strong> the sheet says 21 of 32 because a COUNTIF double-counts a synthetic bundle row.</li>
+        </ul>
+      </div>
+
+    </section>
+
+<!-- CTA Section -->
     <section class="cta">
       <div class="band pad">
         <div class="inner">
           <div>
             <p class="m light">WHAT'S NEXT</p>
-            <h2 style="margin-top:20px">Building a forward-deployed or AI product team? Let’s talk.</h2>
+            <h2 style="margin-top:20px">Building a forward-deployed or AI product team? Let's talk.</h2>
           </div>
           <div class="btnrow">
             <a class="btn light-btn" href="mailto:dk947@cornell.edu">DK947@CORNELL.EDU</a>
@@ -500,18 +1491,22 @@
           </div>
           <div class="foot">
             <span class="m">DUAA KHALID / 2026</span>
-            <span class="m">DUBAI &rarr; NEW YORK</span>
+            <span class="m">NEW YORK</span>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
+  </main>
   <footer class="sitefoot">
     <div class="band in">
+      <p class="footnow">
+        <span class="m red">NOW &middot; AUGUST 2026</span>
+        Packing up a life in Dubai. Spending the month on the floor with my two month old nephew before I leave. Reading nothing but PM books.
+      </p>
       <div class="row1">
         <span>DUAA KHALID / 2026</span>
-        <span>DUBAI &rarr; NEW YORK</span>
+        <span>NEW YORK</span>
       </div>
     </div>
   </footer>
