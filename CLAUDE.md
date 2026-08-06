@@ -101,8 +101,10 @@ If the dashboard needs regenerating from the real app, do **not** run
 `Sales_management/deck_assets/seed_demo_data.sql` against production: its
 `monthly_targets` insert conflicts on `(month_key, team)` and would overwrite real
 Cairo/Sharm/Hurgadah targets. Stub the Supabase client locally instead. Note also that
-the commission slab percentages are **hardcoded** at `web_app/manager.html:1813`, so demo
-data alone does not hide them.
+the commission slab percentages are **hardcoded in two places**: the logic in
+`commissionRateFromPct()` at `web_app/manager.html:1301-1307`, and again as a visible label
+string at `web_app/manager.html:1813` ("Slabs: 70%=0.8%, 80%=1.0%, 90%=1.1%, 100%=1.3%"). Demo
+data alone does not hide either. Verified 2026-08-06.
 
 ### It is interactive
 
@@ -277,9 +279,30 @@ git add -A && git commit -m "..." && git push
 - **A live defect on moveoutsale.vercel.app**: renders "0 items available" from a
   hardcoded placeholder that JS overwrites on a normal load. Should read 11. Still present
   as of 2026-07-30. Separate repo, so it is disclosed as FAQ item 10 rather than fixed here.
-- **`Sales_management` attainment bug**: for `team_total` cities the Target column shows
-  the *team* target beside an individual's sales, so the percentage is not that advisor's
-  attainment. Affects production, feeds commission tiers.
+- ~~**`Sales_management` attainment bug**~~ **RETRACTED 2026-08-06. The note was wrong.** It
+  claimed that for `team_total` cities an individual's sales were divided by the team target,
+  producing a false attainment that fed commission tiers. Checked against the repo and against a
+  real June 2026 commission export. It does not do that.
+  - `manager.html:1615` and `:1714` divide **team** sales by the **team** target.
+  - `manager.html:1736` divides an **individual's** sales by that individual's prorated target,
+    for `per_ba` teams.
+  - `manager.html:1727` deliberately gives every member of a `team_total` team the **team's**
+    attainment and the **team's** rate, then pays `own sales * team rate`.
+  - Correct by design, and the design is stated in `web_app/sql/add_team_month_total_fn.sql`:
+    "Hurgadah's monthly target is `target_type = 'team_total'` (commission is team-based, not
+    per-BA)."
+  - Confirmed against a real commission export, which is **not reproduced here**: for a Hurgadah
+    row the displayed attainment was several times what that advisor's own sales divided by the
+    basis would give. That is only possible if the figure is the team's attainment rather than
+    hers, and her commission came out as her own sales times the team rate. Both consistent with
+    the design, neither consistent with the retracted claim.
+  - The only thing left is a **labelling** nit: a column headed Attainment showing a team figure
+    beside an individual's sales row can be misread by someone who does not know the design. Not
+    a defect. Not going on the site.
+  - **A real bug of this shape did exist and was already fixed.** The same SQL file records it:
+    the BA app used to divide the team goal by headcount and show each BA their own slice, which
+    broke as the team grew ("45,000 / 4 = 11,250 made no sense for a team commission"). This note
+    was most likely a garbled memory of that, written after the fix.
 - **Possible additions**: scroll-reveal on section enter via `IntersectionObserver`
   (no library needed). Deliberately **not** adopting Lenis smooth scroll or GSAP; the site
   currently ships zero dependencies and that is worth keeping.
