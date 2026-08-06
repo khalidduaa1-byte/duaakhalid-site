@@ -316,6 +316,110 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ------------------------------------------------------------------
+   Rollout log stepper.
+
+   Progressive enhancement, deliberately. The log ships as a plain stacked
+   list of dated rows, which is what it was and what it stays if this script
+   never runs. Only once we know JS is alive do we add .is-stepper and show
+   one step at a time. The container is pinned to the tallest step first, so
+   advancing never jumps the page under the reader.
+------------------------------------------------------------------ */
+(function () {
+  var log = document.getElementById('rollout-log');
+  if (!log) return;
+  var rows = Array.prototype.slice.call(log.querySelectorAll('.row'));
+  if (rows.length < 2) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DWELL = 7000;
+  var i = 0, timer = null, playing = !reduce;
+
+  // Measure before hiding anything, so the box cannot resize per step.
+  var tallest = 0;
+  rows.forEach(function (r) { tallest = Math.max(tallest, r.offsetHeight); });
+  log.style.minHeight = tallest + 'px';
+  log.classList.add('is-stepper');
+
+  var labelOf = function (r) {
+    var el = r.querySelector('.m');
+    return el ? el.textContent.trim() : '';
+  };
+
+  var bar = document.createElement('div');
+  bar.className = 'log-bar';
+  var dots = document.createElement('div');
+  dots.className = 'log-dots';
+  var count = document.createElement('span');
+  count.className = 'log-count';
+  var ctl = document.createElement('div');
+  ctl.className = 'log-ctl';
+
+  var dotEls = rows.map(function (r, n) {
+    var d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'log-dot';
+    d.setAttribute('aria-label', 'Step ' + (n + 1) + ', ' + labelOf(r));
+    d.addEventListener('click', function () { stop(); show(n); });
+    dots.appendChild(d);
+    return d;
+  });
+
+  function mkBtn(label, aria, fn) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'log-btn';
+    b.textContent = label;
+    b.setAttribute('aria-label', aria);
+    b.addEventListener('click', fn);
+    ctl.appendChild(b);
+    return b;
+  }
+  mkBtn('←', 'Previous step', function () { stop(); show(i - 1); });
+  var playBtn = mkBtn(playing ? 'Pause' : 'Play', 'Pause or play the sequence', function () {
+    playing ? stop() : start();
+  });
+  mkBtn('→', 'Next step', function () { stop(); show(i + 1); });
+
+  bar.appendChild(dots);
+  bar.appendChild(count);
+  bar.appendChild(ctl);
+  log.parentNode.insertBefore(bar, log);
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function show(n) {
+    i = (n + rows.length) % rows.length;
+    rows.forEach(function (r, k) { r.classList.toggle('on', k === i); });
+    dotEls.forEach(function (d, k) {
+      d.classList.toggle('on', k === i);
+      d.setAttribute('aria-current', k === i ? 'true' : 'false');
+    });
+    count.textContent = pad(i + 1) + ' / ' + pad(rows.length) + '  ·  ' + labelOf(rows[i]);
+  }
+
+  function start() {
+    if (reduce) return;
+    playing = true;
+    playBtn.textContent = 'Pause';
+    clearInterval(timer);
+    timer = setInterval(function () { show(i + 1); }, DWELL);
+  }
+  function stop() {
+    playing = false;
+    playBtn.textContent = 'Play';
+    clearInterval(timer);
+  }
+
+  // Reading a step should not have it yanked away mid-sentence.
+  log.addEventListener('mouseenter', function () { if (playing) clearInterval(timer); });
+  log.addEventListener('mouseleave', function () { if (playing) start(); });
+  log.addEventListener('focusin', stop);
+
+  show(0);
+  if (playing) start();
+})();
+
+/* ------------------------------------------------------------------
    Scroll-spy for the single-page nav.
 
    The site is now one page with anchor links, so the header needs to

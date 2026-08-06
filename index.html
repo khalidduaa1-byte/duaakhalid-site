@@ -208,6 +208,41 @@
       .creds .since { margin-left: 0; flex-basis: 100%; }
     }
 
+    /* Rollout log stepper. Progressive enhancement only: with JS off this stays the
+       plain stacked list it has always been, and script.js adds .is-stepper to turn
+       it into one step at a time. min-height is set in JS from the tallest step so
+       advancing never jumps the page. */
+    .log.is-stepper > .row { display: none; }
+    .log.is-stepper > .row.on { display: grid; animation: cs-in 420ms ease both; }
+    .log-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .log-dots { display: flex; gap: 7px; align-items: center; }
+    .log-dot {
+      width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
+      background: var(--rule); cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .log-dot:hover { transform: scale(1.35); }
+    .log-dot.on { background: var(--accent); }
+    .log-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .log-count { font: 500 11px var(--mono); letter-spacing: 0.08em; color: #5f5d58; }
+    .log-ctl { display: flex; gap: 6px; margin-left: auto; }
+    .log-btn {
+      font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+      background: transparent; color: var(--ink); border: 1px solid var(--rule);
+      padding: 6px 11px; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    }
+    .log-btn:hover { border-color: var(--ink); }
+    .log-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 700px) { .log-ctl { margin-left: 0; } }
+    @media (prefers-reduced-motion: reduce) { .log.is-stepper > .row.on { animation: none; } }
+
     /* The dashboard is genuinely interactive but nothing said so. Its only hint was
        8px text inside a zoomed window, which nobody reads. This cue sits at normal
        size above the widget, so the affordance is read before the thing it describes.
@@ -279,7 +314,7 @@
       <h1>I get software into companies that are not ready for it.</h1>
 
       <div class="twoup">
-        <p class="lead">Five years in luxury beauty, an industry that blocks AI on employee laptops and licenses tools its own account owners cannot configure. I built what we needed anyway, at no cost, and the field team used it every day without being told to. That is the job I want next.</p>
+        <p class="lead">Five years in luxury beauty, running accounts across MENA. I built the tools my market needed and the field team used them every day without being told to. All of that in an industry that blocks AI on employee laptops.</p>
         <p class="note">MEng, Data Science &amp; Decision Analytics. Dubai to New York, August 2026.</p>
       </div>
 
@@ -308,9 +343,9 @@
           <p class="m red">ABOUT / DUAA KHALID</p>
           <h2>I learned product work on store floors, not in a lab.</h2>
 
-          <p class="lead">I had 55 beauty advisors working under me. You are responsible for their salaries, their commissions, and making sure they are motivated in life. If they get sad, if they get depressed, if they are not motivated enough, their sales performance drastically changes, and it shows up in your monthly sales. Everything I have built since then assumes nobody will be made to open it.</p>
+          <p class="lead">Fifty five beauty advisors reported through me, and their salaries and commissions moved with their own numbers. When somebody on that floor had a bad month you saw it in the account inside a week. Everything I have built since assumes nobody will be made to open it.</p>
 
-          <p class="lead">Five years in commercial and GTM at LVMH, then Dolce &amp; Gabbana Beauty across MENA. I love the brand, I love fashion and luxury, I love the industry. I was also in my box. Do I really want to sit behind a computer for the next however many years, and is that all I am capable of? No. So in August 2026 I start an MEng in Data Science &amp; Decision Analytics at Cornell Tech. Dubai to New York. It is a risky decision and I know it.</p>
+          <p class="lead">Five years in commercial and GTM at LVMH, then Dolce &amp; Gabbana Beauty across MENA. I still like the industry. What it could not give me was the technical side of the work I had already started doing on my own, so in August 2026 I start an MEng in Data Science and Decision Analytics at Cornell Tech. Dubai to New York.</p>
 
           <!-- Red Highlight Card -->
           <div class="rely-card">
@@ -334,7 +369,7 @@
           <p class="lead">It is also why I pilot before I launch. On the tracker that meant three advisors and their supervisor for a week, on real data in a real month, before anyone else saw it. The wall when I did launch was not technical anyway. Advisors could not get through an email signup, so I ran WhatsApp alongside the app for a month rather than force the switch.</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 18px;">
-          <p class="lead">I take it personally when something I have built is not working. The received wisdom is that it is only a job and you should not carry it home. I have never been good at that, and I think it is the reason a tool nobody was required to use got opened every day.</p>
+          <p class="lead">When something I have built is not working I go and find out why, in person. On the tracker that meant sitting with the advisors who could not get past registration rather than sending another set of instructions. It is slow, and it is most of the reason the thing got used.</p>
         </div>
       </div>
     </section>
@@ -379,7 +414,7 @@
           <div>
             <p class="m light">CAPABILITIES</p>
             <h2 style="margin-top:16px;">I would not have built any of this without AI.</h2>
-            <p class="lead" style="margin-top: 18px; max-width: 640px;">Vibe coding is very easy right now. I built it, it is still running. But am I going to 100% trust AI? That is not how it works. I need to understand how the product works first, what the industry actually needs, what is required. It is not going to generate a product for me. You need the knowledge and you need your own input on things, or else it is not going to work.</p>
+            <p class="lead" style="margin-top: 18px; max-width: 640px;">AI is the reason these exist at all. It could not tell me what counts as a valid row, what a supervisor needs on a dashboard at month end, or what a field team working off phones can realistically be asked to do. I brought that part, and I checked what came back, because I was the one answering for the numbers.</p>
           </div>
 
           <div class="cap-3col">
@@ -404,13 +439,12 @@
               </ul>
             </div>
             <div class="cap-col-red">
-              <p class="m light">MODEL</p>
+              <p class="m light">DEFINE THE RULES</p>
               <ul>
                 <li>Deciding what counts as a valid row</li>
                 <li>Dedup keys and validation rules</li>
                 <li>Commission and target logic</li>
                 <li>Account health benchmarking</li>
-                <li>Excel, properly</li>
               </ul>
             </div>
           </div>
@@ -438,7 +472,7 @@
     </section>
 
 <!-- Selected Work Intro -->
-    <div id="work" class="band pad">
+    <div class="band pad">
       <div class="intro">
         <p class="m red">SELECTED WORK / 2024&ndash;2026</p>
         <h2>Three systems. Three different kinds of mess.</h2>
@@ -467,7 +501,7 @@
             </div>
             <div class="row">
               <p class="m red">WHAT IT ACTUALLY WAS</p>
-              <p>The obvious answer was to put the market on the field sales platform we already licensed. It would not have helped. Loading a monthly target into it meant emailing the vendor's IT team and waiting, so the person responsible for the numbers could not change her own targets. The dashboard showed what the vendor had decided a dashboard shows. And the per seat cost could not be justified at that market size anyway. We did not have a missing tool. We had a tool nobody on my side could operate, and spending more on it would not have fixed that. Building the replacement cost nothing but my own time, so there was no spend to approve and no case to make. I built it.</p>
+              <p>The obvious answer was to put the market on the field sales platform we already licensed. It would not have helped. Loading a monthly target into it meant emailing the vendor's IT team and waiting, so the person responsible for the numbers could not change her own targets. The dashboard showed what the vendor had decided a dashboard shows. And the per seat cost could not be justified at that market size anyway. We did not have a missing tool. We had a tool nobody on my side could operate, and spending more on it would not have fixed that. </p>
             </div>
             <div class="row">
               <p class="m red">BUILD</p>
@@ -713,7 +747,7 @@
                 </div>
                 <div class="row">
                   <p class="m light">WHAT BROKE</p>
-                  <p>Most of it, in the sense that most of it never shipped. What exists after roughly three and a half hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification and not a product, and I am not going to call it one. The concept page also advertises tenant satisfaction and response time figures for a build with no production usage. Those are not mine, they are not repeated here, and the screenshot above is cropped above them on purpose.</p>
+                  <p>Most of it, in the sense that most of it never shipped. What exists after roughly three and a half hours is a CRUD app over six Firestore collections with seed data, no auth and test mode rules. The RERA compliance layer the README describes is listed as out of scope in that same README, so it is a specification and not a product. The concept page also advertises tenant satisfaction and response time figures for a build with no production usage. Those are not mine, they are not repeated here, and the screenshot above is cropped above them on purpose.</p>
                 </div>
                 <div class="row">
                   <p class="m light">IMPACT</p>
@@ -820,8 +854,8 @@
             <p>Advisor, date, store, shift. The dedup key is a judgement call, not a technical detail. Get it wrong and every number underneath is wrong in a way that still looks completely plausible.</p>
           </div>
           <div>
-            <p class="m red">BUILDING IT, WITH AI, AND SAYING SO</p>
-            <p>I would not have shipped any of this without AI, and I am not going to pretend otherwise. I also would not hand it the decision about what to build. It cannot tell you what someone needs at the end of a shift in Cairo. You have to know that part yourself, and then the tooling gets fast.</p>
+            <p class="m red">KNOWING WHAT TO BUILD</p>
+            <p>The tooling is fast now. Deciding what it should produce is not, and it does not get faster. Nothing I used could tell me what someone needs at the end of a shift in Cairo. You have to bring that, and then check what comes back.</p>
           </div>
           <div>
             <p class="m red">THE COMMERCIAL SIDE</p>
@@ -833,7 +867,7 @@
           </div>
           <div>
             <p class="m red">WHERE I STOP</p>
-            <p>No model in production. No engineers managed. The biggest thing here has eighteen users. <a href="#faq">The full list is further down</a>.</p>
+            <p>No model in production, and no engineering team managed. The largest deployment here is eighteen people across three markets who were never told to use it. <a href="#faq">The rest of the limits are in the FAQ</a>.</p>
           </div>
         </div>
       </div>
@@ -953,7 +987,7 @@
         <p class="lead" style="max-width: 660px; margin-top: 10px;">Not the outcome, the sequence. Most of the interesting decisions here are not technical ones.</p>
       </div>
 
-      <div class="cs">
+      <div class="cs log" id="rollout-log" aria-live="polite">
         <div class="row">
           <p class="m red">DAY 0</p>
           <p>Decided to build rather than wait. The licensed platform was never going to fit this market, and a replacement cost nothing but my own time.</p>
@@ -1012,7 +1046,7 @@
         <p class="m red">QUESTIONS &amp; CAVEATS</p>
         <h2>Your questions answered directly.</h2>
         <p class="lead" style="max-width: 800px; margin-top: 10px;">
-          Written by me. These are the questions that actually come up when someone reads the site, including the uncomfortable ones about how small the numbers are and what the AI work actually is.
+          The questions that come up when someone reads this site, including what the AI work in these projects actually is.
         </p>
       </div>
     </section>
