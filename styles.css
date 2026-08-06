@@ -12,7 +12,41 @@
   --body: 'Inter', system-ui, -apple-system, sans-serif;
   --band: 1200px;
   --pad: 40px;
+
+  /* ---- Vertical rhythm -------------------------------------------------
+     One token for the space at the top and the bottom of every top-level
+     section, so the gap at a boundary is always 2 x --sec and never the
+     sum of a wrapper's padding and the block's own. Before this the page
+     carried six distinct top paddings and nine bottom ones, because
+     several sections wore an inline `padding-block: 60px` on top of a
+     component that already had its own clamp. The worst adjacency
+     measured 277px of dead space against 60px elsewhere.
+
+     --sec-half is the intra-section step: intro to body, strip padding,
+     carousel slide padding. Deriving it keeps the two in proportion at
+     every width rather than drifting apart. */
+  --sec: clamp(56px, 5vw, 72px);
+  --sec-half: calc(var(--sec) / 2);
+
+  /* One reading measure. 1ch in Inter is about 1.14 average characters,
+     so 62ch lands at roughly 70 characters a line at any of the body
+     sizes on this page. .lead used to carry five different max-widths
+     (560px, 640px twice, 68ch, 800px) and the FAQ answers, the caveat
+     list and the timeline bodies ran at 85 to 123 characters. */
+  --measure: 62ch;
+
+  /* The one editorial corner radius. The page is otherwise a flat
+     hairline system; the 3px and 5px radii left in the file belong to
+     the dashboard mockup, which is imitating a real web app. */
+  --r: 4px;
 }
+
+/* Applied to every top-level section. -t and -b exist for the two places
+   where one section supplies the top of a pair and the next supplies the
+   bottom (the FAQ heading and its accordion). */
+.sec   { padding-block: var(--sec); }
+.sec-t { padding-top: var(--sec); }
+.sec-b { padding-bottom: var(--sec); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -95,7 +129,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 36px;
-  padding-block: clamp(44px, 6vw, 76px) clamp(36px, 4.5vw, 56px);
+  padding-block: var(--sec);
 }
 .avail { display: flex; align-items: center; gap: 12px; }
 .twoup {
@@ -105,7 +139,7 @@ h2 {
   width: 100%;
   margin-top: 10px;
 }
-.lead { max-width: 560px; font-size: 17px; line-height: 1.5; color: #2e2d2a; }
+.lead { max-width: var(--measure); font-size: 17px; line-height: 1.5; color: #2e2d2a; }
 .note { font: 400 14px/1.5 var(--mono); color: #5f5d58; }
 
 .rule { border-bottom: 1px solid var(--rule); }
@@ -117,7 +151,7 @@ h2 {
   border-bottom: 1px solid var(--rule);
 }
 .stats .s {
-  padding: 32px var(--pad);
+  padding: var(--sec-half) var(--pad);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -132,13 +166,15 @@ h2 {
   color: var(--accent);
 }
 
-/* Intro Header */
+/* Intro Header. The top space belongs to the section wrapper (.sec), not
+   to the intro, or the two stack. The intro only owns the step down to the
+   body it introduces. */
 .intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  padding-block: clamp(40px, 4.5vw, 60px) clamp(20px, 2vw, 28px);
+  padding-block: 0 var(--sec-half);
 }
 
 /* Projects Layout Section */
@@ -371,7 +407,7 @@ h2 {
 
 /* Dark Band (Homebase) Section */
 .dark { background: var(--ink); color: var(--on-dark); width: 100%; }
-.dark .inner { padding-block: 56px; display: flex; flex-direction: column; gap: 36px; }
+.dark .inner { padding-block: var(--sec); display: flex; flex-direction: column; gap: 36px; }
 .dark h2 { color: var(--on-dark); font-size: clamp(26px, 3.5vw, 44px); }
 .dark p { color: var(--on-dark-muted); }
 .dark .hb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; align-items: center; }
@@ -379,7 +415,7 @@ h2 {
 .hb-terminal {
   background: var(--card-dark);
   border: 1px solid var(--rule-dark);
-  border-radius: 8px;
+  border-radius: var(--r);
   padding: 18px;
   font-family: var(--mono);
   font-size: 11px;
@@ -400,8 +436,9 @@ h2 {
 .strip div:last-child { background: var(--accent); }
 .strip .k { font: 500 12px/1.5 var(--mono); color: var(--on-dark); }
 
-/* Timeline */
-.tl { padding-block: clamp(44px, 5.5vw, 70px); display: flex; flex-direction: column; gap: 32px; }
+/* Timeline. No padding of its own: its section wrapper carries .sec. The
+   two together were 130px top and bottom, the worst boundary on the page. */
+.tl { display: flex; flex-direction: column; gap: 32px; }
 .tl .rows { border-top: 1px solid var(--rule); }
 .tl .r {
   display: grid;
@@ -414,7 +451,7 @@ h2 {
 .tl .r:hover { background: rgba(240, 52, 25, 0.02); padding-left: 8px; }
 .tl .org { font-weight: 700; font-size: 15px; }
 .tl .role { font-size: 12px; color: #5f5d58; margin-top: 4px; font-family: var(--mono); }
-.tl .d { font-size: 15px; color: #2e2d2a; }
+.tl .d { font-size: 15px; color: #2e2d2a; max-width: var(--measure); }
 
 /* Capabilities */
 .caps { padding-block: clamp(44px, 5.5vw, 70px); display: flex; flex-direction: column; gap: 32px; }
@@ -438,7 +475,7 @@ h2 {
 
 /* CTA Section */
 .cta { background: var(--accent); color: var(--on-dark); width: 100%; }
-.cta .inner { padding-block: 64px 36px; display: flex; flex-direction: column; gap: 36px; }
+.cta .inner { padding-block: var(--sec) var(--sec-half); display: flex; flex-direction: column; gap: 36px; }
 .cta h2 { color: var(--on-dark); font-size: clamp(30px, 4.2vw, 52px); max-width: 22ch; }
 .cta .foot {
   border-top: 1px solid rgba(243,241,236,0.4);
@@ -774,3 +811,4 @@ select.input-box:focus-visible, input.input-box:focus-visible, .btn-save:focus-v
   .dupt tbody tr, .kpi i, .dupt-btn { transition: none; }
   .dupt-btn:hover { transform: none; }
 }
+

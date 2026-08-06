@@ -30,7 +30,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 48px;
-      padding-block: clamp(48px, 6vw, 72px);
       align-items: start;
     }
     .portrait-card {
@@ -40,7 +39,7 @@
     }
     .portrait-img-wrapper {
       background: #000000;
-      border-radius: 4px;
+      border-radius: var(--r);
       overflow: hidden;
       aspect-ratio: 3 / 4;
       display: flex;
@@ -71,7 +70,7 @@
       background: var(--accent);
       color: #ffffff;
       padding: 24px;
-      border-radius: 4px;
+      border-radius: var(--r);
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -127,14 +126,20 @@
       .cap-col { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
     }
 
-.faq-container { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.faq-container { display: flex; flex-direction: column; gap: 12px; margin-top: var(--sec-half); }
+    /* The card used to be pure #FFFFFF, which was a fifth surface on a page
+       whose whole vocabulary is cream, ink, accent and a hairline, and it read
+       noticeably cooler than everything around it. It is a hairline card on
+       the page's own ground now, the same treatment as .cs-fold and .hw-row.
+       The open item takes a faint accent wash so the state is still obvious. */
     .faq-item {
       border: 1px solid var(--rule);
-      background: #ffffff;
-      border-radius: 8px;
+      background: transparent;
+      border-radius: var(--r);
       overflow: hidden;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
+    .faq-item[open] { background: rgba(240, 52, 25, 0.025); }
     .faq-item:hover { border-color: var(--ink); }
     /* Native <details>, so the reveals work with JS disabled and are keyboard
        operable. The list-style resets remove the default disclosure triangle
@@ -148,7 +153,7 @@
       align-items: center;
       gap: 16px;
       user-select: none;
-      background: #ffffff;
+      background: transparent;
       list-style: none;
     }
     .faq-item > summary::-webkit-details-marker { display: none; }
@@ -168,14 +173,19 @@
       font-size: 16px;
       line-height: 1.6;
       color: #2e2d2a;
-      border-top: 1px solid #f1f5f9;
+      /* The divider was #f1f5f9, a cool near-white borrowed from the
+         dashboard mockup's palette. It was invisible on white and would be
+         wrong on cream. */
+      border-top: 1px solid var(--rule);
     }
+    /* The answers ran the full 1120px band, about 120 characters a line. */
+    .faq-answer p { max-width: var(--measure); }
     @media (prefers-reduced-motion: reduce) {
       .faq-item, .faq-item .toggle-icon { transition: none; }
     }
-    .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: 40px; border-radius: 8px; margin-top: 40px; }
+    .honest-caveats { background: var(--card-dark); color: var(--on-dark); padding: clamp(24px, 3vw, 40px); border-radius: var(--r); margin-top: var(--sec-half); }
     .honest-caveats h3 { font: 700 24px var(--display); color: var(--on-dark); }
-    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .honest-caveats ul { margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; max-width: var(--measure); }
     .honest-caveats li { color: var(--on-dark-muted); font-size: 15px; }
 
     /* Hero credibility strip. Display face rather than the mono label, because at
@@ -309,7 +319,7 @@
     .footnow {
       font: 400 14px/1.6 var(--body);
       color: #5f5d58;
-      max-width: 62ch;
+      max-width: var(--measure);
       margin-bottom: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid var(--rule);
@@ -580,7 +590,7 @@
       grid-column: 2;
       font: 400 15px/1.6 var(--body);
       color: #2e2d2a;
-      max-width: 84ch;
+      max-width: var(--measure);
     }
     .hw-ev-tag {
       font: 600 12px/1 var(--mono);
@@ -614,79 +624,119 @@
     }
     /* ------------------------------------------------------------------
        SELECTED WORK CAROUSEL
-       One case study on screen at a time. Narrative left, the numbers and
-       the lesson box right, so the proof is never behind a click. This
-       replaced three stacked <details> folds that nobody opened.
-       Progressive enhancement: without JS all three slides render stacked,
-       which is the old behaviour minus the folds.
+
+       ONE SHAPE, three slides. Switching used to change the geometry as
+       well as the content, because the three slides were three different
+       templates: two of them were narrative-over-a-two-column-demo and the
+       third was narrative-beside-an-image. Every slide is now
+
+           row 1   narrative (col 1)   |   the primary visual (col 2)
+           row 2   the interactive payload, prose left, widget right
+                   (slides 1 and 2 only; slide 3 is deliberately just row 1)
+
+       so NEXT changes what you read and not where anything is.
+
+       The slide itself is the grid. .cw-main, .cw-demo and .cw-demo-grid are
+       wrappers with no layout job left, so they are taken out of the box tree
+       with display: contents and their children land directly in the slide's
+       two columns. That is what lets slide 1's dashboard sit beside the
+       narrative while its dedup table sits in the band below, without moving
+       a single line of markup, and it means all four blocks share one gutter
+       instead of three grids each computing their own.
+
+       Progressive enhancement is unchanged: with JS off every slide is a
+       plain grid and all three render stacked.
     ------------------------------------------------------------------ */
     .cw { position: relative; }
-    .cw-slide { border-top: 1px solid var(--rule); padding-block: clamp(28px, 3vw, 40px); }
-    .cw-main {
+    .cw-slide {
+      border-top: 1px solid var(--rule);
+      padding-block: var(--sec-half);
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: clamp(28px, 4vw, 56px);
+      column-gap: clamp(28px, 4vw, 56px);
+      row-gap: var(--sec-half);
       align-items: start;
     }
-    /* The metrics column is gone from slides 1 and 2. Rather than leave half the
-       grid empty, a .cw-left with no sibling spans the row and holds a reading
-       measure of its own. Self-healing: add or remove a right-hand column and the
-       layout follows, no extra class to remember. */
-    .cw-main > .cw-left:only-child { grid-column: 1 / -1; max-width: 74ch; }
+    .cw-main, .cw-demo, .cw-demo-grid { display: contents; }
+    .cw-left { grid-column: 1; grid-row: 1; }
+    /* The visual slot. .cw-right is slide 3's; the other two reach into what
+       used to be the demo row for theirs. */
+    .cw-right,
+    .cw-demo-grid > .shot,
+    .cw-demo-grid > .frame { grid-column: 2; grid-row: 1; }
+
     .cw-org { font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; margin-top: 10px; }
     .cw-title { font: 800 clamp(26px, 3vw, 38px)/1.08 var(--display); letter-spacing: -.02em; margin-top: 6px; }
-    .cw-body { font: 400 16.5px/1.6 var(--body); color: #2e2d2a; margin-top: 16px; max-width: 62ch; }
-    .cw-left .tags { margin-top: 18px; }
-    .cw-left .btnrow { margin-top: 18px; }
+    .cw-body { font: 400 16.5px/1.6 var(--body); color: #2e2d2a; margin-top: 16px; max-width: var(--measure); }
+    /* The tech line belongs to the copy above it, not to the button below it.
+       At 18/18 it did not read that way: .cw-body's 1.6 line height leaves
+       about 5px of half-leading under its last baseline and .m's 1.2 leaves
+       about 1px, so an equal pair of margins came out 24px above and 19px
+       below. 14/20 puts roughly 20px on both sides. */
+    .cw-left .tags { margin-top: 14px; color: #5f5d58; font-size: 11px; }
+    .cw-left .btnrow { margin-top: 20px; }
+    /* .proj .tags carries the muted colour in styles.css and the carousel has
+       no .proj ancestor, so .tags fell back to .m's ink. On the cream slides
+       that was merely too loud; on the ink Homebase slide the whole line
+       (VOICE AGENT / DETERMINISTIC TEMPLATE / FIRESTORE) was invisible. */
+    .cw-dark .cw-left .tags { color: #8a8a85; }
 
-    .cw-metrics { display: flex; flex-direction: column; }
-    .cw-met {
-      display: grid; grid-template-columns: minmax(88px, auto) minmax(0, 1fr);
-      gap: 4px 18px; align-items: baseline;
-      padding: 13px 0; border-bottom: 1px solid var(--rule);
+    /* The payload band. Same two columns and the same gutter as row 1, so the
+       column line runs unbroken down the slide: prose on the left under the
+       narrative, the working widget on the right under the visual. */
+    .cw-demo-run {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(28px, 4vw, 56px);
+      row-gap: 14px;
+      align-items: start;
     }
-    .cw-met:first-child { padding-top: 0; }
-    .cw-met dt { font: 800 clamp(20px, 2vw, 26px)/1 var(--display); letter-spacing: -.02em; color: var(--accent); }
-    .cw-met dd { font: 400 15px/1.45 var(--body); color: #2e2d2a; }
+    .cw-demo-run > .dupt-lead   { grid-area: 1 / 1; margin-bottom: 0; }
+    .cw-demo-run > .dupt-wrap   { grid-area: 1 / 2; margin-top: 0; }
+    .cw-demo-run > .hb-terminal { grid-area: 1 / 2; }
+    .cw-demo-run > .dupt-note   { grid-area: 2 / 1; margin-top: 0; }
+    .cw-demo-run > .dupt-bar    { grid-area: 2 / 2; margin-top: 0; }
 
-
-    .cw-demo { margin-top: clamp(26px, 3vw, 38px); }
-    .cw-demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
-    .cw-demo-grid.one { grid-template-columns: minmax(0, 1fr); }
-    /* .shot's dark surface is declared as ".proj .shot" in styles.css and the
-       carousel has no .proj ancestor, so it arrived transparent and the cue,
-       which is coloured for a dark ground, went invisible on cream. */
-    .cw-right-img .shot {
-      background: var(--ink); min-height: 0; padding: 18px;
-      display: flex; align-items: center; justify-content: center;
+    /* One mount for all three visuals: the same ink panel and the same
+       padding, so the mockup, the concept page and the catalog read as three
+       instances of one object rather than three different treatments. */
+    .cw-right-img .shot,
+    .cw-demo-grid > .shot,
+    .cw-demo-grid > .frame {
+      background: var(--ink);
+      min-height: 0;
+      padding: clamp(14px, 1.6vw, 22px);
+      display: flex; flex-direction: column; gap: 16px;
+      align-items: center; justify-content: center;
+      box-sizing: border-box;
+    }
+    /* An ink mount is invisible on the ink slide, so Homebase's gets the card
+       surface and a hairline instead. */
+    .cw-dark .cw-demo-grid > .frame {
+      background: var(--card-dark);
+      border: 1px solid var(--rule-dark);
     }
     .cw-right-img .shot-img { width: 100%; height: auto; max-height: none; }
-    .cw-demo-grid .shot-link { width: 100%; }
+    .cw-demo-grid .shot-link, .cw-right-img .shot-link { width: 100%; }
     .cw-demo-grid .shot-img {
       width: 100%; height: auto; max-height: 420px;
       object-fit: contain; object-position: center;
-    }
-    .cw-demo-grid .frame { width: 100%; }
-    .cw-demo-grid .shot, .cw-demo-grid .shot.fit {
-      min-height: 0;
-      background: var(--ink);
-      display: flex; flex-direction: column; gap: 16px;
-      align-items: center; justify-content: center;
-      padding: 22px; box-sizing: border-box;
     }
     .dupt-lead { font: 400 14.5px/1.6 var(--body); color: #2e2d2a; margin-bottom: 12px; }
 
     /* The Homebase slide keeps the dark treatment it had as a band. */
     .cw-dark { background: var(--ink); color: var(--on-dark); margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); border-top-color: var(--rule-dark); }
     .cw-dark .cw-org { color: #a3a3a3; }
-    .cw-dark .cw-body, .cw-dark .cw-met dd { color: var(--on-dark-muted); }
-    .cw-dark .cw-met { border-bottom-color: var(--rule-dark); }
+    .cw-dark .cw-body { color: var(--on-dark-muted); }
     .cw-dark .dupt-lead.light { color: var(--on-dark-muted); }
 
-    /* Transport */
+    /* Transport. The hairline sits half a section step below the slide and the
+       controls half a step under that, which is the same 36/36 the intro and
+       the first slide's border already use at the top of the carousel. */
     .cw-bar {
       display: flex; align-items: center; gap: 12px 18px; flex-wrap: wrap;
-      margin-top: 4px; padding: 20px 0 4px; border-top: 1px solid var(--rule);
+      margin-top: 0; padding: var(--sec-half) 0 0; border-top: 1px solid var(--rule);
     }
     /* NEXT is the primary action here. As a hairline button beside PREV it read
        as a pair of equal minor controls and readers scrolled past the whole bar
@@ -716,15 +766,38 @@
     .cw-num:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .cw-upnext { margin-left: auto; text-align: right; font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #5f5d58; }
 
-    /* JS-on: one slide at a time */
+    /* JS-on: one slide at a time. grid, not block: the slide IS the layout. */
     .cw.is-carousel > .cw-track > .cw-slide { display: none; }
-    .cw.is-carousel > .cw-track > .cw-slide.on { display: block; animation: cs-in 380ms ease both; }
+    .cw.is-carousel > .cw-track > .cw-slide.on { display: grid; animation: cs-in 380ms ease both; }
     @media (prefers-reduced-motion: reduce) { .cw.is-carousel > .cw-track > .cw-slide.on { animation: none; } }
 
+    /* The three slides are not the same height and never will be, because
+       slide 3 is deliberately half a slide. The track eases between the
+       outgoing and the incoming height instead of snapping, which is the
+       same treatment .log.is-stepper already uses in the hero. script.js
+       drives it: on switch, set .cw-track's height to the measured outgoing
+       height, add .is-sizing, set the incoming height, then clear both on
+       transitionend. With no JS touching it the height stays auto and this
+       rule does nothing. */
+    .cw-track { transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .cw-track.is-sizing { overflow: hidden; }
+    @media (prefers-reduced-motion: reduce) { .cw-track { transition: none; } }
+
     @media (max-width: 900px) {
-      .cw-main, .cw-demo-grid { grid-template-columns: minmax(0, 1fr); }
-      .cw-upnext { margin-left: 0; flex-basis: 100%; }
-      .cw-met { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 11px 0; }
+      /* One column, source order, with the visual pulled up to sit directly
+         under the narrative it illustrates and the payload band last. */
+      .cw-slide { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+      .cw-left, .cw-right,
+      .cw-demo-grid > .shot, .cw-demo-grid > .frame { grid-column: 1; grid-row: auto; }
+      .cw-demo-run { grid-column: 1; grid-template-columns: minmax(0, 1fr); row-gap: 12px; order: 1; }
+      .cw-demo-run > .dupt-lead, .cw-demo-run > .dupt-wrap,
+      .cw-demo-run > .hb-terminal, .cw-demo-run > .dupt-note,
+      .cw-demo-run > .dupt-bar { grid-area: auto; }
+      .cw-upnext { margin-left: 0; flex-basis: 100%; text-align: left; order: 3; }
+      /* NEXT is the primary action, so on a phone it gets its own full-width
+         row instead of being pushed to a third line under a right-aligned
+         caption, which is where flex-basis on .cw-upnext used to put it. */
+      .cw-btn.cw-next { order: 2; flex: 1 0 100%; }
     }
 
   </style>
@@ -815,7 +888,7 @@
 
     <div id="about" class="anchor"></div>
 <!-- About Hero Section -->
-    <section class="band pad rule">
+    <section class="band pad rule sec">
       <div class="about-hero-grid">
         <!-- Left: Portrait Photo (Cropped Black Background) -->
         <div class="portrait-card">
@@ -844,11 +917,11 @@
     </section>
 
 <!-- How I Work Section -->
-    <section class="band pad rule" style="padding-block: 60px;">
-      <div class="intro" style="padding-block: 0 28px;">
+    <section class="band pad rule sec">
+      <div class="intro">
         <p class="m red">HOW I WORK</p>
         <h2>I need to know what everyone else's job actually is.</h2>
-        <p class="lead" style="max-width: 68ch;">Not out of curiosity. If I do not know what lands on somebody else's desk and what they are waiting on, I cannot tell why my own work has stopped moving. So I go and ask, and the answer is rarely what the situation looked like from the outside. It is slow, and on the tracker it is most of the reason the thing got used.</p>
+        <p class="lead">Not out of curiosity. If I do not know what lands on somebody else's desk and what they are waiting on, I cannot tell why my own work has stopped moving. So I go and ask, and the answer is rarely what the situation looked like from the outside. It is slow, and on the tracker it is most of the reason the thing got used.</p>
       </div>
 
       <!-- Three corrections, each one a read I had to change in the field.
@@ -902,7 +975,7 @@
     </section>
 
 <!-- Career Path Section -->
-    <section class="band pad rule" style="padding-block: 60px;">
+    <section class="band pad rule sec">
       <div class="tl">
         <div>
           <p class="m red">CAREER PATH</p>
@@ -953,16 +1026,17 @@
       </div>
     </section>
 
-<!-- Selected Work: carousel -->
-    <div class="band pad">
+<!-- Selected Work: the intro and the carousel are one section, so the top
+     space is on the wrapper and the bottom space is under the transport. -->
+    <div class="band pad sec-t">
       <div class="intro">
         <p class="m red">SELECTED WORK / 2024&ndash;2026</p>
         <h2>Three systems. Three different kinds of broken input.</h2>
-        <p class="lead" style="max-width:640px;margin-top:10px">One at a time. Use the arrows or the numbers to move through all three.</p>
+        <p class="lead" style="margin-top:10px">One at a time. Use the arrows or the numbers to move through all three.</p>
       </div>
     </div>
 
-    <div class="band pad">
+    <div class="band pad sec-b">
       <div class="cw" id="cw">
         <div class="cw-track">
       <article class="cw-slide" id="cs-1" data-n="1">
@@ -1208,10 +1282,10 @@
           <div>
             <p class="m light">FIELD NOTES</p>
             <h2 style="margin-top:16px;max-width:22ch">They do not work for the brand. They work for you.</h2>
-            <p class="lead light" style="margin-top:14px;max-width:52ch;opacity:.75">Adoption is won on trust, long before anyone sees a feature.</p>
+            <p class="lead light" style="margin-top:14px;opacity:.75">Adoption is won on trust, long before anyone sees a feature.</p>
           </div>
 
-          <div class="cs" style="max-width: 720px">
+          <div class="cs" style="max-width: var(--measure)">
             <p>I had 55 beauty advisors under me and I was responsible for their salaries, their commissions, and whether they were motivated enough to get through a shift. That last one is not a soft thing. If somebody on that floor is having a bad month their sales change, and that changes my numbers. You feel it inside a week.</p>
             <p>People join because they love the brand. They do not go above and beyond because of it. They work for the person in front of them, and if they trust that person they will try something new. If they do not, they will do exactly what the job description asks and nothing more. Nobody stays late for a logo.</p>
             <p>Which is why I think adoption is decided before the product is opened, not inside it.</p>
@@ -1226,18 +1300,19 @@
 
     <div id="faq" class="anchor"></div>
 <!-- FAQ Hero -->
-    <section class="band pad rule">
-      <div class="hero-section" style="padding-block: 60px 40px;">
+    <section class="band pad rule sec-t">
+      <div class="intro">
         <p class="m red">QUESTIONS &amp; CAVEATS</p>
         <h2>Your questions answered directly.</h2>
-        <p class="lead" style="max-width: 800px; margin-top: 10px;">
+        <p class="lead" style="margin-top: 10px;">
           The questions that come up when someone reads this site, including what the AI work in these projects actually is.
         </p>
       </div>
     </section>
 
-<!-- FAQ Interactive Accordion Section -->
-    <section class="band pad" style="padding-block: 60px;">
+<!-- FAQ Interactive Accordion Section. Same section as the heading above it:
+     that one supplies the top space, this one the bottom. -->
+    <section class="band pad sec-b">
       <div class="faq-container">
 
         <details class="faq-item" open>
