@@ -48,7 +48,9 @@ undo them while chasing a visual or a quick edit.
    not use the words **"hackathon"** or **"two person team"**: Duaa asked for both gone. The
    facts stay in `context.md`, and the honesty is carried by what remains on the page (three
    and a half hours, six collections, no production usage, compliance layer only specified).
-   Do not put either phrase back while tidying copy.
+   Do not put either phrase back while tidying copy. She then asked for **"early prototype"**
+   gone too, so the copy now applies **no label at all**: it states what was done and lets the
+   reader judge. Do not reach for a replacement noun.
 4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
    private, so it 404s for every visitor. It was live on the site and in all three
    résumés before this was caught.

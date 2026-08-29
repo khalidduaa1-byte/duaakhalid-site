@@ -148,11 +148,12 @@ study. Every item here is from Duaa directly.
 
 ### Homebase
 - **Wording rule (2026-08-29):** Duaa asked for the words "hackathon" and "two person team" off the
-  site. The underlying facts below are unchanged and stay in this sheet, but site copy says "early
-  prototype" instead of "hackathon build" and does not state the team size. The honesty guardrails
-  are carried by the facts that remain visible: about three and a half hours of build, six
-  Firestore collections, no production usage, RERA compliance layer specified rather than shipped.
-  Do not reintroduce either phrase into `index.html`.
+  site, then for "early prototype" as well. The underlying facts below are unchanged and stay in
+  this sheet, but the site now applies **no label at all** to what Homebase is. It states what was
+  done and lets the reader judge: "It was built in about three and a half hours, over six Firestore
+  collections. No production usage, so there is no impact number here and I am not going to invent
+  one." That, plus the RERA compliance layer being described as specified rather than shipped,
+  carries the whole of non-negotiable #3. Do not reach for a replacement noun.
 - Context: Co-founded, two person team
 - What it is: A fixed format context block that a voice agent uses to dispatch maintenance vendors. Deterministic template by default, model behind an opt-in flag.
 - Problem: Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.
