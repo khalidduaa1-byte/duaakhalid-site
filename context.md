@@ -147,6 +147,12 @@ study. Every item here is from Duaa directly.
     - A defect, disclosed and then fixed: the catalog's availability counter could show 0 items available instead of the real count. **Fixed, confirmed 2026-08-06.** The served page carries `<b id="navail">0</b>` as a pre-script placeholder and the inline script sets it from the data: `document.getElementById('navail').textContent = DATA.filter(d=>!d.sold).length`. The embedded data holds 32 rows, 21 sold, 11 unsold, so a visitor sees 11. That count also independently confirms the "sheet says 21 of 32" caveat above, from the live data. The site keeps the entry and marks it fixed rather than deleting it, because the disclosure-then-fix cycle is worth more than a clean list.
 
 ### Homebase
+- **Wording rule (2026-08-29):** Duaa asked for the words "hackathon" and "two person team" off the
+  site. The underlying facts below are unchanged and stay in this sheet, but site copy says "early
+  prototype" instead of "hackathon build" and does not state the team size. The honesty guardrails
+  are carried by the facts that remain visible: about three and a half hours of build, six
+  Firestore collections, no production usage, RERA compliance layer specified rather than shipped.
+  Do not reintroduce either phrase into `index.html`.
 - Context: Co-founded, two person team
 - What it is: A fixed format context block that a voice agent uses to dispatch maintenance vendors. Deterministic template by default, model behind an opt-in flag.
 - Problem: Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.

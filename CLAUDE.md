@@ -42,9 +42,13 @@ undo them while chasing a visual or a quick edit.
    The hero, the meta description and the OG tags must all stay clear of this. A role
    descriptor (`AI Product + GTM`, "open to forward-deployed AI roles") is fine and
    intended: it names what she is targeting, not what her projects contain.
-3. **Homebase is not a shipped product.** A hackathon build, roughly 3.5 hours, a CRUD app
-   over six Firestore collections with no auth and test-mode rules. The RERA compliance
-   layer is **specified, not shipped**. Never label it "live product".
+3. **Homebase is not a shipped product.** Roughly 3.5 hours of build, a CRUD app over six
+   Firestore collections with no auth and test-mode rules. The RERA compliance layer is
+   **specified, not shipped**. Never label it "live product". As of 2026-08-29 the site does
+   not use the words **"hackathon"** or **"two person team"**: Duaa asked for both gone. The
+   facts stay in `context.md`, and the honesty is carried by what remains on the page (three
+   and a half hours, six collections, no production usage, compliance layer only specified).
+   Do not put either phrase back while tidying copy.
 4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
    private, so it 404s for every visitor. It was live on the site and in all three
    résumés before this was caught.
