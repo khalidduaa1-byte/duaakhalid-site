@@ -147,18 +147,30 @@ study. Every item here is from Duaa directly.
     - A defect, disclosed and then fixed: the catalog's availability counter could show 0 items available instead of the real count. **Fixed, confirmed 2026-08-06.** The served page carries `<b id="navail">0</b>` as a pre-script placeholder and the inline script sets it from the data: `document.getElementById('navail').textContent = DATA.filter(d=>!d.sold).length`. The embedded data holds 32 rows, 21 sold, 11 unsold, so a visitor sees 11. That count also independently confirms the "sheet says 21 of 32" caveat above, from the live data. The site keeps the entry and marks it fixed rather than deleting it, because the disclosure-then-fix cycle is worth more than a clean list.
 
 ### Homebase
-- **Wording rule (2026-08-29):** Duaa asked for the words "hackathon" and "two person team" off the
-  site, then for "early prototype" as well. The underlying facts below are unchanged and stay in
-  this sheet, but the site now applies **no label at all** to what Homebase is. It states what was
-  done and lets the reader judge: "It was built in about three and a half hours, over six Firestore
-  collections. No production usage, so there is no impact number here and I am not going to invent
-  one." That, plus the RERA compliance layer being described as specified rather than shipped,
-  carries the whole of non-negotiable #3. Do not reach for a replacement noun.
+- **Wording rules (2026-08-29).** Four things came off the slide in one session, in this order:
+  "hackathon", "two person team", "early prototype", and then the build-hours figure together with
+  the "no production usage, so there is no impact number here and I am not going to invent one"
+  sentence, which Duaa judged badly written. The facts stay in this sheet; the site no longer
+  states any of them. **Do not put any of the four back**, and in particular do not reach for a
+  replacement noun for what Homebase "is": the copy deliberately names no category.
+- **How non-negotiable #3 is carried now.** Not by a disclaimer any more, but by silence on
+  metrics. The slide claims **no usage figure, no impact number, no compliance capability**. That
+  is what keeps it honest, so the rule to enforce is now negative: nothing may be added to this
+  slide that asserts scale, outcome, or RERA compliance. The concept page's own invented stats
+  (below) stay cropped out for the same reason.
+- **Launch (2026-08-29, reported by Duaa in conversation, not verified in this repo).** It launched
+  with a UAE proptech partner. The deployment did not continue; the reason she gave is regional and
+  is deliberately **not** on the site, in the same spirit as non-negotiable #12. The site says only
+  "it launched with a UAE proptech partner", past tense, naming nobody. **The partner is not named
+  on the site**, by her choice, the same call as the field sales vendor in non-negotiable #11.
+- **NYC expansion: deliberately off the site.** She plans to expand it in NYC. It is a plan, not a
+  shipped thing, and the page's whole property is that it claims only what exists. Asked and
+  answered 2026-08-29: leave it off. Do not add it as a "what's next" line.
 - Context: Co-founded, two person team
 - What it is: A fixed format context block that a voice agent uses to dispatch maintenance vendors. Deterministic template by default, model behind an opt-in flag.
 - Problem: Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.
 - Her role: Co-founder. Owned problem framing and the UAE rental regulation model the product was built around, including RERA bands, the 90 day notice rule, Ejari sequencing and the bilingual requirement.
-- Outcome: A hackathon build with no production usage, so there is no impact number to claim. What is worth defending is the architecture.
+- Outcome: Launched with a UAE proptech partner, then did not continue. No usage or impact figure is recorded anywhere, so none is claimed. What is worth defending is the architecture.
 - Link (Concept page): https://homebase-labs.lovable.app/
 - Do not link `https://github.com/bm2515/homebase`. It is the co-founder's repo, it is private, and it 404s for every visitor.
 - The concept page advertises impact stats ("98% tenant satisfaction", "<2s response time", "94% faster issue resolution") for a build with no production usage. Those figures are not repeated on the site, and the committed screenshot is cropped above them.

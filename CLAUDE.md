@@ -42,15 +42,20 @@ undo them while chasing a visual or a quick edit.
    The hero, the meta description and the OG tags must all stay clear of this. A role
    descriptor (`AI Product + GTM`, "open to forward-deployed AI roles") is fine and
    intended: it names what she is targeting, not what her projects contain.
-3. **Homebase is not a shipped product.** Roughly 3.5 hours of build, a CRUD app over six
-   Firestore collections with no auth and test-mode rules. The RERA compliance layer is
-   **specified, not shipped**. Never label it "live product". As of 2026-08-29 the site does
-   not use the words **"hackathon"** or **"two person team"**: Duaa asked for both gone. The
-   facts stay in `context.md`, and the honesty is carried by what remains on the page (three
-   and a half hours, six collections, no production usage, compliance layer only specified).
-   Do not put either phrase back while tidying copy. She then asked for **"early prototype"**
-   gone too, so the copy now applies **no label at all**: it states what was done and lets the
-   reader judge. Do not reach for a replacement noun.
+3. **Homebase claims nothing, and that is now the guardrail.** It is a CRUD app over six
+   Firestore collections with no auth and test-mode rules, and its RERA compliance layer is
+   **specified, not shipped**. On 2026-08-29 Duaa took four things off the slide in one
+   session: the words **"hackathon"** and **"two person team"**, then **"early prototype"**,
+   then the **build-hours figure** together with the "no production usage, so there is no
+   impact number here and I am not going to invent one" sentence, which she judged badly
+   written. All the facts stay in `context.md`. **Do not put any of the four back, and do not
+   reach for a replacement noun** for what Homebase "is": the copy names no category on
+   purpose. Honesty is now carried by **silence on metrics** rather than by a disclaimer, so
+   the rule is negative: never add anything to this slide asserting scale, outcome, usage, or
+   RERA compliance, and never label it "live product". It **launched with a UAE proptech
+   partner** and did not continue; the partner is **not named** (her call, same as #11), the
+   reason is **not on the site** (same spirit as #12), and the planned **NYC expansion stays
+   off** because it has not happened. See the Homebase block in `context.md` for all of it.
 4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
    private, so it 404s for every visitor. It was live on the site and in all three
    résumés before this was caught.
@@ -180,9 +185,11 @@ source order and the no-JS stacking all still work.
 duplicates removed", "18 advisors daily, none required to" and "2 days". They measured the
 pipeline's own hygiene rather than anything Duaa did, they led with the smallest number so the
 first impression was a small dataset, and the first three were already stated twice more on the
-same slide. Homebase's four went the same way, but its honest ones (three and a half hours, six
-Firestore collections, **no production usage**) moved into the body copy and must stay there under
-non-negotiable #3. **Do not add metrics columns back.**
+same slide. Homebase's four went the same way. Its honest ones moved into the body copy, and on
+2026-08-29 **all of them came out again except the six Firestore collections**, at Duaa's request.
+Slide 02 now carries no figure other than that one. See non-negotiable #3: the absence is the
+guardrail, so do not restore the build hours or a usage line either. **Do not add metrics columns
+back.**
 
 ### The slides are different heights, and that is animated, not fixed
 
