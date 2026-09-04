@@ -42,9 +42,26 @@ undo them while chasing a visual or a quick edit.
    The hero, the meta description and the OG tags must all stay clear of this. A role
    descriptor (`AI Product + GTM`, "open to forward-deployed AI roles") is fine and
    intended: it names what she is targeting, not what her projects contain.
-3. **Homebase is not a shipped product.** A hackathon build, roughly 3.5 hours, a CRUD app
-   over six Firestore collections with no auth and test-mode rules. The RERA compliance
-   layer is **specified, not shipped**. Never label it "live product".
+3. **Homebase is a company now, and the claim is "signed, pilot rolling out", not "in
+   production".** This rule was inverted on 2026-09-04 and the history matters. It began as
+   "Homebase is not a shipped product": a hackathon build, roughly 3.5 hours, a CRUD app over
+   six Firestore collections with no auth and test-mode rules. On that basis the slide carried
+   "No production usage, so there is no impact number here and I am not going to invent one."
+   Duaa's reaction to seeing it live was "oh my goddd noo ... dont say that please". She is
+   right, and the facts had moved: Homebase Labs is her current role, co-founder for product
+   and GTM from Feb 2026, and a **UAE enterprise property manager of more than ten thousand
+   units is signed as the first enterprise client with the pilot rolling out**.
+   - **Do not name the client.** She chose the anonymised form deliberately.
+   - **Do not upgrade "pilot rolling out" to "in production", "live" or "shipped"** without
+     her saying so. Signed and piloting is not the same as production usage, and the whole
+     value of this site is that it does not round that gap up.
+   - The RERA compliance layer is still **specified, not shipped**, and the `#faq` limitations
+     answer still says so. The résumé's "encoded the domain into the system" is about the model
+     the product is designed around, which is not the same as the layer being built. Left as
+     the conservative claim until she confirms otherwise.
+   - **The 3.5 hours and the six collections are still true of the original build.** The hours
+     are gone from the page because they now undersell a company with a signed client. Six
+     collections stayed, because it is architecture rather than a status claim.
 4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
    private, so it 404s for every visitor. It was live on the site and in all three
    résumés before this was caught.

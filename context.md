@@ -222,6 +222,21 @@ ago and she is spending August with him and her family before leaving. Everythin
 is going into the move. Reading only PM books at the moment, nothing for pleasure. Nervous about
 the unknown. Update or remove this once it stops being true.
 
+## Status update, 2026-09-04
+Source: Duaa's own `siteupdateplan.md` and the Solutions Architect resume she supplied.
+
+- **Homebase Labs is her current role.** Co-founder, product and GTM, New York, from Feb 2026.
+  A **UAE enterprise property manager of more than 10,000 units** is signed as the first
+  enterprise client, pilot rolling out. **Never name the client.** Published on the case-study
+  slide and as the top entry of the career timeline. The old "no production usage" line is
+  gone; see non-negotiable #3 for why and for what must not be upgraded.
+- **Cornell is now in progress, not upcoming.** Started Aug 2026, **expected May 2027**. The
+  site said "Cornell Tech, August 2026" and "in August 2026 I start", both of which read as
+  upcoming after the date passed. Recruiters filter on graduation month, not start date.
+- **`Sales_management` is public**, last pushed 2026-09-01, verified 2026-09-04. The resume
+  links it and the link resolves. Re-check before any future resume swap, because a dead repo
+  link is exactly the failure that non-negotiable #4 exists to prevent.
+
 ## Open, do not publish until Duaa confirms
 Conflicts between this file, the live site, and the 2026-08-06 interview. Each blocks only the
 specific claim it touches.
@@ -254,6 +269,28 @@ lost, deliberately absent from the page.
 2. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
    for. This file documents a dresser at 1,100 that cost 499 and a dining table at 1,499 that was
    2,100 with chairs. The site uses the dresser. The sofa is not published.
+
+3. **The 6x is unsourced and is live on the site.** "6x SALES GROWTH ON MY ACCOUNT, 18 MONTHS"
+   in the stat row and "grew roughly 6x in eighteen months" in the D&G timeline entry. Duaa's
+   own 2026-09-04 review could not verify it against the SISO R2-2026 planning file. What that
+   file supports for her 13-account portfolio is **sell-in +48.4% and sell-out +43.2%, 2025 vs
+   2024**, and the portfolio holding **+7% in Jan to Jul 2026 while accounts outside her book
+   fell 18.7%**. The only 6x anywhere in the file is **one account, 2023 to 2025, 6.2x**, which
+   is about 24 months and not 18. **Her new resume has already dropped the 6x** in favour of
+   48% and 43%, so the site and the resume it links to now disagree about the headline
+   achievement. Needs her answer on which account and which window. If it is the 2023 to 2025
+   account, the honest label is "6x on my largest account, 2023 to 2025" and **it still cannot
+   name the market**, per non-negotiable #12's sibling rule about Egypt.
+4. **Tracker headcount, 18 vs 25.** 25 onboarded to date is current. **18 is the cohort behind
+   the 1,324 / 0 rejected / 29 removed figures**, so 18 must stay wherever those row numbers
+   appear. 19 were active in the 3 June 2026 snapshot and are still not published. The site
+   currently says 18 throughout, including the caveat "18 live, about 20 onboarded" and the
+   FAQ limitations answer's "the largest user base here is eighteen people". Changing it is a
+   four-place edit, not a find and replace, and the replacement wording must be short: Duaa has
+   rejected long caveat sentences before.
+5. **The now-note is stale.** It is headed "NOW, AUGUST 2026" and describes packing up Dubai and
+   spending August with family before leaving. She is in New York at Cornell now. Do not invent
+   a replacement.
 
 ## Contact
 - Email: dk947@cornell.edu
