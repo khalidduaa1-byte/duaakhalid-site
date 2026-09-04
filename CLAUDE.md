@@ -52,10 +52,17 @@ undo them while chasing a visual or a quick edit.
    reach for a replacement noun** for what Homebase "is": the copy names no category on
    purpose. Honesty is now carried by **silence on metrics** rather than by a disclaimer, so
    the rule is negative: never add anything to this slide asserting scale, outcome, usage, or
-   RERA compliance, and never label it "live product". It **launched with a UAE proptech
-   partner** and did not continue; the partner is **not named** (her call, same as #11), the
-   reason is **not on the site** (same spirit as #12), and the planned **NYC expansion stays
-   off** because it has not happened. See the Homebase block in `context.md` for all of it.
+   RERA compliance, and never label it "live product". **It ran a pilot with a UAE real
+   estate company**, and that is the ceiling of the claim. Corrected 2026-09-04, in Duaa's
+   words: "we only did pilot with the real estate company". Two things were wrong before.
+   **"Launched with"** overstated a pilot, and **"proptech partner"** named the wrong kind of
+   counterparty: it was the customer, a real estate company, not a technology partner. The
+   pilot did not continue; the company is **not named** (her call, same as #11), the reason is
+   **not on the site** (same spirit as #12), and the planned **NYC expansion stays off**
+   because it has not happened. **Do not upgrade "ran a pilot" to launched, deployed, live,
+   in production, or a signed client**, and do not attach the client's portfolio size: her own
+   September plan and résumé say "10,000+ units" and "sold into an enterprise client", which a
+   pilot does not support. See the Homebase block in `context.md` for all of it.
 4. **Never link `github.com/bm2515/homebase`.** It is the co-founder's repo and it is
    private, so it 404s for every visitor. It was live on the site and in all three
    résumés before this was caught.
@@ -74,9 +81,15 @@ undo them while chasing a visual or a quick edit.
     the nav item count or the header padding and you must re-measure both, or sections land
     underneath the sticky header. Verified with a real browser at 1440px and 390px.
 11. **Never name the field-sales vendor, and never publish its contract value.** The build-vs-buy
-   story is the spine of case study 01 and of `/notes`, and it is told as "the field sales
+   story is the spine of case study 01 and of `#notes`, and it is told as "the field sales
    platform we already licensed". Naming a vendor her employer contracts with, and publishing
    what they paid, are both out. Decided 2026-08-06.
+   **What the replacement costs is a different thing and is now published**, at Duaa's request
+   on 2026-09-04: **about $2.40 per user a month on paid tiers, and nothing at the volume
+   actually needed**. That is her own infrastructure bill, not the vendor's pricing, and the
+   contrast against a per-seat licence is the whole build-vs-buy argument. It appears on the
+   tracker slide, in the rollout stepper's first step, and in the FAQ. Publishing what the
+   vendor charged is still out.
 12. **Never say AI was blocked, restricted or banned, at any level.** This rule got stricter
     twice. It began as "never attribute it to a named employer", then the industry-level version
     ("an industry that blocks AI on employee laptops") ran as the hero for a while. On

@@ -63,7 +63,11 @@ study. Every item here is from Duaa directly.
 - **The manual state:** advisors sent daily sales over WhatsApp and she retyped them into Excel.
 - **Build vs buy.** The company already licensed a field-sales platform. It worked for the large
   markets and not for hers. Loading a monthly target meant emailing the vendor's IT team and
-  waiting. The dashboard did not show what she needed. The per-seat cost could not be justified
+  waiting. The dashboard did not show what she needed. **The replacement runs at about $2.40 per
+  user a month on paid tiers and nothing at the volume actually needed**, which is now published
+  on the tracker slide, in the rollout stepper and in the FAQ (source: her Solutions Architect
+  resume, authorised for the site 2026-09-04). That is her own infrastructure bill; what the
+  vendor charged is still never published, per non-negotiable #11. The per-seat cost could not be justified
   for a market that size. **Building the replacement cost nothing but her own time, so there was
   no spend to approve. She built it.** It was a judgement call by the person accountable for the
   numbers, not a brief she was handed, and not a decision taken around anyone.
@@ -159,9 +163,9 @@ study. Every item here is from Duaa directly.
   slide that asserts scale, outcome, or RERA compliance. The concept page's own invented stats
   (below) stay cropped out for the same reason.
 - **Launch (2026-08-29, reported by Duaa in conversation, not verified in this repo).** It launched
-  with a UAE proptech partner. The deployment did not continue; the reason she gave is regional and
+  a pilot with a UAE real estate company. It did not continue; the reason she gave is regional and
   is deliberately **not** on the site, in the same spirit as non-negotiable #12. The site says only
-  "it launched with a UAE proptech partner", past tense, naming nobody. **The partner is not named
+  "it ran a pilot with a UAE real estate company", past tense, naming nobody. **The company is not named
   on the site**, by her choice, the same call as the field sales vendor in non-negotiable #11.
 - **NYC expansion: deliberately off the site.** She plans to expand it in NYC. It is a plan, not a
   shipped thing, and the page's whole property is that it claims only what exists. Asked and
@@ -170,7 +174,7 @@ study. Every item here is from Duaa directly.
 - What it is: A fixed format context block that a voice agent uses to dispatch maintenance vendors. Deterministic template by default, model behind an opt-in flag.
 - Problem: Dispatching a maintenance vendor by phone means a human assembling the same context every time: what is broken, which unit, when the tenant is free, and what else that vendor already has booked. Assembled ad hoc, it comes out differently on every call and details get dropped.
 - Her role: Co-founder. Owned problem framing and the UAE rental regulation model the product was built around, including RERA bands, the 90 day notice rule, Ejari sequencing and the bilingual requirement.
-- Outcome: Launched with a UAE proptech partner, then did not continue. No usage or impact figure is recorded anywhere, so none is claimed. What is worth defending is the architecture.
+- Outcome: **Ran a pilot with a UAE real estate company, which did not continue.** Corrected 2026-09-04, see the RESOLVED block below; the earlier wording "launched with a UAE proptech partner" overstated a pilot and misdescribed the counterparty. No usage or impact figure is recorded anywhere, so none is claimed. What is worth defending is the architecture.
 - Link (Concept page): https://homebase-labs.lovable.app/
 - Do not link `https://github.com/bm2515/homebase`. It is the co-founder's repo, it is private, and it 404s for every visitor.
 - The concept page advertises impact stats ("98% tenant satisfaction", "<2s response time", "94% faster issue resolution") for a build with no production usage. Those figures are not repeated on the site, and the committed screenshot is cropped above them.
@@ -241,34 +245,27 @@ ago and she is spending August with him and her family before leaving. Everythin
 is going into the move. Reading only PM books at the moment, nothing for pleasure. Nervous about
 the unknown. Update or remove this once it stops being true.
 
-## CONTRADICTION, unresolved as of 2026-09-04. Do not publish either version.
+## RESOLVED 2026-09-04: Homebase ran a pilot, nothing more
 
-**Homebase's deployment status is recorded two different ways, six days apart, and the site
-currently states the older one.**
+Duaa, asked directly which of two contradictory records was current: **"we only did pilot with
+the real estate company."**
 
-- **2026-08-29, from Duaa, recorded in the Homebase block above and in non-negotiable #3:**
-  it "launched with a UAE proptech partner", and **the deployment did not continue**. The
-  reason is regional and deliberately off the site. On that basis the whole guardrail is
-  negative: the slide asserts no scale, outcome, usage or compliance, and the planned NYC
-  expansion stays off because it has not happened. **This is what the site says today.**
-- **2026-09-03, from Duaa's own `siteupdateplan.md` and the Solutions Architect resume:** a
-  **UAE enterprise property manager of more than 10,000 units** is **signed as the first
-  enterprise client, with the pilot rolling out**. The resume goes further: "secured a UAE
-  enterprise property manager (10,000+ units) as first enterprise client" and, in the summary,
-  "an LLM voice/WhatsApp agent product I co-founded and **sold into** an enterprise client".
-  The plan explicitly instructs replacing the "proptech partner" wording because it
-  "undersells an enterprise client".
+- The **2026-08-29** record was closer but worded wrong on two counts. "Launched with"
+  overstates a pilot, and "proptech partner" named the wrong kind of counterparty: it was the
+  **customer**, a real estate company, not a technology partner. The site now says **"it ran a
+  pilot with a UAE real estate company"**, past tense, naming nobody.
+- The **2026-09-03** version in her own `siteupdateplan.md` and Solutions Architect resume does
+  **not** hold. "Signed as the first enterprise client, with the pilot rolling out", "secured a
+  UAE enterprise property manager (10,000+ units) as first enterprise client" and "sold into an
+  enterprise client" all assert more than a pilot that has finished. **None of it is on the
+  site**, and the "10,000+ units" figure is deliberately left off: attaching a client's
+  portfolio size to a pilot invites the reader to infer the pilot covered it.
+- **The resume overstates this and she has been told.** It is the one artifact still carrying
+  the stronger claim, it goes to recruiters, and "sold into an enterprise client" against "we
+  only did a pilot" is exactly the gap an interviewer opens up.
 
-Both cannot be true of the same engagement. Either the deployment resumed or a new client
-signed between 29 August and 3 September, or one of the two records is wrong. **Ask Duaa
-which is current before touching the Homebase slide.** If the newer version is right,
-non-negotiable #3 has to be rewritten rather than worked around, because it currently forbids
-exactly the claim the plan asks for. Whatever the answer, **the client is still not named**,
-and "signed and piloting" must not be rounded up to "in production" or "live".
-
-A draft of the newer version exists on the branch `claude/ai-portfolio-authenticity-9c2prw`
-at commit `eab5830`, including the rewritten non-negotiable #3. It is **not on `main`** and
-must not be merged until this is settled.
+The draft that published the stronger version is on `claude/ai-portfolio-authenticity-9c2prw`
+at `eab5830`. **Do not merge it.** It was written before this answer and is wrong.
 
 ## Open, do not publish until Duaa confirms
 Conflicts between this file, the live site, and the 2026-08-06 interview. Each blocks only the
