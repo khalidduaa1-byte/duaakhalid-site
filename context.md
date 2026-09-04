@@ -241,6 +241,35 @@ ago and she is spending August with him and her family before leaving. Everythin
 is going into the move. Reading only PM books at the moment, nothing for pleasure. Nervous about
 the unknown. Update or remove this once it stops being true.
 
+## CONTRADICTION, unresolved as of 2026-09-04. Do not publish either version.
+
+**Homebase's deployment status is recorded two different ways, six days apart, and the site
+currently states the older one.**
+
+- **2026-08-29, from Duaa, recorded in the Homebase block above and in non-negotiable #3:**
+  it "launched with a UAE proptech partner", and **the deployment did not continue**. The
+  reason is regional and deliberately off the site. On that basis the whole guardrail is
+  negative: the slide asserts no scale, outcome, usage or compliance, and the planned NYC
+  expansion stays off because it has not happened. **This is what the site says today.**
+- **2026-09-03, from Duaa's own `siteupdateplan.md` and the Solutions Architect resume:** a
+  **UAE enterprise property manager of more than 10,000 units** is **signed as the first
+  enterprise client, with the pilot rolling out**. The resume goes further: "secured a UAE
+  enterprise property manager (10,000+ units) as first enterprise client" and, in the summary,
+  "an LLM voice/WhatsApp agent product I co-founded and **sold into** an enterprise client".
+  The plan explicitly instructs replacing the "proptech partner" wording because it
+  "undersells an enterprise client".
+
+Both cannot be true of the same engagement. Either the deployment resumed or a new client
+signed between 29 August and 3 September, or one of the two records is wrong. **Ask Duaa
+which is current before touching the Homebase slide.** If the newer version is right,
+non-negotiable #3 has to be rewritten rather than worked around, because it currently forbids
+exactly the claim the plan asks for. Whatever the answer, **the client is still not named**,
+and "signed and piloting" must not be rounded up to "in production" or "live".
+
+A draft of the newer version exists on the branch `claude/ai-portfolio-authenticity-9c2prw`
+at commit `eab5830`, including the rewritten non-negotiable #3. It is **not on `main`** and
+must not be merged until this is settled.
+
 ## Open, do not publish until Duaa confirms
 Conflicts between this file, the live site, and the 2026-08-06 interview. Each blocks only the
 specific claim it touches.
@@ -273,6 +302,31 @@ lost, deliberately absent from the page.
 2. **Move-out, the sofa.** The interview describes a sofa listed at 1600 that she had paid 1200
    for. This file documents a dresser at 1,100 that cost 499 and a dining table at 1,499 that was
    2,100 with chairs. The site uses the dresser. The sofa is not published.
+
+3. **The 6x is unsourced and is live on the site.** "6x SALES GROWTH ON MY ACCOUNT, 18 MONTHS"
+   in the stat row, and "grew roughly 6x in eighteen months" in the D&G timeline entry. Duaa's
+   own 2026-09-03 review could not verify it against the SISO R2-2026 planning file. What that
+   file supports for her 13-account portfolio is **sell-in +48.4% and sell-out +43.2%, 2025 vs
+   2024**, and the portfolio holding **+7% in Jan to Jul 2026 while accounts outside her book
+   fell 18.7%**. The only 6x in the file is **one account, 2023 to 2025, 6.2x**, which is about
+   24 months, not 18. **Her new resume has already dropped the 6x** in favour of 48% and 43%,
+   so the site and the resume it links to now disagree about the headline achievement. Needs
+   her answer on which account and which window. Note the 48/43 pair is both verified and
+   portfolio-wide, which is a stronger claim than a single account's multiple.
+4. **Tracker headcount, 18 vs 25.** 25 onboarded to date is current, per the 2026-09-03 plan.
+   **18 is the cohort behind the 1,324 in / 0 rejected / 29 removed figures**, so 18 must stay
+   wherever those row numbers appear. 19 were active in the 3 June 2026 snapshot and stay
+   unpublished, as already decided. Changing this is a four-place edit, not a find and replace,
+   and the replacement wording must be short: Duaa has rejected long caveat sentences before.
+5. **The now-note is stale.** Headed "NOW, AUGUST 2026", describing packing up Dubai and
+   spending August with family before leaving. She is in New York at Cornell now. Do not invent
+   a replacement.
+6. **`/resume.pdf` is the July version** and contradicts the timeline: it predates both leaving
+   Dolce & Gabbana and Homebase Labs. The replacement she supplied is the Solutions Architect
+   variant. **Verified 2026-09-04: the `khalidduaa1-byte/Sales_management` link in it is public
+   and resolves** (last pushed 2026-09-01), so it is not a repeat of the dead-link failure that
+   non-negotiable #4 exists to prevent. Her `+971` mobile is on the PDF, which will be linked
+   from a public page; her call, but a deliberate one.
 
 ## Contact
 - Email: dk947@cornell.edu
